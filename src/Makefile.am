@@ -6,13 +6,15 @@ noinst_PROGRAMS = speedtest_custom verify
 
 speedtest_custom_SOURCES = speedtest_custom.cpp \
 	rijndael.cpp rijndael.h \
-	serpent-gladman.cpp serpent-gladman.h
+	serpent-gladman.cpp serpent-gladman.h \
+	serpent.h serpent.cpp
 
 verify_SOURCES = verify.cpp \
 	rijndael.h rijndael.cpp \
-	serpent-gladman.h serpent-gladman.cpp
+	serpent-gladman.h serpent-gladman.cpp \
+	serpent.h serpent.cpp
 
-AM_CXXFLAGS = -g -W -Wall -Wno-unused -momit-leaf-frame-pointer
+AM_CXXFLAGS = -g -W -Wall -Wno-unused -O3 -momit-leaf-frame-pointer
 
 verify_CXXFLAGS =
 verify_LDADD =

@@ -98,7 +98,7 @@ speedtest_cryptopp_OBJECTS = $(am_speedtest_cryptopp_OBJECTS)
 speedtest_cryptopp_LINK = $(CXXLD) $(speedtest_cryptopp_CXXFLAGS) \
 	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 am_speedtest_custom_OBJECTS = speedtest_custom.$(OBJEXT) \
-	rijndael.$(OBJEXT) serpent-gladman.$(OBJEXT)
+	rijndael.$(OBJEXT) serpent-gladman.$(OBJEXT) serpent.$(OBJEXT)
 speedtest_custom_OBJECTS = $(am_speedtest_custom_OBJECTS)
 speedtest_custom_LDADD = $(LDADD)
 am__speedtest_gcrypt_SOURCES_DIST = speedtest_gcrypt.cpp
@@ -137,7 +137,7 @@ speedtest_tomcrypt_OBJECTS = $(am_speedtest_tomcrypt_OBJECTS)
 @HAVE_TOMCRYPT_TRUE@speedtest_tomcrypt_DEPENDENCIES =  \
 @HAVE_TOMCRYPT_TRUE@	$(am__DEPENDENCIES_1)
 am_verify_OBJECTS = verify-verify.$(OBJEXT) verify-rijndael.$(OBJEXT) \
-	verify-serpent-gladman.$(OBJEXT)
+	verify-serpent-gladman.$(OBJEXT) verify-serpent.$(OBJEXT)
 verify_OBJECTS = $(am_verify_OBJECTS)
 @HAVE_GCRYPT_TRUE@am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1)
 @HAVE_MCRYPT_TRUE@am__DEPENDENCIES_3 = $(am__DEPENDENCIES_1)
@@ -299,13 +299,15 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 speedtest_custom_SOURCES = speedtest_custom.cpp \
 	rijndael.cpp rijndael.h \
-	serpent-gladman.cpp serpent-gladman.h
+	serpent-gladman.cpp serpent-gladman.h \
+	serpent.h serpent.cpp
 
 verify_SOURCES = verify.cpp \
 	rijndael.h rijndael.cpp \
-	serpent-gladman.h serpent-gladman.cpp
+	serpent-gladman.h serpent-gladman.cpp \
+	serpent.h serpent.cpp
 
-AM_CXXFLAGS = -g -W -Wall -Wno-unused -momit-leaf-frame-pointer
+AM_CXXFLAGS = -g -W -Wall -Wno-unused -O3 -momit-leaf-frame-pointer
 verify_CXXFLAGS = $(am__append_1) $(am__append_3) $(am__append_5) \
 	$(am__append_7)
 verify_LDADD = $(am__append_2) $(am__append_4) $(am__append_6) \
@@ -407,6 +409,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rijndael.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/serpent-gladman.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/serpent.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedtest_beecrypt.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedtest_botan-speedtest_botan.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedtest_cryptopp-speedtest_cryptopp.Po@am__quote@
@@ -418,6 +421,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedtest_tomcrypt.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/verify-rijndael.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/verify-serpent-gladman.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/verify-serpent.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/verify-verify.Po@am__quote@
 
 .cpp.o:
@@ -545,6 +549,20 @@ verify-serpent-gladman.obj: serpent-gladman.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='serpent-gladman.cpp' object='verify-serpent-gladman.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(verify_CXXFLAGS) $(CXXFLAGS) -c -o verify-serpent-gladman.obj `if test -f 'serpent-gladman.cpp'; then $(CYGPATH_W) 'serpent-gladman.cpp'; else $(CYGPATH_W) '$(srcdir)/serpent-gladman.cpp'; fi`
+
+verify-serpent.o: serpent.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(verify_CXXFLAGS) $(CXXFLAGS) -MT verify-serpent.o -MD -MP -MF $(DEPDIR)/verify-serpent.Tpo -c -o verify-serpent.o `test -f 'serpent.cpp' || echo '$(srcdir)/'`serpent.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/verify-serpent.Tpo $(DEPDIR)/verify-serpent.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='serpent.cpp' object='verify-serpent.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(verify_CXXFLAGS) $(CXXFLAGS) -c -o verify-serpent.o `test -f 'serpent.cpp' || echo '$(srcdir)/'`serpent.cpp
+
+verify-serpent.obj: serpent.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(verify_CXXFLAGS) $(CXXFLAGS) -MT verify-serpent.obj -MD -MP -MF $(DEPDIR)/verify-serpent.Tpo -c -o verify-serpent.obj `if test -f 'serpent.cpp'; then $(CYGPATH_W) 'serpent.cpp'; else $(CYGPATH_W) '$(srcdir)/serpent.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/verify-serpent.Tpo $(DEPDIR)/verify-serpent.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='serpent.cpp' object='verify-serpent.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(verify_CXXFLAGS) $(CXXFLAGS) -c -o verify-serpent.obj `if test -f 'serpent.cpp'; then $(CYGPATH_W) 'serpent.cpp'; else $(CYGPATH_W) '$(srcdir)/serpent.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \

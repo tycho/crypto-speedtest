@@ -59,10 +59,11 @@
 
 #include "rijndael.h"
 #include "serpent-gladman.h"
+#include "serpent.h"
 
 // *** Verfication Parameters ***
 
-const unsigned int bufferlen = 8192;
+const unsigned int bufferlen = 8192*16;
 
 // *** Global Buffers and Settings for the Verify Functions ***
 
@@ -460,6 +461,18 @@ void verify_serpent_ecb()
 	encctx.encrypt(buffer_gladman, buffer_gladman, bufferlen);
     }
 
+    // botan-extracted implementation
+
+    char buffer_mybotan[bufferlen];
+    fill_buffer(buffer_mybotan, bufferlen);
+
+    {
+	SerpentBotan::EncryptECB encctx;
+
+	encctx.set_key((uint8_t*)enckey, 32);
+	encctx.encrypt(buffer_mybotan, buffer_mybotan, bufferlen);
+    }
+
     // compare buffers
 
 #if HAVE_LIBGCRYPT
@@ -477,6 +490,7 @@ void verify_serpent_ecb()
 #if HAVE_LIBNETTLE
     // does not match! compare_buffers(buffer_gladman, buffer_nettle, bufferlen);
 #endif
+    compare_buffers(buffer_gladman, buffer_mybotan, bufferlen);
 
 #if HAVE_LIBGCRYPT
     // libgcrypt
@@ -543,6 +557,15 @@ void verify_serpent_ecb()
 	decctx.decrypt(buffer_gladman, buffer_gladman, bufferlen);
     }
 
+    // botan-extracted implementation
+
+    {
+	SerpentBotan::DecryptECB decctx;
+
+	decctx.set_key((uint8_t*)enckey, 32);
+	decctx.decrypt(buffer_mybotan, buffer_mybotan, bufferlen);
+    }
+
     // test buffers
 
 #if HAVE_LIBGCRYPT
@@ -561,6 +584,7 @@ void verify_serpent_ecb()
     check_buffer(buffer_nettle, bufferlen);
 #endif
     check_buffer(buffer_gladman, bufferlen);
+    check_buffer(buffer_mybotan, bufferlen);
 }
 
 // *** Verify Twofish Implementations

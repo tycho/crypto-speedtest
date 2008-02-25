@@ -312,7 +312,8 @@ plot "gcrypt-serpent-ecb.txt" using 1:2:3 title "libgcrypt" with errorlines poin
      "botan-serpent-ecb.txt" using 1:2:3 title "Botan" with errorlines pointtype 0, \
      "cryptopp-serpent-ecb.txt" using 1:2:3 title "Crypto++" with errorlines pointtype 0, \
      "nettle-serpent-ecb.txt" using 1:2:3 title "Nettle" with errorlines pointtype 0, \
-     "gladman-serpent-ecb.txt" using 1:2:3 title "Gladman" with errorlines pointtype 0
+     "gladman-serpent-ecb.txt" using 1:2:3 title "Gladman" with errorlines pointtype 0, \
+     "mybotan-serpent-ecb.txt" using 1:2:3 title "MyBotan" with errorlines pointtype 0
 
 ### Plot ###
 
@@ -328,7 +329,8 @@ plot "gcrypt-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt" with
      "botan-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Botan" with lines, \
      "cryptopp-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++" with lines, \
      "nettle-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle" with lines, \
-     "gladman-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Gladman" with lines
+     "gladman-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Gladman" with lines, \
+     "mybotan-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "MyBotan" with lines
 
 ### Plot ###
 
@@ -470,8 +472,6 @@ plot "gcrypt-3des-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt" with li
 
 set terminal pdf dashed linewidth 2.0 size 5.0, 7.07
 set output 'speedtest-all.pdf'
-
-test
 
 set title "All Tests: Speed by Data Length"
 set xlabel "Data Length in Bytes"

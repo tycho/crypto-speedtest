@@ -2,6 +2,7 @@
 
 #include "rijndael.h"
 #include "serpent-gladman.h"
+#include "serpent.h"
 
 #include "speedtest.h"
 
@@ -29,6 +30,17 @@ void test_gladman_serpent_ecb()
     decctx.decrypt(buffer, buffer, bufferlen);
 }
 
+void test_mybotan_serpent_ecb()
+{
+    SerpentBotan::EncryptECB encctx;
+    encctx.set_key((uint8_t*)enckey, 32);
+    encctx.encrypt(buffer, buffer, bufferlen);
+
+    SerpentBotan::DecryptECB decctx;
+    decctx.set_key((uint8_t*)enckey, 32);
+    decctx.decrypt(buffer, buffer, bufferlen);
+}
+
 // *** main() ***
 
 int main()
@@ -47,4 +59,5 @@ int main()
 
     run_test<test_my_rijndael_ecb>("my-rijndael-ecb.txt");
     run_test<test_gladman_serpent_ecb>("gladman-serpent-ecb.txt");
+    run_test<test_mybotan_serpent_ecb>("mybotan-serpent-ecb.txt");
 }
