@@ -20,4 +20,5 @@ AM_CXXFLAGS = -g -W -Wall -Wno-unused -momit-leaf-frame-pointer \
 LIBS = $(LIBGCRYPT_LIBS) $(LIBMCRYPT_LIBS) \
 	$(BOTAN_LIBS) \
 	$(CRYPTO_PP_LDFLAGS) -l$(CRYPTO_PP_LIB_NAME) \
+	-lnettle \
 	$(OPENSSL_LIBS)

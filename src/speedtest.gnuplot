@@ -190,6 +190,38 @@ plot "openssl-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "Rijndael" wit
 
 ### Plot ###
 
+set title "Nettle Ciphers: Absolute Time by Data Length with Standard Deviation"
+set xlabel "Data Length in Bytes"
+set ylabel "Seconds"
+set logscale x
+set logscale y
+set key below
+
+plot "nettle-rijndael-ecb.txt" using 1:2:3 title "Rijndael" with errorlines pointtype 0, \
+     "nettle-serpent-ecb.txt" using 1:2:3 title "Serpent" with errorlines pointtype 0, \
+     "nettle-twofish-ecb.txt" using 1:2:3 title "Twofish" with errorlines pointtype 0, \
+     "nettle-blowfish-ecb.txt" using 1:2:3 title "Blowfish" with errorlines pointtype 0, \
+     "nettle-cast5-ecb.txt" using 1:2:3 title "CAST5" with errorlines pointtype 0, \
+     "nettle-3des-ecb.txt" using 1:2:3 title "3DES" with errorlines pointtype 0
+
+### Plot ###
+
+set title "Nettle Ciphers: Speed by Data Length"
+set xlabel "Data Length in Bytes"
+set ylabel "Megabyte / Second"
+set logscale x
+unset logscale y
+set key below
+
+plot "nettle-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "Rijndael" with lines, \
+     "nettle-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Serpent" with lines, \
+     "nettle-twofish-ecb.txt" using 1:($1 / $2) / 1048576 title "Twofish" with lines, \
+     "nettle-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "Blowfish" with lines, \
+     "nettle-cast5-ecb.txt" using 1:($1 / $2) / 1048576 title "CAST5" with lines, \
+     "nettle-3des-ecb.txt" using 1:($1 / $2) / 1048576 title "3DES" with lines
+
+### Plot ###
+
 set title "Rijndael AES: Absolute Time by Data Length with Standard Deviation"
 set xlabel "Data Length in Bytes"
 set ylabel "Seconds"
@@ -202,6 +234,7 @@ plot "gcrypt-rijndael-ecb.txt" using 1:2:3 title "libgcrypt" with errorlines poi
      "botan-rijndael-ecb.txt" using 1:2:3 title "Botan" with errorlines pointtype 0, \
      "cryptopp-rijndael-ecb.txt" using 1:2:3 title "Crypto++" with errorlines pointtype 0, \
      "openssl-rijndael-ecb.txt" using 1:2:3 title "OpenSSL" with errorlines pointtype 0, \
+     "nettle-rijndael-ecb.txt" using 1:2:3 title "Nettle" with errorlines pointtype 0, \
      "my-rijndael-ecb.txt" using 1:2:3 title "My" with errorlines pointtype 0
 
 ### Plot ###
@@ -218,6 +251,7 @@ plot "gcrypt-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt" wit
      "botan-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "Botan" with lines, \
      "cryptopp-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++" with lines, \
      "openssl-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL" with lines, \
+     "nettle-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle" with lines, \
      "my-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "My" with lines
 
 ### Plot ###
@@ -233,6 +267,7 @@ plot "gcrypt-serpent-ecb.txt" using 1:2:3 title "libgcrypt" with errorlines poin
      "mcrypt-serpent-ecb.txt" using 1:2:3 title "libmcrypt" with errorlines pointtype 0, \
      "botan-serpent-ecb.txt" using 1:2:3 title "Botan" with errorlines pointtype 0, \
      "cryptopp-serpent-ecb.txt" using 1:2:3 title "Crypto++" with errorlines pointtype 0, \
+     "nettle-serpent-ecb.txt" using 1:2:3 title "Nettle" with errorlines pointtype 0, \
      "gladman-serpent-ecb.txt" using 1:2:3 title "Gladman" with errorlines pointtype 0
 
 ### Plot ###
@@ -248,6 +283,7 @@ plot "gcrypt-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt" with
      "mcrypt-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "libmcrypt" with lines, \
      "botan-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Botan" with lines, \
      "cryptopp-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++" with lines, \
+     "nettle-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle" with lines, \
      "gladman-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Gladman" with lines
 
 ### Plot ###
@@ -262,7 +298,8 @@ set key below
 plot "gcrypt-twofish-ecb.txt" using 1:2:3 title "libgcrypt" with errorlines pointtype 0, \
      "mcrypt-twofish-ecb.txt" using 1:2:3 title "libmcrypt" with errorlines pointtype 0, \
      "botan-twofish-ecb.txt" using 1:2:3 title "Botan" with errorlines pointtype 0, \
-     "cryptopp-twofish-ecb.txt" using 1:2:3 title "Crypto++" with errorlines pointtype 0
+     "cryptopp-twofish-ecb.txt" using 1:2:3 title "Crypto++" with errorlines pointtype 0, \
+     "nettle-twofish-ecb.txt" using 1:2:3 title "Nettle" with errorlines pointtype 0
 
 ### Plot ###
 
@@ -276,7 +313,8 @@ set key below
 plot "gcrypt-twofish-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt" with lines, \
      "mcrypt-twofish-ecb.txt" using 1:($1 / $2) / 1048576 title "libmcrypt" with lines, \
      "botan-twofish-ecb.txt" using 1:($1 / $2) / 1048576 title "Botan" with lines, \
-     "cryptopp-twofish-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++" with lines
+     "cryptopp-twofish-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++" with lines, \
+     "nettle-twofish-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle" with lines
 
 ### Plot ###
 
@@ -291,7 +329,8 @@ plot "gcrypt-blowfish-ecb.txt" using 1:2:3 title "libgcrypt" with errorlines poi
      "mcrypt-blowfish-ecb.txt" using 1:2:3 title "libmcrypt" with errorlines pointtype 0, \
      "botan-blowfish-ecb.txt" using 1:2:3 title "Botan" with errorlines pointtype 0, \
      "cryptopp-blowfish-ecb.txt" using 1:2:3 title "Crypto++" with errorlines pointtype 0, \
-     "openssl-blowfish-ecb.txt" using 1:2:3 title "OpenSSL" with errorlines pointtype 0
+     "openssl-blowfish-ecb.txt" using 1:2:3 title "OpenSSL" with errorlines pointtype 0, \
+     "nettle-blowfish-ecb.txt" using 1:2:3 title "Nettle" with errorlines pointtype 0
 
 ### Plot ###
 
@@ -306,7 +345,9 @@ plot "gcrypt-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt" wit
      "mcrypt-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "libmcrypt" with lines, \
      "botan-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "Botan" with lines, \
      "cryptopp-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++" with lines, \
-     "openssl-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL" with lines
+     "openssl-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL" with lines, \
+     "nettle-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle" with lines
+
 
 ### Plot ###
 
@@ -321,7 +362,8 @@ plot "gcrypt-cast5-ecb.txt" using 1:2:3 title "libgcrypt" with errorlines pointt
      "mcrypt-cast5-ecb.txt" using 1:2:3 title "libmcrypt" with errorlines pointtype 0, \
      "botan-cast5-ecb.txt" using 1:2:3 title "Botan" with errorlines pointtype 0, \
      "cryptopp-cast5-ecb.txt" using 1:2:3 title "Crypto++" with errorlines pointtype 0, \
-     "openssl-cast5-ecb.txt" using 1:2:3 title "OpenSSL" with errorlines pointtype 0
+     "openssl-cast5-ecb.txt" using 1:2:3 title "OpenSSL" with errorlines pointtype 0, \
+     "nettle-cast5-ecb.txt" using 1:2:3 title "Nettle" with errorlines pointtype 0
 
 ### Plot ###
 
@@ -336,7 +378,8 @@ plot "gcrypt-cast5-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt" with l
      "mcrypt-cast5-ecb.txt" using 1:($1 / $2) / 1048576 title "libmcrypt" with lines, \
      "botan-cast5-ecb.txt" using 1:($1 / $2) / 1048576 title "Botan" with lines, \
      "cryptopp-cast5-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++" with lines, \
-     "openssl-cast5-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL" with lines
+     "openssl-cast5-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL" with lines, \
+     "nettle-cast5-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle" with lines
 
 ### Plot ###
 
@@ -351,7 +394,8 @@ plot "gcrypt-3des-ecb.txt" using 1:2:3 title "libgcrypt" with errorlines pointty
      "mcrypt-3des-ecb.txt" using 1:2:3 title "libmcrypt" with errorlines pointtype 0, \
      "botan-3des-ecb.txt" using 1:2:3 title "Botan" with errorlines pointtype 0, \
      "cryptopp-3des-ecb.txt" using 1:2:3 title "Crypto++" with errorlines pointtype 0, \
-     "openssl-3des-ecb.txt" using 1:2:3 title "OpenSSL" with errorlines pointtype 0
+     "openssl-3des-ecb.txt" using 1:2:3 title "OpenSSL" with errorlines pointtype 0, \
+     "nettle-3des-ecb.txt" using 1:2:3 title "Nettle" with errorlines pointtype 0
 
 ### Plot ###
 
@@ -366,7 +410,8 @@ plot "gcrypt-3des-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt" with li
      "mcrypt-3des-ecb.txt" using 1:($1 / $2) / 1048576 title "libmcrypt" with lines, \
      "botan-3des-ecb.txt" using 1:($1 / $2) / 1048576 title "Botan" with lines, \
      "cryptopp-3des-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++" with lines, \
-     "openssl-3des-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL" with lines
+     "openssl-3des-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL" with lines, \
+     "nettle-3des-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle" with lines
 
 ### Plot ###
 
@@ -422,4 +467,10 @@ plot \
      "openssl-3des-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL 3DES" with lines lt 7 lc 11, \
      "openssl-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL Blowfish" with lines lt 7 lc 10, \
      "openssl-cast5-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL CAST5" with lines lt 7 lc 9, \
-     "openssl-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL Rijndael" with lines lt 7 lc 1
+     "openssl-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL Rijndael" with lines lt 7 lc 1, \
+     "nettle-3des-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle 3DES" with lines lt 8 lc 11, \
+     "nettle-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle Blowfish" with lines lt 8 lc 10, \
+     "nettle-cast5-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle CAST5" with lines lt 8 lc 9, \
+     "nettle-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle Rijndael" with lines lt 8 lc 1, \
+     "nettle-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle Serpent" with lines lt 8 lc 2, \
+     "nettle-twofish-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle Twofish" with lines lt 8 lc 3

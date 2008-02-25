@@ -27,6 +27,10 @@
 #include <openssl/aes.h>
 #include <openssl/des.h>
 
+#include <nettle/aes.h>
+#include <nettle/serpent.h>
+#include <nettle/des.h>
+
 #include "rijndael.h"
 #include "serpent-gladman.h"
 
@@ -125,6 +129,17 @@ void verify_rijndael_ecb()
 	    AES_encrypt((byte*)buffer_openssl + p, (byte*)buffer_openssl + p, &aeskey);
     }
 
+    // Nettle
+
+    char buffer_nettle[bufferlen];
+    fill_buffer(buffer_nettle, bufferlen);
+
+    {
+	aes_ctx encctx;
+	aes_set_encrypt_key(&encctx, 32, (byte*)enckey);
+	aes_encrypt(&encctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
+    }
+
     // My Implementation
 
     char buffer_my[bufferlen];
@@ -142,6 +157,7 @@ void verify_rijndael_ecb()
     compare_buffers(buffer_gcrypt, buffer_botan, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_cryptopp, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_openssl, bufferlen);
+    compare_buffers(buffer_gcrypt, buffer_nettle, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_my, bufferlen);
 
     // libgcrypt
@@ -192,6 +208,14 @@ void verify_rijndael_ecb()
 	    AES_decrypt((byte*)buffer_openssl + p, (byte*)buffer_openssl + p, &aeskey);
     }
 
+    // Nettle
+
+    {
+	aes_ctx decctx;
+	aes_set_decrypt_key(&decctx, 32, (byte*)enckey);
+	aes_decrypt(&decctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
+    }
+
     // My Implementation
 
     {
@@ -207,6 +231,7 @@ void verify_rijndael_ecb()
     check_buffer(buffer_botan, bufferlen);
     check_buffer(buffer_cryptopp, bufferlen);
     check_buffer(buffer_openssl, bufferlen);
+    check_buffer(buffer_nettle, bufferlen);
     check_buffer(buffer_my, bufferlen);
 }
 
@@ -264,6 +289,17 @@ void verify_serpent_ecb()
 	encctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
     }
 
+   // Nettle
+
+    char buffer_nettle[bufferlen];
+    fill_buffer(buffer_nettle, bufferlen);
+
+    {
+	serpent_ctx encctx;
+	serpent_set_key(&encctx, 32, (byte*)enckey);
+	serpent_encrypt(&encctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
+    }
+
     // gladman implementation
 
     char buffer_gladman[bufferlen];
@@ -281,6 +317,7 @@ void verify_serpent_ecb()
     compare_buffers(buffer_gcrypt, buffer_mcrypt, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_botan, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_cryptopp, bufferlen);
+    // does not match! compare_buffers(buffer_gcrypt, buffer_nettle, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_gladman, bufferlen);
 
     // libgcrypt
@@ -321,6 +358,14 @@ void verify_serpent_ecb()
 	decctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
     }
 
+    // Nettle
+
+    {
+	serpent_ctx decctx;
+	serpent_set_key(&decctx, 32, (byte*)enckey);
+	serpent_decrypt(&decctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
+    }
+
     // gladman implementation
 
     {
@@ -329,12 +374,14 @@ void verify_serpent_ecb()
 	decctx.set_key((uint8_t*)enckey, 256);
 	decctx.decrypt(buffer_gladman, buffer_gladman, bufferlen);
     }
+
     // test buffers
 
     check_buffer(buffer_gcrypt, bufferlen);
     check_buffer(buffer_mcrypt, bufferlen);
     check_buffer(buffer_botan, bufferlen);
     check_buffer(buffer_cryptopp, bufferlen);
+    check_buffer(buffer_nettle, bufferlen);
     check_buffer(buffer_gladman, bufferlen);
 }
 
@@ -342,6 +389,10 @@ void verify_serpent_ecb()
 
 void verify_3des_ecb()
 {
+    // Nettle requires some parity fix of the key
+
+    des_fix_parity(24, (byte*)enckey, (byte*)enckey);
+
     // libgcrypt
 
     char buffer_gcrypt[bufferlen];
@@ -408,12 +459,24 @@ void verify_3des_ecb()
 	    DES_encrypt3((DES_LONG*)(buffer_openssl + p), &eks1, &eks2, &eks3);
     }
 
+   // Nettle
+
+    char buffer_nettle[bufferlen];
+    fill_buffer(buffer_nettle, bufferlen);
+
+    {
+	des3_ctx encctx;
+	des3_set_key(&encctx, (byte*)enckey);
+	des3_encrypt(&encctx, bufferlen, (byte*)buffer_nettle, (byte*)buffer_nettle);
+    }
+
     // compare buffers
 
     compare_buffers(buffer_gcrypt, buffer_mcrypt, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_botan, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_cryptopp, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_openssl, bufferlen);
+    compare_buffers(buffer_gcrypt, buffer_nettle, bufferlen);
 
     // libgcrypt
 
@@ -466,6 +529,14 @@ void verify_3des_ecb()
 	    DES_decrypt3((DES_LONG*)(buffer_openssl + p), &dks1, &dks2, &dks3);
     }
 
+    // Nettle
+
+    {
+	des3_ctx decctx;
+	des3_set_key(&decctx, (byte*)enckey);
+	des3_decrypt(&decctx, bufferlen, (byte*)buffer_nettle, (byte*)buffer_nettle);
+    }
+
     // test buffers
 
     check_buffer(buffer_gcrypt, bufferlen);
@@ -473,6 +544,7 @@ void verify_3des_ecb()
     check_buffer(buffer_botan, bufferlen);
     check_buffer(buffer_cryptopp, bufferlen);
     check_buffer(buffer_openssl, bufferlen);
+    check_buffer(buffer_nettle, bufferlen);
 }
 
 int main()
