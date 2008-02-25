@@ -36,21 +36,6 @@ void test_libgcrypt_serpent_ecb()
     gcry_cipher_close(decctx);
 }
 
-void test_libgcrypt_camellia_ecb()
-{
-    gcry_cipher_hd_t encctx;
-    gcry_cipher_open(&encctx, GCRY_CIPHER_CAMELLIA256, GCRY_CIPHER_MODE_ECB, 0);
-    gcry_cipher_setkey(encctx, (uint8_t*)enckey, 32);
-    gcry_cipher_encrypt(encctx, buffer, bufferlen, buffer, bufferlen);
-    gcry_cipher_close(encctx);
-
-    gcry_cipher_hd_t decctx;
-    gcry_cipher_open(&decctx, GCRY_CIPHER_CAMELLIA256, GCRY_CIPHER_MODE_ECB, 0);
-    gcry_cipher_setkey(decctx, (uint8_t*)enckey, 32);
-    gcry_cipher_decrypt(decctx, buffer, bufferlen, buffer, bufferlen);
-    gcry_cipher_close(decctx);
-}
-
 void test_libgcrypt_twofish_ecb()
 {
     gcry_cipher_hd_t encctx;
@@ -134,7 +119,6 @@ int main()
     run_test<test_libgcrypt_rijndael_ecb>("gcrypt-rijndael-ecb.txt");
     run_test<test_libgcrypt_serpent_ecb>("gcrypt-serpent-ecb.txt");
     run_test<test_libgcrypt_twofish_ecb>("gcrypt-twofish-ecb.txt");
-    run_test<test_libgcrypt_camellia_ecb>("gcrypt-camellia-ecb.txt");
     run_test<test_libgcrypt_blowfish_ecb>("gcrypt-blowfish-ecb.txt");
     run_test<test_libgcrypt_cast5_ecb>("gcrypt-cast5-ecb.txt");
     run_test<test_libgcrypt_3des_ecb>("gcrypt-3des-ecb.txt");

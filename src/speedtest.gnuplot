@@ -18,7 +18,6 @@ set key below
 plot "gcrypt-rijndael-ecb.txt" using 1:2:3 title "Rijndael" with errorlines pointtype 0, \
      "gcrypt-serpent-ecb.txt" using 1:2:3 title "Serpent" with errorlines pointtype 0, \
      "gcrypt-twofish-ecb.txt" using 1:2:3 title "Twofish" with errorlines pointtype 0, \
-     "gcrypt-camellia-ecb.txt" using 1:2:3 title "Camellia" with errorlines pointtype 0, \
      "gcrypt-blowfish-ecb.txt" using 1:2:3 title "Blowfish" with errorlines pointtype 0, \
      "gcrypt-cast5-ecb.txt" using 1:2:3 title "CAST5" with errorlines pointtype 0, \
      "gcrypt-3des-ecb.txt" using 1:2:3 title "3DES" with errorlines pointtype 0
@@ -35,7 +34,6 @@ set key below
 plot "gcrypt-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "Rijndael" with lines, \
      "gcrypt-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Serpent" with lines, \
      "gcrypt-twofish-ecb.txt" using 1:($1 / $2) / 1048576 title "Twofish" with lines, \
-     "gcrypt-camellia-ecb.txt" using 1:($1 / $2) / 1048576 title "Camellia" with lines, \
      "gcrypt-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "Blowfish" with lines, \
      "gcrypt-cast5-ecb.txt" using 1:($1 / $2) / 1048576 title "CAST5" with lines, \
      "gcrypt-3des-ecb.txt" using 1:($1 / $2) / 1048576 title "3DES" with lines
@@ -133,7 +131,6 @@ plot "cryptopp-rijndael-ecb.txt" using 1:2:3 title "Rijndael" with errorlines po
      "cryptopp-serpent-ecb.txt" using 1:2:3 title "Serpent" with errorlines pointtype 0, \
      "cryptopp-twofish-ecb.txt" using 1:2:3 title "Twofish" with errorlines pointtype 0, \
      "cryptopp-cast6-ecb.txt" using 1:2:3 title "CAST6" with errorlines pointtype 0, \
-     "cryptopp-camellia-ecb.txt" using 1:2:3 title "Camellia" with errorlines pointtype 0, \
      "cryptopp-gost-ecb.txt" using 1:2:3 title "GOST" with errorlines pointtype 0, \
      "cryptopp-xtea-ecb.txt" using 1:2:3 title "xTEA" with errorlines pointtype 0, \
      "cryptopp-blowfish-ecb.txt" using 1:2:3 title "Blowfish" with errorlines pointtype 0, \
@@ -153,7 +150,6 @@ plot "cryptopp-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "Rijndael" wi
      "cryptopp-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Serpent" with lines, \
      "cryptopp-twofish-ecb.txt" using 1:($1 / $2) / 1048576 title "Twofish" with lines, \
      "cryptopp-cast6-ecb.txt" using 1:($1 / $2) / 1048576 title "CAST6" with lines, \
-     "cryptopp-camellia-ecb.txt" using 1:($1 / $2) / 1048576 title "Camellia" with lines, \
      "cryptopp-gost-ecb.txt" using 1:($1 / $2) / 1048576 title "GOST" with lines, \
      "cryptopp-xtea-ecb.txt" using 1:($1 / $2) / 1048576 title "xTEA" with lines, \
      "cryptopp-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "Blowfish" with lines, \
@@ -492,7 +488,6 @@ plot \
      "botan-xtea-ecb.txt" using 1:($1 / $2) / 1048576 title "Botan XTEA" with lines lt 2 lc 7, \
      "cryptopp-3des-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++ 3DES" with lines lt 3 lc 4, \
      "cryptopp-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++ Blowfish" with lines lt 3 lc 5, \
-     "cryptopp-camellia-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++ Camellia" with lines lt 3 lc 9, \
      "cryptopp-cast5-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++ CAST5" with lines lt 3 lc 6, \
      "cryptopp-cast6-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++ CAST6" with lines lt 3 lc 7, \
      "cryptopp-gost-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++ GOST" with lines lt 3 lc 8, \
@@ -502,7 +497,6 @@ plot \
      "cryptopp-xtea-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++ XTEA" with lines lt 3 lc 7, \
      "gcrypt-3des-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt 3DES" with lines lt 4 lc 4, \
      "gcrypt-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt Blowfish" with lines lt 4 lc 5, \
-     "gcrypt-camellia-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt Camellia" with lines lt 4 lc 9, \
      "gcrypt-cast5-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt CAST5" with lines lt 4 lc 6, \
      "gcrypt-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt Rijndael" with lines lt 4 lc 1, \
      "gcrypt-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt Serpent" with lines lt 4 lc 2, \

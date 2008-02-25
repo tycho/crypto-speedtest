@@ -4,7 +4,6 @@
 #include <crypto++/rijndael.h>
 #include <crypto++/serpent.h>
 #include <crypto++/twofish.h>
-#include <crypto++/camellia.h>
 #include <crypto++/cast.h>
 #include <crypto++/gost.h>
 #include <crypto++/tea.h>
@@ -44,17 +43,6 @@ void test_cryptopp_twofish_ecb()
     encctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
 
     CryptoPP::ECB_Mode<CryptoPP::Twofish>::Decryption decctx;
-    decctx.SetKey((byte*)enckey, 32);
-    decctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
-}
-
-void test_cryptopp_camellia_ecb()
-{
-    CryptoPP::ECB_Mode<CryptoPP::Camellia>::Encryption encctx;
-    encctx.SetKey((byte*)enckey, 32);
-    encctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
-
-    CryptoPP::ECB_Mode<CryptoPP::Camellia>::Decryption decctx;
     decctx.SetKey((byte*)enckey, 32);
     decctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
 }
@@ -145,7 +133,6 @@ int main()
     run_test<test_cryptopp_serpent_ecb>("cryptopp-serpent-ecb.txt");
     run_test<test_cryptopp_twofish_ecb>("cryptopp-twofish-ecb.txt");
     run_test<test_cryptopp_cast6_ecb>("cryptopp-cast6-ecb.txt");
-    run_test<test_cryptopp_camellia_ecb>("cryptopp-camellia-ecb.txt");
     run_test<test_cryptopp_gost_ecb>("cryptopp-gost-ecb.txt");
     run_test<test_cryptopp_xtea_ecb>("cryptopp-xtea-ecb.txt");
     run_test<test_cryptopp_blowfish_ecb>("cryptopp-blowfish-ecb.txt");
