@@ -9,37 +9,53 @@
 #include <numeric>
 #include <math.h>
 
+#if HAVE_LIBTOMCRYPT
 #include <tomcrypt.h>
 // remove some macros slashing with other libraries
 #undef byte
 #undef XTEA
 #undef DES
+#endif
 
+#if HAVE_LIBGCRYPT
 #include <gcrypt.h>
+#endif
 
+#if HAVE_LIBMCRYPT
 #include <mcrypt.h>
+#endif
 
+#if HAVE_BOTAN
 #include <botan/botan.h>
 #include <botan/aes.h>
 #include <botan/serpent.h>
 #include <botan/twofish.h>
 #include <botan/des.h>
+#endif
 
+#if HAVE_CRYPTOPP
 #include <crypto++/modes.h>
 #include <crypto++/rijndael.h>
 #include <crypto++/serpent.h>
 #include <crypto++/twofish.h>
 #include <crypto++/des.h>
+#endif
 
+#if HAVE_OPENSSL
 #define NCOMPAT
 #include <openssl/aes.h>
 #include <openssl/des.h>
+#endif
 
+#if HAVE_LIBNETTLE
 #include <nettle/aes.h>
 #include <nettle/serpent.h>
 #include <nettle/des.h>
+#endif
 
+#if HAVE_LIBBEECRYPT
 #include <beecrypt/aes.h>
+#endif
 
 #include "rijndael.h"
 #include "serpent-gladman.h"
@@ -76,6 +92,7 @@ void check_buffer(char *buffer, unsigned int bufferlen)
 
 void verify_rijndael_ecb()
 {
+#if HAVE_LIBGCRYPT
     // libgcrypt
 
     char buffer_gcrypt[bufferlen];
@@ -88,7 +105,9 @@ void verify_rijndael_ecb()
 	gcry_cipher_encrypt(encctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	gcry_cipher_close(encctx);
     }
+#endif
 
+#if HAVE_LIBMCRYPT
     // libmcrypt
 
     char buffer_mcrypt[bufferlen];
@@ -100,7 +119,9 @@ void verify_rijndael_ecb()
 	mcrypt_generic(encctx, buffer_mcrypt, bufferlen);
 	mcrypt_generic_end(encctx);
     }
+#endif
 
+#if HAVE_BOTAN
     // Botan
 
     char buffer_botan[bufferlen];
@@ -113,7 +134,9 @@ void verify_rijndael_ecb()
 	for(unsigned int p = 0; p < bufferlen; p += encctx.BLOCK_SIZE)
 	    encctx.encrypt((Botan::byte*)buffer_botan + p);
     }
+#endif
 
+#if HAVE_CRYPTOPP
     // Crypto++
 
     char buffer_cryptopp[bufferlen];
@@ -125,7 +148,9 @@ void verify_rijndael_ecb()
 
 	encctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
     }
+#endif
 
+#if HAVE_OPENSSL
     // OpenSSL
 
     char buffer_openssl[bufferlen];
@@ -138,7 +163,9 @@ void verify_rijndael_ecb()
 	for(unsigned int p = 0; p < bufferlen; p += AES_BLOCK_SIZE)
 	    AES_encrypt((byte*)buffer_openssl + p, (byte*)buffer_openssl + p, &aeskey);
     }
+#endif
 
+#if HAVE_LIBNETTLE
     // Nettle
 
     char buffer_nettle[bufferlen];
@@ -149,7 +176,9 @@ void verify_rijndael_ecb()
 	aes_set_encrypt_key(&encctx, 32, (byte*)enckey);
 	aes_encrypt(&encctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
     }
+#endif
 
+#if HAVE_LIBBEECRYPT
     // Beecrypt
 
     char buffer_beecrypt[bufferlen];
@@ -162,7 +191,9 @@ void verify_rijndael_ecb()
 	for(unsigned int p = 0; p < bufferlen; p += 16)
 	    aesEncrypt(&encctx, (uint32_t*)(buffer_beecrypt + p), (uint32_t*)(buffer_beecrypt + p));
     }
+#endif
 
+#if HAVE_LIBTOMCRYPT
     // Tomcrypt
 
     char buffer_tomcrypt[bufferlen];
@@ -174,6 +205,7 @@ void verify_rijndael_ecb()
 	ecb_encrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &encctx);
 	ecb_done(&encctx);
     }
+#endif
 
     // My Implementation
 
@@ -188,15 +220,32 @@ void verify_rijndael_ecb()
 
     // compare buffers
 
-    compare_buffers(buffer_gcrypt, buffer_mcrypt, bufferlen);
-    compare_buffers(buffer_gcrypt, buffer_botan, bufferlen);
-    compare_buffers(buffer_gcrypt, buffer_cryptopp, bufferlen);
-    compare_buffers(buffer_gcrypt, buffer_openssl, bufferlen);
-    compare_buffers(buffer_gcrypt, buffer_nettle, bufferlen);
-    compare_buffers(buffer_gcrypt, buffer_beecrypt, bufferlen);
-    compare_buffers(buffer_gcrypt, buffer_tomcrypt, bufferlen);
-    compare_buffers(buffer_gcrypt, buffer_my, bufferlen);
+#if HAVE_LIBGCRYPT
+    compare_buffers(buffer_my, buffer_gcrypt, bufferlen);
+#endif
+#if HAVE_LIBMCRYPT
+    compare_buffers(buffer_my, buffer_mcrypt, bufferlen);
+#endif
+#if HAVE_BOTAN
+    compare_buffers(buffer_my, buffer_botan, bufferlen);
+#endif
+#if HAVE_CRYPTOPP
+    compare_buffers(buffer_my, buffer_cryptopp, bufferlen);
+#endif
+#if HAVE_OPENSSL
+    compare_buffers(buffer_my, buffer_openssl, bufferlen);
+#endif
+#if HAVE_LIBNETTLE
+    compare_buffers(buffer_my, buffer_nettle, bufferlen);
+#endif
+#if HAVE_LIBBEECRYPT
+    compare_buffers(buffer_my, buffer_beecrypt, bufferlen);
+#endif
+#if HAVE_LIBTOMCRYPT
+    compare_buffers(buffer_my, buffer_tomcrypt, bufferlen);
+#endif
 
+#if HAVE_LIBGCRYPT
     // libgcrypt
 
     {
@@ -206,7 +255,9 @@ void verify_rijndael_ecb()
 	gcry_cipher_decrypt(decctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	gcry_cipher_close(decctx);
     }
+#endif
 
+#if HAVE_LIBMCRYPT
     // libmcrypt
 
     {
@@ -215,7 +266,9 @@ void verify_rijndael_ecb()
 	mdecrypt_generic(decctx, buffer_mcrypt, bufferlen);
 	mcrypt_generic_end(decctx);
     }
+#endif
 
+#if HAVE_BOTAN
     // Botan
 
     {
@@ -225,7 +278,9 @@ void verify_rijndael_ecb()
 	for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
 	    decctx.decrypt((Botan::byte*)buffer_botan + p);
     }
+#endif
 
+#if HAVE_CRYPTOPP
     // Crypto++
 
     {
@@ -234,7 +289,9 @@ void verify_rijndael_ecb()
 
 	decctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
     }
+#endif
 
+#if HAVE_OPENSSL
     // OpenSSL
 
     {
@@ -244,7 +301,9 @@ void verify_rijndael_ecb()
 	for(unsigned int p = 0; p < bufferlen; p += AES_BLOCK_SIZE)
 	    AES_decrypt((byte*)buffer_openssl + p, (byte*)buffer_openssl + p, &aeskey);
     }
+#endif
 
+#if HAVE_LIBNETTLE
     // Nettle
 
     {
@@ -252,7 +311,9 @@ void verify_rijndael_ecb()
 	aes_set_decrypt_key(&decctx, 32, (byte*)enckey);
 	aes_decrypt(&decctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
     }
+#endif
 
+#if HAVE_LIBBEECRYPT
     // Beecrypt
 
     {
@@ -262,7 +323,9 @@ void verify_rijndael_ecb()
 	for(unsigned int p = 0; p < bufferlen; p += 16)
 	    aesDecrypt(&decctx, (uint32_t*)(buffer_beecrypt + p), (uint32_t*)(buffer_beecrypt + p));
     }
+#endif
 
+#if HAVE_LIBTOMCRYPT
     // Tomcrypt
 
     {
@@ -271,6 +334,7 @@ void verify_rijndael_ecb()
 	ecb_decrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &decctx);
 	ecb_done(&decctx);
     }
+#endif
 
     // My Implementation
 
@@ -282,14 +346,30 @@ void verify_rijndael_ecb()
 
     // test buffers
 
+#if HAVE_LIBGCRYPT
     check_buffer(buffer_gcrypt, bufferlen);
+#endif
+#if HAVE_LIBMCRYPT
     check_buffer(buffer_mcrypt, bufferlen);
+#endif
+#if HAVE_BOTAN
     check_buffer(buffer_botan, bufferlen);
+#endif
+#if HAVE_CRYPTOPP
     check_buffer(buffer_cryptopp, bufferlen);
+#endif
+#if HAVE_OPENSSL
     check_buffer(buffer_openssl, bufferlen);
+#endif
+#if HAVE_LIBNETTLE
     check_buffer(buffer_nettle, bufferlen);
+#endif
+#if HAVE_LIBBEECRYPT
     check_buffer(buffer_beecrypt, bufferlen);
+#endif
+#if HAVE_LIBTOMCRYPT
     check_buffer(buffer_tomcrypt, bufferlen);
+#endif
     check_buffer(buffer_my, bufferlen);
 }
 
@@ -297,6 +377,7 @@ void verify_rijndael_ecb()
 
 void verify_serpent_ecb()
 {
+#if HAVE_LIBGCRYPT
     // libgcrypt
 
     char buffer_gcrypt[bufferlen];
@@ -309,7 +390,9 @@ void verify_serpent_ecb()
 	gcry_cipher_encrypt(encctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	gcry_cipher_close(encctx);
     }
+#endif
 
+#if HAVE_LIBMCRYPT
     // libmcrypt
 
     char buffer_mcrypt[bufferlen];
@@ -321,7 +404,9 @@ void verify_serpent_ecb()
 	mcrypt_generic(encctx, buffer_mcrypt, bufferlen);
 	mcrypt_generic_end(encctx);
     }
+#endif
 
+#if HAVE_BOTAN
     // Botan
 
     char buffer_botan[bufferlen];
@@ -334,7 +419,9 @@ void verify_serpent_ecb()
 	for(unsigned int p = 0; p < bufferlen; p += encctx.BLOCK_SIZE)
 	    encctx.encrypt((Botan::byte*)buffer_botan + p);
     }
+#endif
 
+#if HAVE_CRYPTOPP
     // Crypto++
 
     char buffer_cryptopp[bufferlen];
@@ -346,7 +433,9 @@ void verify_serpent_ecb()
 
 	encctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
     }
+#endif
 
+#if HAVE_LIBNETTLE
    // Nettle
 
     char buffer_nettle[bufferlen];
@@ -357,6 +446,7 @@ void verify_serpent_ecb()
 	serpent_set_key(&encctx, 32, (byte*)enckey);
 	serpent_encrypt(&encctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
     }
+#endif
 
     // gladman implementation
 
@@ -372,12 +462,23 @@ void verify_serpent_ecb()
 
     // compare buffers
 
-    compare_buffers(buffer_gcrypt, buffer_mcrypt, bufferlen);
-    compare_buffers(buffer_gcrypt, buffer_botan, bufferlen);
-    compare_buffers(buffer_gcrypt, buffer_cryptopp, bufferlen);
-    // does not match! compare_buffers(buffer_gcrypt, buffer_nettle, bufferlen);
-    compare_buffers(buffer_gcrypt, buffer_gladman, bufferlen);
+#if HAVE_LIBGCRYPT
+    compare_buffers(buffer_gladman, buffer_gcrypt, bufferlen);
+#endif
+#if HAVE_LIBMCRYPT
+    compare_buffers(buffer_gladman, buffer_mcrypt, bufferlen);
+#endif
+#if HAVE_BOTAN
+    compare_buffers(buffer_gladman, buffer_botan, bufferlen);
+#endif
+#if HAVE_CRYPTOPP
+    compare_buffers(buffer_gladman, buffer_cryptopp, bufferlen);
+#endif
+#if HAVE_LIBNETTLE
+    // does not match! compare_buffers(buffer_gladman, buffer_nettle, bufferlen);
+#endif
 
+#if HAVE_LIBGCRYPT
     // libgcrypt
 
     {
@@ -387,7 +488,9 @@ void verify_serpent_ecb()
 	gcry_cipher_decrypt(decctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	gcry_cipher_close(decctx);
     }
+#endif
 
+#if HAVE_LIBMCRYPT
     // libmcrypt
 
     {
@@ -396,7 +499,9 @@ void verify_serpent_ecb()
 	mdecrypt_generic(decctx, buffer_mcrypt, bufferlen);
 	mcrypt_generic_end(decctx);
     }
+#endif
 
+#if HAVE_BOTAN
     // Botan
 
     {
@@ -406,7 +511,9 @@ void verify_serpent_ecb()
 	for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
 	    decctx.decrypt((Botan::byte*)buffer_botan + p);
     }
+#endif
 
+#if HAVE_CRYPTOPP
     // Crypto++
 
     {
@@ -415,7 +522,9 @@ void verify_serpent_ecb()
 
 	decctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
     }
+#endif
 
+#if HAVE_LIBNETTLE
     // Nettle
 
     {
@@ -423,6 +532,7 @@ void verify_serpent_ecb()
 	serpent_set_key(&decctx, 32, (byte*)enckey);
 	serpent_decrypt(&decctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
     }
+#endif
 
     // gladman implementation
 
@@ -435,11 +545,21 @@ void verify_serpent_ecb()
 
     // test buffers
 
+#if HAVE_LIBGCRYPT
     check_buffer(buffer_gcrypt, bufferlen);
+#endif
+#if HAVE_LIBMCRYPT
     check_buffer(buffer_mcrypt, bufferlen);
+#endif
+#if HAVE_BOTAN
     check_buffer(buffer_botan, bufferlen);
+#endif
+#if HAVE_CRYPTOPP
     check_buffer(buffer_cryptopp, bufferlen);
+#endif
+#if HAVE_LIBNETTLE
     check_buffer(buffer_nettle, bufferlen);
+#endif
     check_buffer(buffer_gladman, bufferlen);
 }
 
@@ -447,6 +567,7 @@ void verify_serpent_ecb()
 
 void verify_twofish_ecb()
 {
+#if HAVE_LIBGCRYPT
     // libgcrypt
 
     char buffer_gcrypt[bufferlen];
@@ -459,7 +580,9 @@ void verify_twofish_ecb()
 	gcry_cipher_encrypt(encctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	gcry_cipher_close(encctx);
     }
+#endif
 
+#if HAVE_LIBMCRYPT
     // libmcrypt
 
     char buffer_mcrypt[bufferlen];
@@ -471,7 +594,9 @@ void verify_twofish_ecb()
 	mcrypt_generic(encctx, buffer_mcrypt, bufferlen);
 	mcrypt_generic_end(encctx);
     }
+#endif
 
+#if HAVE_BOTAN
     // Botan
 
     char buffer_botan[bufferlen];
@@ -484,7 +609,9 @@ void verify_twofish_ecb()
 	for(unsigned int p = 0; p < bufferlen; p += encctx.BLOCK_SIZE)
 	    encctx.encrypt((Botan::byte*)buffer_botan + p);
     }
+#endif
 
+#if HAVE_CRYPTOPP
     // Crypto++
 
     char buffer_cryptopp[bufferlen];
@@ -496,7 +623,9 @@ void verify_twofish_ecb()
 
 	encctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
     }
+#endif
 
+#if HAVE_LIBTOMCRYPT
     // Tomcrypt
 
     char buffer_tomcrypt[bufferlen];
@@ -508,14 +637,26 @@ void verify_twofish_ecb()
 	ecb_encrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &encctx);
 	ecb_done(&encctx);
     }
+#endif
 
     // compare buffers
 
+#if HAVE_LIBGCRYPT
+#if HAVE_LIBMCRYPT
     compare_buffers(buffer_gcrypt, buffer_mcrypt, bufferlen);
+#endif
+#if HAVE_BOTAN
     compare_buffers(buffer_gcrypt, buffer_botan, bufferlen);
+#endif
+#if HAVE_CRYPTOPP
     compare_buffers(buffer_gcrypt, buffer_cryptopp, bufferlen);
+#endif
+#if HAVE_LIBTOMCRYPT
     compare_buffers(buffer_gcrypt, buffer_tomcrypt, bufferlen);
+#endif
+#endif
 
+#if HAVE_LIBGCRYPT
     // libgcrypt
 
     {
@@ -525,7 +666,9 @@ void verify_twofish_ecb()
 	gcry_cipher_decrypt(decctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	gcry_cipher_close(decctx);
     }
+#endif
 
+#if HAVE_LIBMCRYPT
     // libmcrypt
 
     {
@@ -534,7 +677,9 @@ void verify_twofish_ecb()
 	mdecrypt_generic(decctx, buffer_mcrypt, bufferlen);
 	mcrypt_generic_end(decctx);
     }
+#endif
 
+#if HAVE_BOTAN
     // Botan
 
     {
@@ -544,7 +689,9 @@ void verify_twofish_ecb()
 	for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
 	    decctx.decrypt((Botan::byte*)buffer_botan + p);
     }
+#endif
 
+#if HAVE_CRYPTOPP
     // Crypto++
 
     {
@@ -553,7 +700,9 @@ void verify_twofish_ecb()
 
 	decctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
     }
+#endif
 
+#if HAVE_LIBTOMCRYPT
     // Tomcrypt
 
     {
@@ -562,24 +711,38 @@ void verify_twofish_ecb()
 	ecb_decrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &decctx);
 	ecb_done(&decctx);
     }
+#endif
 
     // test buffers
 
+#if HAVE_LIBGCRYPT
     check_buffer(buffer_gcrypt, bufferlen);
+#endif
+#if HAVE_LIBMCRYPT
     check_buffer(buffer_mcrypt, bufferlen);
+#endif
+#if HAVE_BOTAN
     check_buffer(buffer_botan, bufferlen);
+#endif
+#if HAVE_CRYPTOPP
     check_buffer(buffer_cryptopp, bufferlen);
+#endif
+#if HAVE_LIBTOMCRYPT
     check_buffer(buffer_tomcrypt, bufferlen);
+#endif
 }
 
 // *** Verify Triple DES Implementations
 
 void verify_3des_ecb()
 {
+#if HAVE_LIBNETTLE
     // Nettle requires some parity fix of the key
 
     des_fix_parity(24, (byte*)enckey, (byte*)enckey);
+#endif
 
+#if HAVE_LIBGCRYPT
     // libgcrypt
 
     char buffer_gcrypt[bufferlen];
@@ -592,7 +755,9 @@ void verify_3des_ecb()
 	gcry_cipher_encrypt(encctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	gcry_cipher_close(encctx);
     }
+#endif
 
+#if HAVE_LIBMCRYPT
     // libmcrypt
 
     char buffer_mcrypt[bufferlen];
@@ -604,7 +769,9 @@ void verify_3des_ecb()
 	mcrypt_generic(encctx, buffer_mcrypt, bufferlen);
 	mcrypt_generic_end(encctx);
     }
+#endif
 
+#if HAVE_BOTAN
     // Botan
 
     char buffer_botan[bufferlen];
@@ -617,7 +784,9 @@ void verify_3des_ecb()
 	for(unsigned int p = 0; p < bufferlen; p += encctx.BLOCK_SIZE)
 	    encctx.encrypt((Botan::byte*)buffer_botan + p);
     }
+#endif
 
+#if HAVE_CRYPTOPP
     // Crypto++
 
     char buffer_cryptopp[bufferlen];
@@ -629,7 +798,9 @@ void verify_3des_ecb()
 
 	encctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
     }
+#endif
 
+#if HAVE_OPENSSL
     // OpenSSL
 
     char buffer_openssl[bufferlen];
@@ -645,7 +816,9 @@ void verify_3des_ecb()
 	for(unsigned int p = 0; p < bufferlen; p += 8)
 	    DES_encrypt3((DES_LONG*)(buffer_openssl + p), &eks1, &eks2, &eks3);
     }
+#endif
 
+#if HAVE_LIBNETTLE
     // Nettle
 
     char buffer_nettle[bufferlen];
@@ -656,7 +829,9 @@ void verify_3des_ecb()
 	des3_set_key(&encctx, (byte*)enckey);
 	des3_encrypt(&encctx, bufferlen, (byte*)buffer_nettle, (byte*)buffer_nettle);
     }
+#endif
 
+#if HAVE_LIBTOMCRYPT
     // Tomcrypt
 
     char buffer_tomcrypt[bufferlen];
@@ -668,16 +843,32 @@ void verify_3des_ecb()
 	ecb_encrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &encctx);
 	ecb_done(&encctx);
     }
+#endif
 
     // compare buffers
 
+#if HAVE_LIBGCRYPT
+#if HAVE_LIBMCRYPT
     compare_buffers(buffer_gcrypt, buffer_mcrypt, bufferlen);
+#endif
+#if HAVE_BOTAN
     compare_buffers(buffer_gcrypt, buffer_botan, bufferlen);
+#endif
+#if HAVE_CRYPTOPP
     compare_buffers(buffer_gcrypt, buffer_cryptopp, bufferlen);
+#endif
+#if HAVE_OPENSSL
     compare_buffers(buffer_gcrypt, buffer_openssl, bufferlen);
+#endif
+#if HAVE_LIBNETTLE
     compare_buffers(buffer_gcrypt, buffer_nettle, bufferlen);
+#endif
+#if HAVE_LIBTOMCRYPT
     compare_buffers(buffer_gcrypt, buffer_tomcrypt, bufferlen);
+#endif
+#endif
 
+#if HAVE_LIBGCRYPT
     // libgcrypt
 
     {
@@ -687,7 +878,9 @@ void verify_3des_ecb()
 	gcry_cipher_decrypt(decctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	gcry_cipher_close(decctx);
     }
+#endif
 
+#if HAVE_LIBMCRYPT
     // libmcrypt
 
     {
@@ -696,7 +889,9 @@ void verify_3des_ecb()
 	mdecrypt_generic(decctx, buffer_mcrypt, bufferlen);
 	mcrypt_generic_end(decctx);
     }
+#endif
 
+#if HAVE_BOTAN
     // Botan
 
     {
@@ -706,7 +901,9 @@ void verify_3des_ecb()
 	for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
 	    decctx.decrypt((Botan::byte*)buffer_botan + p);
     }
+#endif
 
+#if HAVE_CRYPTOPP
     // Crypto++
 
     {
@@ -715,7 +912,9 @@ void verify_3des_ecb()
 
 	decctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
     }
+#endif
 
+#if HAVE_OPENSSL
     // OpenSSL
 
     {
@@ -728,7 +927,9 @@ void verify_3des_ecb()
 	for(unsigned int p = 0; p < bufferlen; p += 8)
 	    DES_decrypt3((DES_LONG*)(buffer_openssl + p), &dks1, &dks2, &dks3);
     }
+#endif
 
+#if HAVE_LIBNETTLE
     // Nettle
 
     {
@@ -736,7 +937,9 @@ void verify_3des_ecb()
 	des3_set_key(&decctx, (byte*)enckey);
 	des3_decrypt(&decctx, bufferlen, (byte*)buffer_nettle, (byte*)buffer_nettle);
     }
+#endif
 
+#if HAVE_LIBTOMCRYPT
     // Tomcrypt
 
     {
@@ -745,29 +948,50 @@ void verify_3des_ecb()
 	ecb_decrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &decctx);
 	ecb_done(&decctx);
     }
+#endif
 
     // test buffers
 
+#if HAVE_LIBGCRYPT
     check_buffer(buffer_gcrypt, bufferlen);
+#endif
+#if HAVE_LIBMCRYPT
     check_buffer(buffer_mcrypt, bufferlen);
+#endif
+#if HAVE_BOTAN
     check_buffer(buffer_botan, bufferlen);
+#endif
+#if HAVE_CRYPTOPP
     check_buffer(buffer_cryptopp, bufferlen);
+#endif
+#if HAVE_OPENSSL
     check_buffer(buffer_openssl, bufferlen);
+#endif
+#if HAVE_LIBNETTLE
     check_buffer(buffer_nettle, bufferlen);
+#endif
+#if HAVE_LIBTOMCRYPT
     check_buffer(buffer_tomcrypt, bufferlen);
+#endif
 }
 
 int main()
 {
     // Initialize all cryptographic libaries
 
+#if HAVE_LIBGCRYPT
     gcry_check_version(GCRYPT_VERSION);
+#endif
 
+#if HAVE_BOTAN
     Botan::LibraryInitializer init;
+#endif
 
+#if HAVE_LIBTOMCRYPT
     register_cipher(&rijndael_desc);
     register_cipher(&twofish_desc);
     register_cipher(&des3_desc);
+#endif
 
     // Create (somewhat) random encryption key
 

@@ -1,37 +1,55 @@
 # $Id$
 
-noinst_PROGRAMS = speedtest_custom
+TESTS = verify
+
+noinst_PROGRAMS = speedtest_custom verify
 
 speedtest_custom_SOURCES = speedtest_custom.cpp \
 	rijndael.cpp rijndael.h \
 	serpent-gladman.cpp serpent-gladman.h
 
-AM_CXXFLAGS = -g -W -Wall -Wno-unused -momit-leaf-frame-pointer
-
-if HAVE_GCRYPT
-if HAVE_MCRYPT
-if HAVE_BOTAN
-if HAVE_CRYPTOPP
-if HAVE_OPENSSL
-if HAVE_NETTLE
-if HAVE_BEECRYPT
-if HAVE_TOMCRYPT
-
-TESTS = verify
-
-noinst_PROGRAMS += verify
-
 verify_SOURCES = verify.cpp \
 	rijndael.h rijndael.cpp \
 	serpent-gladman.h serpent-gladman.cpp
 
+AM_CXXFLAGS = -g -W -Wall -Wno-unused -momit-leaf-frame-pointer
+
+verify_CXXFLAGS =
+verify_LDADD =
+
+if HAVE_GCRYPT
+verify_CXXFLAGS += $(LIBGCRYPT_CFLAGS)
+verify_LDADD += $(LIBGCRYPT_LIBS)
 endif
+
+if HAVE_MCRYPT
+verify_CXXFLAGS += $(LIBMCRYPT_CFLAGS)
+verify_LDADD += $(LIBMCRYPT_LIBS)
 endif
+
+if HAVE_BOTAN
+verify_CXXFLAGS += $(BOTAN_CFLAGS)
+verify_LDADD += $(BOTAN_LIBS)
 endif
+
+if HAVE_CRYPTOPP
+verify_CXXFLAGS += $(CRYPTO_PP_CXXFLAGS)
+verify_LDADD += $(CRYPTO_PP_LDFLAGS) -l$(CRYPTO_PP_LIB_NAME)
 endif
+
+if HAVE_OPENSSL
 endif
+
+if HAVE_NETTLE
+verify_LDADD += $(LIBS)
 endif
+
+if HAVE_BEECRYPT
+verify_LDADD += $(LIBS)
 endif
+
+if HAVE_TOMCRYPT
+verify_LDADD += $(LIBS)
 endif
 
 if HAVE_GCRYPT

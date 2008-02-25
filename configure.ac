@@ -48,17 +48,29 @@ AM_PATH_LIBGCRYPT([1.2.3])
 
 AM_CONDITIONAL(HAVE_GCRYPT, test "$LIBGCRYPT_LIBS" != "")
 
+if test "$LIBGCRYPT_LIBS" != ""; then
+    AC_DEFINE(HAVE_LIBGCRYPT, 1)
+fi
+
 # libmcrypt
 
 AM_PATH_LIBMCRYPT([2.5.7])
 
 AM_CONDITIONAL(HAVE_MCRYPT, test "$LIBMCRYPT_LIBS" != "")
 
+if test "$LIBMCRYPT_LIBS" != ""; then
+    AC_DEFINE(HAVE_LIBMCRYPT, 1)
+fi
+
 # Botan
 
 AC_PATH_GENERIC(botan, [1.6.0])
 
 AM_CONDITIONAL(HAVE_BOTAN, test "$BOTAN_LIBS" != "")
+
+if test "$BOTAN_LIBS" != ""; then
+    AC_DEFINE(HAVE_BOTAN, 1)
+fi
 
 # Crypto++
 
@@ -67,11 +79,19 @@ CHECK_CRYPTO(5.5)
 
 AM_CONDITIONAL(HAVE_CRYPTOPP, test "$CRYPTO_PP_LIB_NAME" != "")
 
+if test "$CRYPTO_PP_LIB_NAME" != ""; then
+    AC_DEFINE(HAVE_CRYPTOPP, 1)
+fi
+
 # OpenSSL's crypto
 
 PKG_CHECK_MODULES(OPENSSL, [libcrypto >= 0.9.8f])
 
 AM_CONDITIONAL(HAVE_OPENSSL, test "$OPENSSL_LIBS" != "")
+
+if test "$OPENSSL_LIBS" != ""; then
+    AC_DEFINE(HAVE_OPENSSL, 1)
+fi
 
 # Nettle
 

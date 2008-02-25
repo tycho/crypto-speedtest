@@ -9,6 +9,8 @@
 
 #include "speedtest.h"
 
+typedef uint8_t byte;
+
 // *** Test Functions for Nettle ***
 
 void test_nettle_rijndael_ecb()

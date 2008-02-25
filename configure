@@ -4135,6 +4135,13 @@ else
 fi
 
 
+if test "$LIBGCRYPT_LIBS" != ""; then
+    cat >>confdefs.h <<\_ACEOF
+#define HAVE_LIBGCRYPT 1
+_ACEOF
+
+fi
+
 # libmcrypt
 
 
@@ -4557,6 +4564,13 @@ else
 fi
 
 
+if test "$LIBMCRYPT_LIBS" != ""; then
+    cat >>confdefs.h <<\_ACEOF
+#define HAVE_LIBMCRYPT 1
+_ACEOF
+
+fi
+
 # Botan
 
 
@@ -4721,6 +4735,13 @@ else
 fi
 
 
+if test "$BOTAN_LIBS" != ""; then
+    cat >>confdefs.h <<\_ACEOF
+#define HAVE_BOTAN 1
+_ACEOF
+
+fi
+
 # Crypto++
 
 
@@ -4878,6 +4899,13 @@ else
   HAVE_CRYPTOPP_FALSE=
 fi
 
+
+if test "$CRYPTO_PP_LIB_NAME" != ""; then
+    cat >>confdefs.h <<\_ACEOF
+#define HAVE_CRYPTOPP 1
+_ACEOF
+
+fi
 
 # OpenSSL's crypto
 
@@ -5121,6 +5149,13 @@ else
   HAVE_OPENSSL_FALSE=
 fi
 
+
+if test "$OPENSSL_LIBS" != ""; then
+    cat >>confdefs.h <<\_ACEOF
+#define HAVE_OPENSSL 1
+_ACEOF
+
+fi
 
 # Nettle
 
