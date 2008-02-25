@@ -235,6 +235,7 @@ plot "gcrypt-rijndael-ecb.txt" using 1:2:3 title "libgcrypt" with errorlines poi
      "cryptopp-rijndael-ecb.txt" using 1:2:3 title "Crypto++" with errorlines pointtype 0, \
      "openssl-rijndael-ecb.txt" using 1:2:3 title "OpenSSL" with errorlines pointtype 0, \
      "nettle-rijndael-ecb.txt" using 1:2:3 title "Nettle" with errorlines pointtype 0, \
+     "beecrypt-rijndael-ecb.txt" using 1:2:3 title "Beecrypt" with errorlines pointtype 0, \
      "my-rijndael-ecb.txt" using 1:2:3 title "My" with errorlines pointtype 0
 
 ### Plot ###
@@ -252,6 +253,7 @@ plot "gcrypt-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt" wit
      "cryptopp-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++" with lines, \
      "openssl-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL" with lines, \
      "nettle-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle" with lines, \
+     "beecrypt-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "Beecrypt" with lines, \
      "my-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "My" with lines
 
 ### Plot ###
@@ -330,7 +332,8 @@ plot "gcrypt-blowfish-ecb.txt" using 1:2:3 title "libgcrypt" with errorlines poi
      "botan-blowfish-ecb.txt" using 1:2:3 title "Botan" with errorlines pointtype 0, \
      "cryptopp-blowfish-ecb.txt" using 1:2:3 title "Crypto++" with errorlines pointtype 0, \
      "openssl-blowfish-ecb.txt" using 1:2:3 title "OpenSSL" with errorlines pointtype 0, \
-     "nettle-blowfish-ecb.txt" using 1:2:3 title "Nettle" with errorlines pointtype 0
+     "nettle-blowfish-ecb.txt" using 1:2:3 title "Nettle" with errorlines pointtype 0, \
+     "beecrypt-blowfish-ecb.txt" using 1:2:3 title "Beecrypt" with errorlines pointtype 0
 
 ### Plot ###
 
@@ -346,8 +349,8 @@ plot "gcrypt-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt" wit
      "botan-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "Botan" with lines, \
      "cryptopp-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++" with lines, \
      "openssl-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL" with lines, \
-     "nettle-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle" with lines
-
+     "nettle-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle" with lines, \
+     "beecrypt-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "Beecrypt" with lines
 
 ### Plot ###
 
@@ -473,4 +476,6 @@ plot \
      "nettle-cast5-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle CAST5" with lines lt 8 lc 9, \
      "nettle-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle Rijndael" with lines lt 8 lc 1, \
      "nettle-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle Serpent" with lines lt 8 lc 2, \
-     "nettle-twofish-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle Twofish" with lines lt 8 lc 3
+     "nettle-twofish-ecb.txt" using 1:($1 / $2) / 1048576 title "Nettle Twofish" with lines lt 8 lc 3, \
+     "beecrypt-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "Beecrypt Blowfish" with lines lt 6 lc 10, \
+     "beecrypt-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "Beecrypt Rijndael" with lines lt 6 lc 1

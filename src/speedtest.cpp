@@ -51,6 +51,9 @@
 #include <nettle/blowfish.h>
 #include <nettle/des.h>
 
+#include <beecrypt/aes.h>
+#include <beecrypt/blowfish.h>
+
 #include "rijndael.h"
 #include "serpent-gladman.h"
 
@@ -60,6 +63,7 @@
 const unsigned int buffermin = 16;
 const unsigned int buffermax = 16 * 65536;
 const unsigned int repeatsize = 65536;
+const unsigned int minrepeats = 2;
 const unsigned int measureruns = 4;
 
 /// Time is measured using gettimeofday()
@@ -717,6 +721,38 @@ void test_nettle_3des_ecb()
     des3_decrypt(&decctx, bufferlen, (byte*)buffer, (byte*)buffer);
 }
 
+// *** Test Functions for Beecrypt ***
+
+void test_beecrypt_rijndael_ecb()
+{
+    aesParam encctx;
+    aesSetup(&encctx, (byte*)enckey, 256, ENCRYPT);
+
+    for(unsigned int p = 0; p < bufferlen; p += 16)
+	aesEncrypt(&encctx, (uint32_t*)(buffer + p), (uint32_t*)(buffer + p));
+
+    aesParam decctx;
+    aesSetup(&decctx, (byte*)enckey, 256, DECRYPT);
+
+    for(unsigned int p = 0; p < bufferlen; p += 16)
+	aesDecrypt(&decctx, (uint32_t*)(buffer + p), (uint32_t*)(buffer + p));
+}
+
+void test_beecrypt_blowfish_ecb()
+{
+    blowfishParam encctx;
+    blowfishSetup(&encctx, (byte*)enckey, 256, ENCRYPT);
+
+    for(unsigned int p = 0; p < bufferlen; p += 8)
+	blowfishEncrypt(&encctx, (uint32_t*)(buffer + p), (uint32_t*)(buffer + p));
+
+    blowfishParam decctx;
+    blowfishSetup(&decctx, (byte*)enckey, 256, DECRYPT);
+
+    for(unsigned int p = 0; p < bufferlen; p += 8)
+	blowfishDecrypt(&decctx, (uint32_t*)(buffer + p), (uint32_t*)(buffer + p));
+}
+
 // *** Test Functions for My Implementation ***
 
 void test_my_rijndael_ecb()
@@ -766,7 +802,7 @@ void run_test(const char* logfile)
 	    // tests until the same amount of data is encrypted as in the large
 	    // tests.
 	    unsigned int repeat = repeatsize / bufflen;
-	    if (repeat < 1) repeat = 1;
+	    if (repeat < minrepeats) repeat = minrepeats;
 
 	    std::cout << "Test: bufflen " << bufflen << " repeat " << repeat << "\n";
 
@@ -901,13 +937,18 @@ int main()
     run_test<test_openssl_3des_ecb>("openssl-3des-ecb.txt");
 #endif
 
-#if 1
+#if 0
     run_test<test_nettle_rijndael_ecb>("nettle-rijndael-ecb.txt");
     run_test<test_nettle_serpent_ecb>("nettle-serpent-ecb.txt");
     run_test<test_nettle_twofish_ecb>("nettle-twofish-ecb.txt");
     run_test<test_nettle_blowfish_ecb>("nettle-blowfish-ecb.txt");
     run_test<test_nettle_cast5_ecb>("nettle-cast5-ecb.txt");
     run_test<test_nettle_3des_ecb>("nettle-3des-ecb.txt");
+#endif
+
+#if 1
+    run_test<test_beecrypt_rijndael_ecb>("beecrypt-rijndael-ecb.txt");
+    run_test<test_beecrypt_blowfish_ecb>("beecrypt-blowfish-ecb.txt");
 #endif
 
 #if 0

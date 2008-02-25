@@ -31,6 +31,8 @@
 #include <nettle/serpent.h>
 #include <nettle/des.h>
 
+#include <beecrypt/aes.h>
+
 #include "rijndael.h"
 #include "serpent-gladman.h"
 
@@ -140,6 +142,19 @@ void verify_rijndael_ecb()
 	aes_encrypt(&encctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
     }
 
+    // Beecrypt
+
+    char buffer_beecrypt[bufferlen];
+    fill_buffer(buffer_beecrypt, bufferlen);
+
+    {
+	aesParam encctx;
+	aesSetup(&encctx, (byte*)enckey, 256, ENCRYPT);
+
+	for(unsigned int p = 0; p < bufferlen; p += 16)
+	    aesEncrypt(&encctx, (uint32_t*)(buffer_beecrypt + p), (uint32_t*)(buffer_beecrypt + p));
+    }
+
     // My Implementation
 
     char buffer_my[bufferlen];
@@ -158,6 +173,7 @@ void verify_rijndael_ecb()
     compare_buffers(buffer_gcrypt, buffer_cryptopp, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_openssl, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_nettle, bufferlen);
+    compare_buffers(buffer_gcrypt, buffer_beecrypt, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_my, bufferlen);
 
     // libgcrypt
@@ -216,6 +232,16 @@ void verify_rijndael_ecb()
 	aes_decrypt(&decctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
     }
 
+    // Beecrypt
+
+    {
+	aesParam decctx;
+	aesSetup(&decctx, (byte*)enckey, 256, DECRYPT);
+
+	for(unsigned int p = 0; p < bufferlen; p += 16)
+	    aesDecrypt(&decctx, (uint32_t*)(buffer_beecrypt + p), (uint32_t*)(buffer_beecrypt + p));
+    }
+
     // My Implementation
 
     {
@@ -232,6 +258,7 @@ void verify_rijndael_ecb()
     check_buffer(buffer_cryptopp, bufferlen);
     check_buffer(buffer_openssl, bufferlen);
     check_buffer(buffer_nettle, bufferlen);
+    check_buffer(buffer_beecrypt, bufferlen);
     check_buffer(buffer_my, bufferlen);
 }
 

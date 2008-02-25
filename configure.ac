@@ -75,6 +75,22 @@ case "$CRYPTO_PP_STYLE" in
 	;;
 esac
 
+# Nettle
+
+AC_CHECK_HEADERS([nettle/aes.h])
+AC_CHECK_LIB(nettle, [nettle_aes_encrypt], [],
+    AC_MSG_ERROR([
+*** Could not find a suitable version of the nettle library! ***
+*** Install the libnettle-dev package or use the source from http://www.lysator.liu.se/~nisse/nettle/ ***]))
+
+# Beecrypt
+
+AC_CHECK_HEADERS([beecrypt/aes.h])
+AC_CHECK_LIB(beecrypt, [aesSetup], [],
+    AC_MSG_ERROR([
+*** Could not find a suitable version of the beecrypt library! ***
+*** Install the libnbeecrypt-dev package or use the source from http://beecrypt.sourceforge.net ***]))
+
 # OpenSSL's crypto
 
 PKG_CHECK_MODULES(OPENSSL, [libcrypto >= 0.9.8f])
