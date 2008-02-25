@@ -44,6 +44,8 @@
 #include <openssl/blowfish.h>
 #include <openssl/des.h>
 
+#include "rijndael.h"
+
 // *** Speedtest Parameters ***
 
 // speed test different buffer sizes in this range
@@ -639,6 +641,19 @@ void test_openssl_3des_ecb()
 	DES_decrypt3((DES_LONG*)(buffer + p), &dks1, &dks2, &dks3);
 }
 
+// *** Test Functions for My Implementation ***
+
+void test_my_rijndael_ecb()
+{
+    RijndaelEncryptECB encctx;
+    encctx.set_key((byte*)enckey, 32);
+    encctx.encrypt(buffer, buffer, bufferlen);
+
+    RijndaelDecryptECB decctx;
+    decctx.set_key((byte*)enckey, 32);
+    decctx.decrypt(buffer, buffer, bufferlen);
+}
+
 // *** main() and run_test() ***
 
 /**
@@ -740,7 +755,7 @@ int main()
 
     // Run speed tests
 
-#if 0
+#if 1
     run_test<test_libgcrypt_rijndael_ecb>("gcrypt-rijndael-ecb.txt");
     run_test<test_libgcrypt_serpent_ecb>("gcrypt-serpent-ecb.txt");
     run_test<test_libgcrypt_twofish_ecb>("gcrypt-twofish-ecb.txt");
@@ -750,7 +765,7 @@ int main()
     run_test<test_libgcrypt_3des_ecb>("gcrypt-3des-ecb.txt");
 #endif
 
-#if 0
+#if 1
     run_test<test_libmcrypt_rijndael_ecb>("mcrypt-rijndael-ecb.txt");
     run_test<test_libmcrypt_serpent_ecb>("mcrypt-serpent-ecb.txt");
     run_test<test_libmcrypt_twofish_ecb>("mcrypt-twofish-ecb.txt");
@@ -764,7 +779,7 @@ int main()
     run_test<test_libmcrypt_3des_ecb>("mcrypt-3des-ecb.txt");
 #endif
 
-#if 0
+#if 1
     run_test<test_botan_rijndael_ecb>("botan-rijndael-ecb.txt");
     run_test<test_botan_serpent_ecb>("botan-serpent-ecb.txt");
     run_test<test_botan_twofish_ecb>("botan-twofish-ecb.txt");
@@ -776,7 +791,7 @@ int main()
     run_test<test_botan_3des_ecb>("botan-3des-ecb.txt");
 #endif
 
-#if 0
+#if 1
     run_test<test_cryptopp_rijndael_ecb>("cryptopp-rijndael-ecb.txt");
     run_test<test_cryptopp_serpent_ecb>("cryptopp-serpent-ecb.txt");
     run_test<test_cryptopp_twofish_ecb>("cryptopp-twofish-ecb.txt");
@@ -789,10 +804,12 @@ int main()
     run_test<test_cryptopp_3des_ecb>("cryptopp-3des-ecb.txt");
 #endif
 
-#if 0
+#if 1
     run_test<test_openssl_rijndael_ecb>("openssl-rijndael-ecb.txt");
     run_test<test_openssl_cast5_ecb>("openssl-cast5-ecb.txt");
     run_test<test_openssl_blowfish_ecb>("openssl-blowfish-ecb.txt");
     run_test<test_openssl_3des_ecb>("openssl-3des-ecb.txt");
 #endif
+
+    run_test<test_my_rijndael_ecb>("my-rijndael-ecb.txt");
 }

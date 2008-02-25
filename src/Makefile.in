@@ -46,10 +46,10 @@ am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 mkinstalldirs = $(install_sh) -d
 CONFIG_CLEAN_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
-am_speedtest_OBJECTS = speedtest.$(OBJEXT)
+am_speedtest_OBJECTS = speedtest.$(OBJEXT) rijndael.$(OBJEXT)
 speedtest_OBJECTS = $(am_speedtest_OBJECTS)
 speedtest_LDADD = $(LDADD)
-am_verify_OBJECTS = verify.$(OBJEXT)
+am_verify_OBJECTS = verify.$(OBJEXT) rijndael.$(OBJEXT)
 verify_OBJECTS = $(am_verify_OBJECTS)
 verify_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@
@@ -60,6 +60,10 @@ CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
+COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CCLD = $(CC)
+LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 SOURCES = $(speedtest_SOURCES) $(verify_SOURCES)
 DIST_SOURCES = $(speedtest_SOURCES) $(verify_SOURCES)
 ETAGS = etags
@@ -178,9 +182,13 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-verify_SOURCES = verify.cpp
-speedtest_SOURCES = speedtest.cpp
-AM_CXXFLAGS = -g -W -Wall $(LIBGCRYPT_CFLAGS) $(LIBMCRYPT_CFLAGS) $(BOTAN_CFLAGS) $(CRYPTO_PP_CXXFLAGS) $(OPENSSL_CFLAGS)
+verify_SOURCES = verify.cpp \
+	rijndael.h rijndael.cpp
+
+speedtest_SOURCES = speedtest.cpp \
+	rijndael.h rijndael.cpp
+
+AM_CXXFLAGS = -g -W -Wall -momit-leaf-frame-pointer $(LIBGCRYPT_CFLAGS) $(LIBMCRYPT_CFLAGS) $(BOTAN_CFLAGS) $(CRYPTO_PP_CXXFLAGS) $(OPENSSL_CFLAGS)
 all: all-am
 
 .SUFFIXES:
@@ -230,6 +238,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rijndael.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedtest.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/verify.Po@am__quote@
 

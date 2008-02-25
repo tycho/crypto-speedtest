@@ -27,6 +27,8 @@
 #include <openssl/aes.h>
 #include <openssl/des.h>
 
+#include "rijndael.h"
+
 // *** Verfication Parameters ***
 
 const unsigned int bufferlen = 8192;
@@ -122,12 +124,24 @@ void verify_rijndael()
 	    AES_encrypt((byte*)buffer_openssl + p, (byte*)buffer_openssl + p, &aeskey);
     }
 
+    // My Implementation
+
+    char buffer_my[bufferlen];
+    fill_buffer(buffer_my, bufferlen);
+
+    {
+	RijndaelEncryptECB encctx;
+	encctx.set_key((byte*)enckey, 32);
+	encctx.encrypt(buffer_my, buffer_my, bufferlen);
+    }
+
     // compare buffers
 
     compare_buffers(buffer_gcrypt, buffer_mcrypt, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_botan, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_cryptopp, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_openssl, bufferlen);
+    compare_buffers(buffer_gcrypt, buffer_my, bufferlen);
 
     // libgcrypt
 
@@ -177,6 +191,14 @@ void verify_rijndael()
 	    AES_decrypt((byte*)buffer_openssl + p, (byte*)buffer_openssl + p, &aeskey);
     }
 
+    // My Implementation
+
+    {
+	RijndaelDecryptECB decctx;
+	decctx.set_key((byte*)enckey, 32);
+	decctx.decrypt(buffer_my, buffer_my, bufferlen);
+    }
+
     // test buffers
 
     check_buffer(buffer_gcrypt, bufferlen);
@@ -184,6 +206,7 @@ void verify_rijndael()
     check_buffer(buffer_botan, bufferlen);
     check_buffer(buffer_cryptopp, bufferlen);
     check_buffer(buffer_openssl, bufferlen);
+    check_buffer(buffer_my, bufferlen);
 }
 
 // *** Verify Triple DES Implementations
