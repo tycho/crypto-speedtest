@@ -669,6 +669,9 @@ am__fastdepCXX_FALSE
 LIBGCRYPT_CONFIG
 LIBGCRYPT_CFLAGS
 LIBGCRYPT_LIBS
+LIBMCRYPT_CONFIG
+LIBMCRYPT_CFLAGS
+LIBMCRYPT_LIBS
 LIBOBJS
 LTLIBOBJS'
 ac_subst_files=''
@@ -1271,6 +1274,7 @@ Optional Packages:
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
   --with-libgcrypt-prefix=PFX
                           prefix where LIBGCRYPT is installed (optional)
+  --with-libmcrypt-prefix=PFX   Prefix where libmcrypt is installed (optional)
 
 Some influential environment variables:
   CC          C compiler command
@@ -4023,6 +4027,423 @@ echo "$as_me: error:
 
 
 
+
+
+# Check whether --with-libmcrypt-prefix was given.
+if test "${with_libmcrypt_prefix+set}" = set; then
+  withval=$with_libmcrypt_prefix; libmcrypt_config_prefix="$withval"
+else
+  libmcrypt_config_prefix=""
+fi
+
+
+  if test x$libmcrypt_config_prefix != x ; then
+     libmcrypt_config_args="$libmcrypt_config_args --prefix=$libmcrypt_config_prefix"
+     if test x${LIBMCRYPT_CONFIG+set} != xset ; then
+        LIBMCRYPT_CONFIG=$libmcrypt_config_prefix/bin/libmcrypt-config
+     fi
+  fi
+
+  # Extract the first word of "libmcrypt-config", so it can be a program name with args.
+set dummy libmcrypt-config; ac_word=$2
+{ echo "$as_me:$LINENO: checking for $ac_word" >&5
+echo $ECHO_N "checking for $ac_word... $ECHO_C" >&6; }
+if test "${ac_cv_path_LIBMCRYPT_CONFIG+set}" = set; then
+  echo $ECHO_N "(cached) $ECHO_C" >&6
+else
+  case $LIBMCRYPT_CONFIG in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_LIBMCRYPT_CONFIG="$LIBMCRYPT_CONFIG" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $PATH
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+  for ac_exec_ext in '' $ac_executable_extensions; do
+  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
+    ac_cv_path_LIBMCRYPT_CONFIG="$as_dir/$ac_word$ac_exec_ext"
+    echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+done
+IFS=$as_save_IFS
+
+  test -z "$ac_cv_path_LIBMCRYPT_CONFIG" && ac_cv_path_LIBMCRYPT_CONFIG="no"
+  ;;
+esac
+fi
+LIBMCRYPT_CONFIG=$ac_cv_path_LIBMCRYPT_CONFIG
+if test -n "$LIBMCRYPT_CONFIG"; then
+  { echo "$as_me:$LINENO: result: $LIBMCRYPT_CONFIG" >&5
+echo "${ECHO_T}$LIBMCRYPT_CONFIG" >&6; }
+else
+  { echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+fi
+
+
+  min_libmcrypt_version=2.5.8
+  { echo "$as_me:$LINENO: checking for libmcrypt - version >= $min_libmcrypt_version" >&5
+echo $ECHO_N "checking for libmcrypt - version >= $min_libmcrypt_version... $ECHO_C" >&6; }
+  no_libmcrypt=""
+  if test "$LIBMCRYPT_CONFIG" = "no" ; then
+      if test "$cross_compiling" = yes; then
+  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
+See \`config.log' for more details." >&5
+echo "$as_me: error: cannot run test program while cross compiling
+See \`config.log' for more details." >&2;}
+   { (exit 1); exit 1; }; }
+else
+  cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <mcrypt.h>
+
+int
+main ()
+{
+#if MCRYPT_API_VERSION <= 19991015
+/* version 2.2 */
+    return 0;
+#else
+/* version 2.4 */
+    return 1;
+#endif /* 19991015 */
+}
+
+_ACEOF
+rm -f conftest$ac_exeext
+if { (ac_try="$ac_link"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_link") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } && { ac_try='./conftest$ac_exeext'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  libmcrypt_config_version="2.2.0"
+    if test x$libmcrypt_config_prefix != x ; then
+	TTLIBS="-L${libmcrypt_config_prefix}/libs"
+	TTINCLUDE="-I${libmcrypt_config_prefix}/include"
+    fi
+    LIBMCRYPT_CFLAGS="${TTINCLUDE}"
+    LIBMCRYPT_LIBS="${TTLIBS} -lmcrypt"
+
+cat >>confdefs.h <<\_ACEOF
+#define LIBMCRYPT22 1
+_ACEOF
+
+
+
+else
+  echo "$as_me: program exited with status $ac_status" >&5
+echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+( exit $ac_status )
+libmcrypt_config_version="2.4.0"
+    if test x$libmcrypt_config_prefix != x ; then
+	TTLIBS="-L${libmcrypt_config_prefix}/libs"
+	TTINCLUDE="-I${libmcrypt_config_prefix}/include"
+    fi
+    LIBMCRYPT_CFLAGS="${TTINCLUDE}"
+    LIBMCRYPT_LIBS="${TTLIBS} -lmcrypt -lltdl ${LIBADD_DL}"
+
+cat >>confdefs.h <<\_ACEOF
+#define LIBMCRYPT24 1
+_ACEOF
+
+fi
+rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+fi
+
+
+  else
+    LIBMCRYPT_CFLAGS=`$LIBMCRYPT_CONFIG $libmcrypt_config_args --cflags`
+    LIBMCRYPT_LIBS=`$LIBMCRYPT_CONFIG $libmcrypt_config_args --libs`
+    libmcrypt_config_version=`$LIBMCRYPT_CONFIG $libmcrypt_config_args --version`
+
+cat >>confdefs.h <<\_ACEOF
+#define LIBMCRYPT24 1
+_ACEOF
+
+  fi
+
+  ac_save_CFLAGS="$CFLAGS"
+  ac_save_LIBS="$LIBS"
+  CFLAGS="$CFLAGS $LIBMCRYPT_CFLAGS"
+  LIBS="$LIBS $LIBMCRYPT_LIBS"
+
+      rm -f conf.libmcrypttest
+      if test "$cross_compiling" = yes; then
+  echo $ac_n "cross compiling; assumed OK... $ac_c"
+else
+  cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <mcrypt.h>
+
+#define TWO "2.2"
+
+int
+main ()
+{
+#if MCRYPT_API_VERSION <= 20010201
+
+#if MCRYPT_API_VERSION <= 19991015
+/* version 2.2 */
+    int x = mcrypt_get_key_size(MCRYPT_TWOFISH_128);
+    system ("touch conf.libmcrypttest");
+
+    if( strncmp( TWO, "$min_libmcrypt_version", strlen(TWO))) {
+      printf("\n*** Requested libmcrypt %s, but LIBMCRYPT (%s)\n",
+             "$min_libmcrypt_version", TWO );
+      printf("*** was found!\n");
+      return 1;
+    }
+    return 0;
+#else
+/* version 2.4 before 11 */
+    MCRYPT td = mcrypt_module_open("twofish", NULL, "cbc", NULL);
+    system ("touch conf.libmcrypttest");
+    mcrypt_module_close(td);
+
+    return 0;
+#endif /* 19991015 */
+
+#else
+
+    system ("touch conf.libmcrypttest");
+
+    if( strcmp( mcrypt_check_version(NULL), "$libmcrypt_config_version" ) )
+    {
+      printf("\n*** 'libmcrypt-config --version' returned %s, but LIBMCRYPT (%s)\n",
+             "$libmcrypt_config_version", mcrypt_check_version(NULL) );
+      printf("*** was found! If libmcrypt-config was correct, then it is best\n");
+      printf("*** to remove the old version of LIBMCRYPT. You may also be able to fix the error\n");
+      printf("*** by modifying your LD_LIBRARY_PATH enviroment variable, or by editing\n");
+      printf("*** /etc/ld.so.conf. Make sure you have run ldconfig if that is\n");
+      printf("*** required on your system.\n");
+      printf("*** If libmcrypt-config was wrong, set the environment variable LIBMCRYPT_CONFIG\n");
+      printf("*** to point to the correct copy of libmcrypt-config, and remove the file config.cache\n");
+      printf("*** before re-running configure\n");
+    }
+    else if ( strcmp(mcrypt_check_version(NULL), LIBMCRYPT_VERSION ) )
+    {
+      printf("\n*** LIBMCRYPT header file (version %s) does not match\n", LIBMCRYPT_VERSION);
+      printf("*** library (version %s)\n", mcrypt_check_version(NULL) );
+    }
+    else
+    {
+      if ( mcrypt_check_version( "$min_libmcrypt_version" ) )
+      {
+        return 0;
+      }
+     else
+      {
+        printf("no\n*** An old version of LIBMCRYPT (%s) was found.\n",
+                mcrypt_check_version(NULL) );
+        printf("*** You need a version of LIBMCRYPT newer than %s. The latest version of\n",
+               "$min_libmcrypt_version" );
+        printf("*** LIBMCRYPT is always available from ftp://mcrypt.hellug.gr/pub/mcrypt.\n");
+        printf("*** \n");
+        printf("*** If you have already installed a sufficiently new version, this error\n");
+        printf("*** probably means that the wrong copy of the libmcrypt-config shell script is\n");
+        printf("*** being found. The easiest way to fix this is to remove the old version\n");
+        printf("*** of LIBMCRYPT, but you can also set the LIBMCRYPT_CONFIG environment to point to the\n");
+        printf("*** correct copy of libmcrypt-config. (In this case, you will have to\n");
+        printf("*** modify your LD_LIBRARY_PATH enviroment variable, or edit /etc/ld.so.conf\n");
+        printf("*** so that the correct libraries are found at run-time)\n");
+      }
+    }
+  return 1;
+
+#endif /* 20010201 */
+
+}
+
+_ACEOF
+rm -f conftest$ac_exeext
+if { (ac_try="$ac_link"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_link") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } && { ac_try='./conftest$ac_exeext'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+  :
+else
+  echo "$as_me: program exited with status $ac_status" >&5
+echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+( exit $ac_status )
+no_libmcrypt=yes
+fi
+rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+fi
+
+
+       CFLAGS="$ac_save_CFLAGS"
+       LIBS="$ac_save_LIBS"
+
+
+  if test "x$no_libmcrypt" = x ; then
+     { echo "$as_me:$LINENO: result: yes" >&5
+echo "${ECHO_T}yes" >&6; }
+     :
+  else
+     if test -f conf.libmcrypttest ; then
+        :
+     else
+        { echo "$as_me:$LINENO: result: no" >&5
+echo "${ECHO_T}no" >&6; }
+     fi
+
+     if test -f conf.libmcrypttest ; then
+        :
+     else
+          echo "*** Could not run libmcrypt test program, checking why..."
+          CFLAGS="$CFLAGS $LIBMCRYPT_CFLAGS"
+          LIBS="$LIBS $LIBMCRYPT_LIBS"
+          cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <mcrypt.h>
+
+int
+main ()
+{
+
+#if MCRYPT_API_VERSION <= 20010201
+
+#if MCRYPT_API_VERSION <= 19991015
+/* version 2.2 */
+    int x = mcrypt_get_key_size(MCRYPT_TWOFISH_128);
+    return 0;
+#else
+/* version 2.4 before 11 */
+    MCRYPT td = mcrypt_module_open("twofish", NULL, "cbc", NULL);
+    mcrypt_module_close(td);
+    return 0;
+#endif /* 19991015 */
+#else
+
+return !!mcrypt_check_version(NULL);
+
+#endif /* 20010201 */
+
+
+  ;
+  return 0;
+}
+_ACEOF
+rm -f conftest.$ac_objext conftest$ac_exeext
+if { (ac_try="$ac_link"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval "echo \"\$as_me:$LINENO: $ac_try_echo\"") >&5
+  (eval "$ac_link") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } && {
+	 test -z "$ac_cxx_werror_flag" ||
+	 test ! -s conftest.err
+       } && test -s conftest$ac_exeext &&
+       $as_test_x conftest$ac_exeext; then
+   echo "*** The test program compiled, but did not run. This usually means"
+          echo "*** that the run-time linker is not finding LIBMCRYPT or finding the wrong"
+          echo "*** version of LIBMCRYPT. If it is not finding LIBMCRYPT, you'll need to set your"
+          echo "*** LD_LIBRARY_PATH environment variable, or edit /etc/ld.so.conf to point"
+          echo "*** to the installed location  Also, make sure you have run ldconfig if that"
+          echo "*** is required on your system"
+          echo "***"
+          echo "*** If you have an old version installed, it is best to remove it, although"
+          echo "*** you may also be able to get things to work by modifying LD_LIBRARY_PATH"
+          echo "***"
+else
+  echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+	 echo "*** The test program failed to compile or link. See the file config.log for the"
+          echo "*** exact error that occured. This usually means LIBMCRYPT was incorrectly installed"
+          echo "*** or that you have moved LIBMCRYPT since it was installed. In the latter case, you"
+          echo "*** may want to edit the libmcrypt-config script: $LIBMCRYPT_CONFIG"
+fi
+
+rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
+      conftest$ac_exeext conftest.$ac_ext
+          CFLAGS="$ac_save_CFLAGS"
+          LIBS="$ac_save_LIBS"
+     fi
+
+     LIBMCRYPT_CFLAGS=""
+     LIBMCRYPT_LIBS=""
+     { { echo "$as_me:$LINENO: error:
+*** Could not find a suitable version of the libmcrypt library! ***
+*** Install the libmcrypt-dev package or use the source from http://mcrypt.sourceforge.net ***" >&5
+echo "$as_me: error:
+*** Could not find a suitable version of the libmcrypt library! ***
+*** Install the libmcrypt-dev package or use the source from http://mcrypt.sourceforge.net ***" >&2;}
+   { (exit 1); exit 1; }; }
+  fi
+  rm -f conf.libmcrypttest
+
+
+
+
 # Output Makefiles
 
 ac_config_files="$ac_config_files Makefile src/Makefile"
@@ -4782,11 +5203,14 @@ am__fastdepCXX_FALSE!$am__fastdepCXX_FALSE$ac_delim
 LIBGCRYPT_CONFIG!$LIBGCRYPT_CONFIG$ac_delim
 LIBGCRYPT_CFLAGS!$LIBGCRYPT_CFLAGS$ac_delim
 LIBGCRYPT_LIBS!$LIBGCRYPT_LIBS$ac_delim
+LIBMCRYPT_CONFIG!$LIBMCRYPT_CONFIG$ac_delim
+LIBMCRYPT_CFLAGS!$LIBMCRYPT_CFLAGS$ac_delim
+LIBMCRYPT_LIBS!$LIBMCRYPT_LIBS$ac_delim
 LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 94; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 97; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5
@@ -4805,7 +5229,7 @@ fi
 
 cat >>$CONFIG_STATUS <<_ACEOF
 cat >"\$tmp/subs-1.sed" <<\CEOF$ac_eof
-/@[a-zA-Z_][a-zA-Z_0-9]*@/!b end
+/@[a-zA-Z_][a-zA-Z_0-9]*@/!b
 _ACEOF
 sed '
 s/[,\\&]/\\&/g; s/@/@|#_!!_#|/g
@@ -4818,8 +5242,6 @@ N; s/^.*\n//; s/[,\\&]/\\&/g; s/@/@|#_!!_#|/g; b n
 ' >>$CONFIG_STATUS <conf$$subs.sed
 rm -f conf$$subs.sed
 cat >>$CONFIG_STATUS <<_ACEOF
-:end
-s/|#_!!_#|//g
 CEOF$ac_eof
 _ACEOF
 
@@ -5073,7 +5495,7 @@ s&@abs_top_builddir@&$ac_abs_top_builddir&;t t
 s&@INSTALL@&$ac_INSTALL&;t t
 s&@MKDIR_P@&$ac_MKDIR_P&;t t
 $ac_datarootdir_hack
-" $ac_file_inputs | sed -f "$tmp/subs-1.sed" >$tmp/out
+" $ac_file_inputs | sed -f "$tmp/subs-1.sed" | sed 's/|#_!!_#|//g' >$tmp/out
 
 test -z "$ac_datarootdir_hack$ac_datarootdir_seen" &&
   { ac_out=`sed -n '/\${datarootdir}/p' "$tmp/out"`; test -n "$ac_out"; } &&

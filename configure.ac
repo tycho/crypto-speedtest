@@ -44,6 +44,11 @@ AM_PATH_LIBGCRYPT([1.4.0], [],
 *** Could not find a suitable version of the libgcrypt library! ***
 *** Install the libgcrypt-dev package or use the source from http://www.gnupg.org ***]))
 
+AM_PATH_LIBMCRYPT([2.5.8], [],
+    AC_MSG_ERROR([
+*** Could not find a suitable version of the libmcrypt library! ***
+*** Install the libmcrypt-dev package or use the source from http://mcrypt.sourceforge.net ***]))
+
 # Output Makefiles
 
 AC_CONFIG_FILES([Makefile src/Makefile])

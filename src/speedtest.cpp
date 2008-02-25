@@ -14,13 +14,15 @@
 
 #include <gcrypt.h>
 
+#include <mcrypt.h>
+
 // *** Speedtest Parameters ***
 
 // speed test different buffer sizes in this range
 const unsigned int buffermin = 16;
-const unsigned int buffermax = 16 * 32768;
-const unsigned int repeatsize = buffermax / 8;
-const unsigned int measureruns = 2;
+const unsigned int buffermax = 16 * 65536;
+const unsigned int repeatsize = 65536;
+const unsigned int measureruns = 1;
 
 /// Time is measured using gettimeofday()
 inline double timestamp()
@@ -145,6 +147,155 @@ void test_libgcrypt_3des_ecb()
     gcry_cipher_close(decctx);
 }
 
+// *** Test Functions for libmcrypt ***
+
+void test_libmcrypt_rijndael_ecb()
+{
+    // note: MCRYPT_RIJNDAEL_128 means blocksize 128 _not_ keysize 128 bits
+
+    MCRYPT encctx = mcrypt_module_open(MCRYPT_RIJNDAEL_128, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(encctx, enckey, 32, NULL);
+    mcrypt_generic(encctx, buffer, bufferlen);
+    mcrypt_generic_end(encctx);
+
+    MCRYPT decctx = mcrypt_module_open(MCRYPT_RIJNDAEL_128, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(decctx, enckey, 32, NULL);
+    mdecrypt_generic(decctx, buffer, bufferlen);
+    mcrypt_generic_end(decctx);
+}
+
+void test_libmcrypt_serpent_ecb()
+{
+    MCRYPT encctx = mcrypt_module_open(MCRYPT_SERPENT, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(encctx, enckey, 32, NULL);
+    mcrypt_generic(encctx, buffer, bufferlen);
+    mcrypt_generic_end(encctx);
+
+    MCRYPT decctx = mcrypt_module_open(MCRYPT_SERPENT, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(decctx, enckey, 32, NULL);
+    mdecrypt_generic(decctx, buffer, bufferlen);
+    mcrypt_generic_end(decctx);
+}
+
+void test_libmcrypt_twofish_ecb()
+{
+    MCRYPT encctx = mcrypt_module_open(MCRYPT_TWOFISH, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(encctx, enckey, 32, NULL);
+    mcrypt_generic(encctx, buffer, bufferlen);
+    mcrypt_generic_end(encctx);
+
+    MCRYPT decctx = mcrypt_module_open(MCRYPT_TWOFISH, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(decctx, enckey, 32, NULL);
+    mdecrypt_generic(decctx, buffer, bufferlen);
+    mcrypt_generic_end(decctx);
+}
+
+void test_libmcrypt_cast6_ecb()
+{
+    MCRYPT encctx = mcrypt_module_open(MCRYPT_CAST_256, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(encctx, enckey, 32, NULL);
+    mcrypt_generic(encctx, buffer, bufferlen);
+    mcrypt_generic_end(encctx);
+
+    MCRYPT decctx = mcrypt_module_open(MCRYPT_CAST_256, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(decctx, enckey, 32, NULL);
+    mdecrypt_generic(decctx, buffer, bufferlen);
+    mcrypt_generic_end(decctx);
+}
+
+void test_libmcrypt_xtea_ecb()
+{
+    MCRYPT encctx = mcrypt_module_open(MCRYPT_XTEA, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(encctx, enckey, 16, NULL);
+    mcrypt_generic(encctx, buffer, bufferlen);
+    mcrypt_generic_end(encctx);
+
+    MCRYPT decctx = mcrypt_module_open(MCRYPT_XTEA, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(decctx, enckey, 16, NULL);
+    mdecrypt_generic(decctx, buffer, bufferlen);
+    mcrypt_generic_end(decctx);
+}
+
+void test_libmcrypt_saferplus_ecb()
+{
+    MCRYPT encctx = mcrypt_module_open(MCRYPT_SAFERPLUS, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(encctx, enckey, 32, NULL);
+    mcrypt_generic(encctx, buffer, bufferlen);
+    mcrypt_generic_end(encctx);
+
+    MCRYPT decctx = mcrypt_module_open(MCRYPT_SAFERPLUS, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(decctx, enckey, 32, NULL);
+    mdecrypt_generic(decctx, buffer, bufferlen);
+    mcrypt_generic_end(decctx);
+}
+
+void test_libmcrypt_loki97_ecb()
+{
+    MCRYPT encctx = mcrypt_module_open(MCRYPT_LOKI97, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(encctx, enckey, 32, NULL);
+    mcrypt_generic(encctx, buffer, bufferlen);
+    mcrypt_generic_end(encctx);
+
+    MCRYPT decctx = mcrypt_module_open(MCRYPT_LOKI97, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(decctx, enckey, 32, NULL);
+    mdecrypt_generic(decctx, buffer, bufferlen);
+    mcrypt_generic_end(decctx);
+}
+
+void test_libmcrypt_blowfish_ecb()
+{
+    MCRYPT encctx = mcrypt_module_open(MCRYPT_BLOWFISH, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(encctx, enckey, 32, NULL);
+    mcrypt_generic(encctx, buffer, bufferlen);
+    mcrypt_generic_end(encctx);
+
+    MCRYPT decctx = mcrypt_module_open(MCRYPT_BLOWFISH, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(decctx, enckey, 32, NULL);
+    mdecrypt_generic(decctx, buffer, bufferlen);
+    mcrypt_generic_end(decctx);
+}
+
+void test_libmcrypt_gost_ecb()
+{
+    MCRYPT encctx = mcrypt_module_open(MCRYPT_GOST, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(encctx, enckey, 32, NULL);
+    mcrypt_generic(encctx, buffer, bufferlen);
+    mcrypt_generic_end(encctx);
+
+    MCRYPT decctx = mcrypt_module_open(MCRYPT_GOST, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(decctx, enckey, 32, NULL);
+    mdecrypt_generic(decctx, buffer, bufferlen);
+    mcrypt_generic_end(decctx);
+}
+
+void test_libmcrypt_cast5_ecb()
+{
+    MCRYPT encctx = mcrypt_module_open(MCRYPT_CAST_128, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(encctx, enckey, 16, NULL);
+    mcrypt_generic(encctx, buffer, bufferlen);
+    mcrypt_generic_end(encctx);
+
+    MCRYPT decctx = mcrypt_module_open(MCRYPT_CAST_128, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(decctx, enckey, 16, NULL);
+    mdecrypt_generic(decctx, buffer, bufferlen);
+    mcrypt_generic_end(decctx);
+}
+
+void test_libmcrypt_3des_ecb()
+{
+    MCRYPT encctx = mcrypt_module_open(MCRYPT_3DES, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(encctx, enckey, 16, NULL);
+    mcrypt_generic(encctx, buffer, bufferlen);
+    mcrypt_generic_end(encctx);
+
+    MCRYPT decctx = mcrypt_module_open(MCRYPT_3DES, NULL, MCRYPT_ECB, NULL);
+    mcrypt_generic_init(decctx, enckey, 16, NULL);
+    mdecrypt_generic(decctx, buffer, bufferlen);
+    mcrypt_generic_end(decctx);
+}
+
+// *** main() and run_test() ***
+
 /**
  * This function will run a test routine multiple times with different buffer
  * sizes configured. It measures the time required to encrypt a number of
@@ -155,6 +306,8 @@ void test_libgcrypt_3des_ecb()
 template <void (*testfunc)()>
 void run_test(const char* logfile)
 {
+    std::cout << "Speed testing for " << logfile << "\n";
+
     // Save the time required for each run.
     std::map<unsigned int, std::vector<double> > timelog;
 
@@ -237,6 +390,7 @@ int main()
 
     // Run speed tests
 
+#if 0
     run_test<test_libgcrypt_rijndael_ecb>("gcrypt-rijndael-ecb.txt");
     run_test<test_libgcrypt_serpent_ecb>("gcrypt-serpent-ecb.txt");
     run_test<test_libgcrypt_twofish_ecb>("gcrypt-twofish-ecb.txt");
@@ -244,4 +398,17 @@ int main()
     run_test<test_libgcrypt_blowfish_ecb>("gcrypt-blowfish-ecb.txt");
     run_test<test_libgcrypt_cast5_ecb>("gcrypt-cast5-ecb.txt");
     run_test<test_libgcrypt_3des_ecb>("gcrypt-3des-ecb.txt");
+#endif
+
+    run_test<test_libmcrypt_rijndael_ecb>("mcrypt-rijndael-ecb.txt");
+    run_test<test_libmcrypt_serpent_ecb>("mcrypt-serpent-ecb.txt");
+    run_test<test_libmcrypt_twofish_ecb>("mcrypt-twofish-ecb.txt");
+    run_test<test_libmcrypt_cast6_ecb>("mcrypt-cast6-ecb.txt");
+    run_test<test_libmcrypt_xtea_ecb>("mcrypt-xtea-ecb.txt");
+    run_test<test_libmcrypt_saferplus_ecb>("mcrypt-saferplus-ecb.txt");
+    run_test<test_libmcrypt_loki97_ecb>("mcrypt-loki97-ecb.txt");
+    run_test<test_libmcrypt_blowfish_ecb>("mcrypt-blowfish-ecb.txt");
+    run_test<test_libmcrypt_gost_ecb>("mcrypt-gost-ecb.txt");
+    run_test<test_libmcrypt_cast5_ecb>("mcrypt-cast5-ecb.txt");
+    run_test<test_libmcrypt_3des_ecb>("mcrypt-3des-ecb.txt");
 }
