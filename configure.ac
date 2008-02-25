@@ -37,7 +37,14 @@ AC_PROG_CXX
 
 AC_LANG([C++])
 
-# Checks for library functions.
+# Check for libraries
+
+AM_PATH_LIBGCRYPT([1.4.0], [],
+    AC_MSG_ERROR([
+*** Could not find a suitable version of the libgcrypt library! ***
+*** Install the libgcrypt-dev package or use the source from http://www.gnupg.org ***]))
+
+# Output Makefiles
 
 AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT
