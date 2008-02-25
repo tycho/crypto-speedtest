@@ -39,20 +39,28 @@ AC_LANG([C++])
 
 # Check for libraries
 
+# libgcrypt
+
 AM_PATH_LIBGCRYPT([1.4.0], [],
     AC_MSG_ERROR([
 *** Could not find a suitable version of the libgcrypt library! ***
 *** Install the libgcrypt-dev package or use the source from http://www.gnupg.org ***]))
+
+# libmcrypt
 
 AM_PATH_LIBMCRYPT([2.5.8], [],
     AC_MSG_ERROR([
 *** Could not find a suitable version of the libmcrypt library! ***
 *** Install the libmcrypt-dev package or use the source from http://mcrypt.sourceforge.net ***]))
 
+# Botan
+
 AC_PATH_GENERIC(botan, [1.6.1], [],
     AC_MSG_ERROR([
 *** Could not find a suitable version of the Botan library! ***
 *** Install the libbotan-dev package or use the source from http://botan.randombit.net ***]))
+
+# Crypto++
 
 m4_include(cryptopp.m4)
 AM_OPTIONS_CRYPTO
@@ -66,6 +74,10 @@ case "$CRYPTO_PP_STYLE" in
 *** Install the libbotan-dev package or use the source from http://www.cryptopp.com ***])
 	;;
 esac
+
+# OpenSSL's crypto
+
+PKG_CHECK_MODULES(OPENSSL, [libcrypto >= 0.9.8f])
 
 # Output Makefiles
 

@@ -38,6 +38,12 @@
 #include <crypto++/blowfish.h>
 #include <crypto++/des.h>
 
+#define NCOMPAT
+#include <openssl/aes.h>
+#include <openssl/cast.h>
+#include <openssl/blowfish.h>
+#include <openssl/des.h>
+
 // *** Speedtest Parameters ***
 
 // speed test different buffer sizes in this range
@@ -306,12 +312,12 @@ void test_libmcrypt_cast5_ecb()
 void test_libmcrypt_3des_ecb()
 {
     MCRYPT encctx = mcrypt_module_open(MCRYPT_3DES, NULL, MCRYPT_ECB, NULL);
-    mcrypt_generic_init(encctx, enckey, 16, NULL);
+    mcrypt_generic_init(encctx, enckey, 24, NULL);
     mcrypt_generic(encctx, buffer, bufferlen);
     mcrypt_generic_end(encctx);
 
     MCRYPT decctx = mcrypt_module_open(MCRYPT_3DES, NULL, MCRYPT_ECB, NULL);
-    mcrypt_generic_init(decctx, enckey, 16, NULL);
+    mcrypt_generic_init(decctx, enckey, 24, NULL);
     mdecrypt_generic(decctx, buffer, bufferlen);
     mcrypt_generic_end(decctx);
 }
@@ -565,6 +571,74 @@ void test_cryptopp_3des_ecb()
     decctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
 }
 
+// *** Test Functions for OpenSSL ***
+
+void test_openssl_rijndael_ecb()
+{
+    AES_KEY encctx;
+    AES_set_encrypt_key((byte*)enckey, 256, &encctx);
+
+    for(unsigned int p = 0; p < bufferlen; p += AES_BLOCK_SIZE)
+	AES_encrypt((byte*)buffer + p, (byte*)buffer + p, &encctx);
+
+    AES_KEY decctx;
+    AES_set_decrypt_key((byte*)enckey, 256, &decctx);
+
+    for(unsigned int p = 0; p < bufferlen; p += AES_BLOCK_SIZE)
+	AES_decrypt((byte*)buffer + p, (byte*)buffer + p, &decctx);
+}
+
+void test_openssl_cast5_ecb()
+{
+    CAST_KEY encctx;
+    CAST_set_key(&encctx, 16, (byte*)enckey);
+
+    for(unsigned int p = 0; p < bufferlen; p += CAST_BLOCK)
+	CAST_encrypt((CAST_LONG*)(buffer + p), &encctx);
+
+    CAST_KEY decctx;
+    CAST_set_key(&decctx, 16, (byte*)enckey);
+
+    for(unsigned int p = 0; p < bufferlen; p += CAST_BLOCK)
+	CAST_decrypt((CAST_LONG*)(buffer + p), &decctx);
+}
+
+void test_openssl_blowfish_ecb()
+{
+    BF_KEY encctx;
+    BF_set_key(&encctx, 16, (byte*)enckey);
+
+    for(unsigned int p = 0; p < bufferlen; p += BF_BLOCK)
+	BF_encrypt((BF_LONG*)(buffer + p), &encctx);
+
+    BF_KEY decctx;
+    BF_set_key(&decctx, 16, (byte*)enckey);
+
+    for(unsigned int p = 0; p < bufferlen; p += BF_BLOCK)
+	BF_decrypt((BF_LONG*)(buffer + p), &decctx);
+}
+
+void test_openssl_3des_ecb()
+{
+    DES_key_schedule eks1, eks2, eks3;
+
+    DES_set_key((DES_cblock*)(enckey +  0), &eks1);
+    DES_set_key((DES_cblock*)(enckey +  8), &eks2);
+    DES_set_key((DES_cblock*)(enckey + 16), &eks3);
+
+    for(unsigned int p = 0; p < bufferlen; p += 8)
+	DES_encrypt3((DES_LONG*)(buffer + p), &eks1, &eks2, &eks3);
+
+    DES_key_schedule dks1, dks2, dks3;
+
+    DES_set_key((DES_cblock*)(enckey +  0), &dks1);
+    DES_set_key((DES_cblock*)(enckey +  8), &dks2);
+    DES_set_key((DES_cblock*)(enckey + 16), &dks3);
+
+    for(unsigned int p = 0; p < bufferlen; p += 8)
+	DES_decrypt3((DES_LONG*)(buffer + p), &dks1, &dks2, &dks3);
+}
+
 // *** main() and run_test() ***
 
 /**
@@ -713,5 +787,12 @@ int main()
     run_test<test_cryptopp_blowfish_ecb>("cryptopp-blowfish-ecb.txt");
     run_test<test_cryptopp_cast5_ecb>("cryptopp-cast5-ecb.txt");
     run_test<test_cryptopp_3des_ecb>("cryptopp-3des-ecb.txt");
+#endif
+
+#if 0
+    run_test<test_openssl_rijndael_ecb>("openssl-rijndael-ecb.txt");
+    run_test<test_openssl_cast5_ecb>("openssl-cast5-ecb.txt");
+    run_test<test_openssl_blowfish_ecb>("openssl-blowfish-ecb.txt");
+    run_test<test_openssl_3des_ecb>("openssl-3des-ecb.txt");
 #endif
 }
