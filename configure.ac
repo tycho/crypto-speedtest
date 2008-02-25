@@ -85,7 +85,7 @@ fi
 
 # OpenSSL's crypto
 
-PKG_CHECK_MODULES(OPENSSL, [libcrypto >= 0.9.8f])
+PKG_CHECK_MODULES(OPENSSL, [libcrypto >= 0.9.8])
 
 AM_CONDITIONAL(HAVE_OPENSSL, test "$OPENSSL_LIBS" != "")
 
