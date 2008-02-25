@@ -40,6 +40,8 @@ verify_LDADD += $(CRYPTO_PP_LDFLAGS) -l$(CRYPTO_PP_LIB_NAME)
 endif
 
 if HAVE_OPENSSL
+verify_CXXFLAGS += $(OPENSSL_CFLAGS)
+verify_LDADD += $(OPENSSL_LIBS)
 endif
 
 if HAVE_NETTLE

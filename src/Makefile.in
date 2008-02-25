@@ -47,17 +47,19 @@ noinst_PROGRAMS = speedtest_custom$(EXEEXT) verify$(EXEEXT) \
 @HAVE_BOTAN_TRUE@am__append_6 = $(BOTAN_LIBS)
 @HAVE_CRYPTOPP_TRUE@am__append_7 = $(CRYPTO_PP_CXXFLAGS)
 @HAVE_CRYPTOPP_TRUE@am__append_8 = $(CRYPTO_PP_LDFLAGS) -l$(CRYPTO_PP_LIB_NAME)
-@HAVE_NETTLE_TRUE@am__append_9 = $(LIBS)
-@HAVE_BEECRYPT_TRUE@am__append_10 = $(LIBS)
-@HAVE_TOMCRYPT_TRUE@am__append_11 = $(LIBS)
-@HAVE_GCRYPT_TRUE@am__append_12 = speedtest_gcrypt
-@HAVE_MCRYPT_TRUE@am__append_13 = speedtest_mcrypt
-@HAVE_BOTAN_TRUE@am__append_14 = speedtest_botan
-@HAVE_CRYPTOPP_TRUE@am__append_15 = speedtest_cryptopp
-@HAVE_OPENSSL_TRUE@am__append_16 = speedtest_openssl
-@HAVE_NETTLE_TRUE@am__append_17 = speedtest_nettle
-@HAVE_BEECRYPT_TRUE@am__append_18 = speedtest_beecrypt
-@HAVE_TOMCRYPT_TRUE@am__append_19 = speedtest_tomcrypt
+@HAVE_OPENSSL_TRUE@am__append_9 = $(OPENSSL_CFLAGS)
+@HAVE_OPENSSL_TRUE@am__append_10 = $(OPENSSL_LIBS)
+@HAVE_NETTLE_TRUE@am__append_11 = $(LIBS)
+@HAVE_BEECRYPT_TRUE@am__append_12 = $(LIBS)
+@HAVE_TOMCRYPT_TRUE@am__append_13 = $(LIBS)
+@HAVE_GCRYPT_TRUE@am__append_14 = speedtest_gcrypt
+@HAVE_MCRYPT_TRUE@am__append_15 = speedtest_mcrypt
+@HAVE_BOTAN_TRUE@am__append_16 = speedtest_botan
+@HAVE_CRYPTOPP_TRUE@am__append_17 = speedtest_cryptopp
+@HAVE_OPENSSL_TRUE@am__append_18 = speedtest_openssl
+@HAVE_NETTLE_TRUE@am__append_19 = speedtest_nettle
+@HAVE_BEECRYPT_TRUE@am__append_20 = speedtest_beecrypt
+@HAVE_TOMCRYPT_TRUE@am__append_21 = speedtest_tomcrypt
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -143,13 +145,14 @@ verify_OBJECTS = $(am_verify_OBJECTS)
 @HAVE_MCRYPT_TRUE@am__DEPENDENCIES_3 = $(am__DEPENDENCIES_1)
 @HAVE_BOTAN_TRUE@am__DEPENDENCIES_4 = $(am__DEPENDENCIES_1)
 @HAVE_CRYPTOPP_TRUE@am__DEPENDENCIES_5 = $(am__DEPENDENCIES_1)
-@HAVE_NETTLE_TRUE@am__DEPENDENCIES_6 = $(am__DEPENDENCIES_1)
-@HAVE_BEECRYPT_TRUE@am__DEPENDENCIES_7 = $(am__DEPENDENCIES_1)
-@HAVE_TOMCRYPT_TRUE@am__DEPENDENCIES_8 = $(am__DEPENDENCIES_1)
+@HAVE_OPENSSL_TRUE@am__DEPENDENCIES_6 = $(am__DEPENDENCIES_1)
+@HAVE_NETTLE_TRUE@am__DEPENDENCIES_7 = $(am__DEPENDENCIES_1)
+@HAVE_BEECRYPT_TRUE@am__DEPENDENCIES_8 = $(am__DEPENDENCIES_1)
+@HAVE_TOMCRYPT_TRUE@am__DEPENDENCIES_9 = $(am__DEPENDENCIES_1)
 verify_DEPENDENCIES = $(am__DEPENDENCIES_2) $(am__DEPENDENCIES_3) \
 	$(am__DEPENDENCIES_4) $(am__DEPENDENCIES_5) \
 	$(am__DEPENDENCIES_6) $(am__DEPENDENCIES_7) \
-	$(am__DEPENDENCIES_8)
+	$(am__DEPENDENCIES_8) $(am__DEPENDENCIES_9)
 verify_LINK = $(CXXLD) $(verify_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@
@@ -309,10 +312,10 @@ verify_SOURCES = verify.cpp \
 
 AM_CXXFLAGS = -g -W -Wall -Wno-unused -O3 -momit-leaf-frame-pointer
 verify_CXXFLAGS = $(am__append_1) $(am__append_3) $(am__append_5) \
-	$(am__append_7)
+	$(am__append_7) $(am__append_9)
 verify_LDADD = $(am__append_2) $(am__append_4) $(am__append_6) \
-	$(am__append_8) $(am__append_9) $(am__append_10) \
-	$(am__append_11)
+	$(am__append_8) $(am__append_10) $(am__append_11) \
+	$(am__append_12) $(am__append_13)
 @HAVE_GCRYPT_TRUE@speedtest_gcrypt_SOURCES = speedtest_gcrypt.cpp
 @HAVE_GCRYPT_TRUE@speedtest_gcrypt_CXXFLAGS = $(LIBGCRYPT_CFLAGS)
 @HAVE_GCRYPT_TRUE@speedtest_gcrypt_LDADD = $(LIBGCRYPT_LIBS)
