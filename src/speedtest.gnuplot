@@ -232,7 +232,8 @@ set key below
 plot "gcrypt-serpent-ecb.txt" using 1:2:3 title "libgcrypt" with errorlines pointtype 0, \
      "mcrypt-serpent-ecb.txt" using 1:2:3 title "libmcrypt" with errorlines pointtype 0, \
      "botan-serpent-ecb.txt" using 1:2:3 title "Botan" with errorlines pointtype 0, \
-     "cryptopp-serpent-ecb.txt" using 1:2:3 title "Crypto++" with errorlines pointtype 0
+     "cryptopp-serpent-ecb.txt" using 1:2:3 title "Crypto++" with errorlines pointtype 0, \
+     "gladman-serpent-ecb.txt" using 1:2:3 title "Gladman" with errorlines pointtype 0
 
 ### Plot ###
 
@@ -246,7 +247,8 @@ set key below
 plot "gcrypt-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt" with lines, \
      "mcrypt-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "libmcrypt" with lines, \
      "botan-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Botan" with lines, \
-     "cryptopp-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++" with lines
+     "cryptopp-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Crypto++" with lines, \
+     "gladman-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Gladman" with lines
 
 ### Plot ###
 
@@ -416,6 +418,7 @@ plot \
      "mcrypt-twofish-ecb.txt" using 1:($1 / $2) / 1048576 title "libmcrypt Twofish" with lines lt 5 lc 3, \
      "mcrypt-xtea-ecb.txt" using 1:($1 / $2) / 1048576 title "libmcrypt XTEA" with lines lt 5 lc 8, \
      "my-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "my Rijndael" with lines lt 1 lc 1, \
+     "gladman-serpent-ecb.txt" using 1:($1 / $2) / 1048576 title "Gladman Serpent" with lines lt 1 lc 2, \
      "openssl-3des-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL 3DES" with lines lt 7 lc 11, \
      "openssl-blowfish-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL Blowfish" with lines lt 7 lc 10, \
      "openssl-cast5-ecb.txt" using 1:($1 / $2) / 1048576 title "OpenSSL CAST5" with lines lt 7 lc 9, \

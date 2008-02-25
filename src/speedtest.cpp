@@ -45,6 +45,7 @@
 #include <openssl/des.h>
 
 #include "rijndael.h"
+#include "serpent-gladman.h"
 
 // *** Speedtest Parameters ***
 
@@ -52,7 +53,7 @@
 const unsigned int buffermin = 16;
 const unsigned int buffermax = 16 * 65536;
 const unsigned int repeatsize = 65536;
-const unsigned int measureruns = 1;
+const unsigned int measureruns = 16;
 
 /// Time is measured using gettimeofday()
 inline double timestamp()
@@ -654,6 +655,17 @@ void test_my_rijndael_ecb()
     decctx.decrypt(buffer, buffer, bufferlen);
 }
 
+void test_gladman_serpent_ecb()
+{
+    SerpentGladman::EncryptECB encctx;
+    encctx.set_key((byte*)enckey, 32);
+    encctx.encrypt(buffer, buffer, bufferlen);
+
+    SerpentGladman::DecryptECB decctx;
+    decctx.set_key((byte*)enckey, 32);
+    decctx.decrypt(buffer, buffer, bufferlen);
+}
+
 // *** main() and run_test() ***
 
 /**
@@ -755,7 +767,7 @@ int main()
 
     // Run speed tests
 
-#if 1
+#if 0
     run_test<test_libgcrypt_rijndael_ecb>("gcrypt-rijndael-ecb.txt");
     run_test<test_libgcrypt_serpent_ecb>("gcrypt-serpent-ecb.txt");
     run_test<test_libgcrypt_twofish_ecb>("gcrypt-twofish-ecb.txt");
@@ -765,7 +777,7 @@ int main()
     run_test<test_libgcrypt_3des_ecb>("gcrypt-3des-ecb.txt");
 #endif
 
-#if 1
+#if 0
     run_test<test_libmcrypt_rijndael_ecb>("mcrypt-rijndael-ecb.txt");
     run_test<test_libmcrypt_serpent_ecb>("mcrypt-serpent-ecb.txt");
     run_test<test_libmcrypt_twofish_ecb>("mcrypt-twofish-ecb.txt");
@@ -779,7 +791,7 @@ int main()
     run_test<test_libmcrypt_3des_ecb>("mcrypt-3des-ecb.txt");
 #endif
 
-#if 1
+#if 0
     run_test<test_botan_rijndael_ecb>("botan-rijndael-ecb.txt");
     run_test<test_botan_serpent_ecb>("botan-serpent-ecb.txt");
     run_test<test_botan_twofish_ecb>("botan-twofish-ecb.txt");
@@ -791,7 +803,7 @@ int main()
     run_test<test_botan_3des_ecb>("botan-3des-ecb.txt");
 #endif
 
-#if 1
+#if 0
     run_test<test_cryptopp_rijndael_ecb>("cryptopp-rijndael-ecb.txt");
     run_test<test_cryptopp_serpent_ecb>("cryptopp-serpent-ecb.txt");
     run_test<test_cryptopp_twofish_ecb>("cryptopp-twofish-ecb.txt");
@@ -804,7 +816,7 @@ int main()
     run_test<test_cryptopp_3des_ecb>("cryptopp-3des-ecb.txt");
 #endif
 
-#if 1
+#if 0
     run_test<test_openssl_rijndael_ecb>("openssl-rijndael-ecb.txt");
     run_test<test_openssl_cast5_ecb>("openssl-cast5-ecb.txt");
     run_test<test_openssl_blowfish_ecb>("openssl-blowfish-ecb.txt");
@@ -812,4 +824,5 @@ int main()
 #endif
 
     run_test<test_my_rijndael_ecb>("my-rijndael-ecb.txt");
+    run_test<test_gladman_serpent_ecb>("gladman-serpent-ecb.txt");
 }
