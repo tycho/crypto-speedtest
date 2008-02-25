@@ -15,8 +15,8 @@ AC_ARG_ENABLE(optimize,
 		       [Build with full optimization @<:@default=no@:>@]),
         [ case "${enableval}" in
           yes)
-                CFLAGS="$CFLAGS -O3 -DNDEBUG";
-                CXXFLAGS="$CXXFLAGS -O3 -DNDEBUG";
+                CFLAGS="$CFLAGS -O3";
+                CXXFLAGS="$CXXFLAGS -O3";
           ;;
           no) ;;
           *) AC_MSG_ERROR(bad value ${enableval} for --enable-optimize) ;;
@@ -53,6 +53,19 @@ AC_PATH_GENERIC(botan, [1.6.1], [],
     AC_MSG_ERROR([
 *** Could not find a suitable version of the Botan library! ***
 *** Install the libbotan-dev package or use the source from http://botan.randombit.net ***]))
+
+m4_include(cryptopp.m4)
+AM_OPTIONS_CRYPTO
+CHECK_CRYPTO(5.5)
+
+case "$CRYPTO_PP_STYLE" in
+    gentoo_debian | installed | sources)
+	;;
+    *) AC_MSG_ERROR([
+*** Could not find a suitable version of the Crypto++ library! ***
+*** Install the libbotan-dev package or use the source from http://www.cryptopp.com ***])
+	;;
+esac
 
 # Output Makefiles
 

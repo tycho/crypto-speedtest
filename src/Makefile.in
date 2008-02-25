@@ -34,12 +34,13 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-TESTS = speedtest$(EXEEXT)
-noinst_PROGRAMS = speedtest$(EXEEXT)
+TESTS = verify$(EXEEXT) speedtest$(EXEEXT)
+noinst_PROGRAMS = verify$(EXEEXT) speedtest$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/cryptopp.m4 \
+	$(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
@@ -48,6 +49,9 @@ PROGRAMS = $(noinst_PROGRAMS)
 am_speedtest_OBJECTS = speedtest.$(OBJEXT)
 speedtest_OBJECTS = $(am_speedtest_OBJECTS)
 speedtest_LDADD = $(LDADD)
+am_verify_OBJECTS = verify.$(OBJEXT)
+verify_OBJECTS = $(am_verify_OBJECTS)
+verify_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/acscripts/depcomp
 am__depfiles_maybe = depfiles
@@ -56,8 +60,8 @@ CXXCOMPILE = $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
 CXXLD = $(CXX)
 CXXLINK = $(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
 	-o $@
-SOURCES = $(speedtest_SOURCES)
-DIST_SOURCES = $(speedtest_SOURCES)
+SOURCES = $(speedtest_SOURCES) $(verify_SOURCES)
+DIST_SOURCES = $(speedtest_SOURCES) $(verify_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -74,6 +78,14 @@ CC = @CC@
 CCDEPMODE = @CCDEPMODE@
 CFLAGS = @CFLAGS@
 CPPFLAGS = @CPPFLAGS@
+CRYPTO_PP_CXXFLAGS = @CRYPTO_PP_CXXFLAGS@
+CRYPTO_PP_INCLUDE_PREFIX = @CRYPTO_PP_INCLUDE_PREFIX@
+CRYPTO_PP_LDFLAGS = @CRYPTO_PP_LDFLAGS@
+CRYPTO_PP_LIB_NAME = @CRYPTO_PP_LIB_NAME@
+CRYPTO_PP_PREFIX = @CRYPTO_PP_PREFIX@
+CRYPTO_PP_STYLE = @CRYPTO_PP_STYLE@
+CRYPTO_PP_VERSION_NUMBER = @CRYPTO_PP_VERSION_NUMBER@
+CRYPTO_PP_VERSION_STRING = @CRYPTO_PP_VERSION_STRING@
 CXX = @CXX@
 CXXDEPMODE = @CXXDEPMODE@
 CXXFLAGS = @CXXFLAGS@
@@ -97,7 +109,7 @@ LIBMCRYPT_CFLAGS = @LIBMCRYPT_CFLAGS@
 LIBMCRYPT_CONFIG = @LIBMCRYPT_CONFIG@
 LIBMCRYPT_LIBS = @LIBMCRYPT_LIBS@
 LIBOBJS = @LIBOBJS@
-LIBS = $(LIBGCRYPT_LIBS) $(LIBMCRYPT_LIBS) $(BOTAN_LIBS)
+LIBS = $(LIBGCRYPT_LIBS) $(LIBMCRYPT_LIBS) $(BOTAN_LIBS) $(CRYPTO_PP_LDFLAGS) -l$(CRYPTO_PP_LIB_NAME)
 LTLIBOBJS = @LTLIBOBJS@
 MAKEINFO = @MAKEINFO@
 MKDIR_P = @MKDIR_P@
@@ -163,9 +175,9 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+verify_SOURCES = verify.cpp
 speedtest_SOURCES = speedtest.cpp
-AM_CFLAGS = -W -Wall $(LIBGCRYPT_CFLAGS) $(LIBMCRYPT_CFLAGS) $(BOTAN_CFLAGS)
-AM_CXXFLAGS = -W -Wall $(LIBGCRYPT_CFLAGS) $(LIBMCRYPT_CFLAGS) $(BOTAN_CFLAGS)
+AM_CXXFLAGS = -W -Wall $(LIBGCRYPT_CFLAGS) $(LIBMCRYPT_CFLAGS) $(BOTAN_CFLAGS) $(CRYPTO_PP_CXXFLAGS)
 all: all-am
 
 .SUFFIXES:
@@ -205,6 +217,9 @@ clean-noinstPROGRAMS:
 speedtest$(EXEEXT): $(speedtest_OBJECTS) $(speedtest_DEPENDENCIES) 
 	@rm -f speedtest$(EXEEXT)
 	$(CXXLINK) $(speedtest_OBJECTS) $(speedtest_LDADD) $(LIBS)
+verify$(EXEEXT): $(verify_OBJECTS) $(verify_DEPENDENCIES) 
+	@rm -f verify$(EXEEXT)
+	$(CXXLINK) $(verify_OBJECTS) $(verify_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -213,6 +228,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedtest.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/verify.Po@am__quote@
 
 .cpp.o:
 @am__fastdepCXX_TRUE@	$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
