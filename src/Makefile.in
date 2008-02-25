@@ -34,33 +34,106 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-TESTS = verify$(EXEEXT) speedtest$(EXEEXT)
-noinst_PROGRAMS = verify$(EXEEXT) speedtest$(EXEEXT)
+noinst_PROGRAMS = speedtest_custom$(EXEEXT) $(am__EXEEXT_1) \
+	$(am__EXEEXT_2) $(am__EXEEXT_3) $(am__EXEEXT_4) \
+	$(am__EXEEXT_5) $(am__EXEEXT_6) $(am__EXEEXT_7) \
+	$(am__EXEEXT_8) $(am__EXEEXT_9)
+@HAVE_BEECRYPT_TRUE@@HAVE_BOTAN_TRUE@@HAVE_CRYPTOPP_TRUE@@HAVE_GCRYPT_TRUE@@HAVE_MCRYPT_TRUE@@HAVE_NETTLE_TRUE@@HAVE_OPENSSL_TRUE@@HAVE_TOMCRYPT_TRUE@TESTS = verify$(EXEEXT)
+@HAVE_BEECRYPT_TRUE@@HAVE_BOTAN_TRUE@@HAVE_CRYPTOPP_TRUE@@HAVE_GCRYPT_TRUE@@HAVE_MCRYPT_TRUE@@HAVE_NETTLE_TRUE@@HAVE_OPENSSL_TRUE@@HAVE_TOMCRYPT_TRUE@am__append_1 = verify
+@HAVE_GCRYPT_TRUE@am__append_2 = speedtest_gcrypt
+@HAVE_MCRYPT_TRUE@am__append_3 = speedtest_mcrypt
+@HAVE_BOTAN_TRUE@am__append_4 = speedtest_botan
+@HAVE_CRYPTOPP_TRUE@am__append_5 = speedtest_cryptopp
+@HAVE_OPENSSL_TRUE@am__append_6 = speedtest_openssl
+@HAVE_NETTLE_TRUE@am__append_7 = speedtest_nettle
+@HAVE_BEECRYPT_TRUE@am__append_8 = speedtest_beecrypt
+@HAVE_TOMCRYPT_TRUE@am__append_9 = speedtest_tomcrypt
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
-am__aclocal_m4_deps = $(top_srcdir)/cryptopp.m4 \
-	$(top_srcdir)/configure.ac
+am__aclocal_m4_deps = $(top_srcdir)/m4/cryptopp.m4 \
+	$(top_srcdir)/m4/libmcrypt.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
 CONFIG_CLEAN_FILES =
+@HAVE_BEECRYPT_TRUE@@HAVE_BOTAN_TRUE@@HAVE_CRYPTOPP_TRUE@@HAVE_GCRYPT_TRUE@@HAVE_MCRYPT_TRUE@@HAVE_NETTLE_TRUE@@HAVE_OPENSSL_TRUE@@HAVE_TOMCRYPT_TRUE@am__EXEEXT_1 = verify$(EXEEXT)
+@HAVE_GCRYPT_TRUE@am__EXEEXT_2 = speedtest_gcrypt$(EXEEXT)
+@HAVE_MCRYPT_TRUE@am__EXEEXT_3 = speedtest_mcrypt$(EXEEXT)
+@HAVE_BOTAN_TRUE@am__EXEEXT_4 = speedtest_botan$(EXEEXT)
+@HAVE_CRYPTOPP_TRUE@am__EXEEXT_5 = speedtest_cryptopp$(EXEEXT)
+@HAVE_OPENSSL_TRUE@am__EXEEXT_6 = speedtest_openssl$(EXEEXT)
+@HAVE_NETTLE_TRUE@am__EXEEXT_7 = speedtest_nettle$(EXEEXT)
+@HAVE_BEECRYPT_TRUE@am__EXEEXT_8 = speedtest_beecrypt$(EXEEXT)
+@HAVE_TOMCRYPT_TRUE@am__EXEEXT_9 = speedtest_tomcrypt$(EXEEXT)
 PROGRAMS = $(noinst_PROGRAMS)
-am_speedtest_OBJECTS = speedtest.$(OBJEXT) rijndael.$(OBJEXT) \
-	serpent-gladman.$(OBJEXT)
-speedtest_OBJECTS = $(am_speedtest_OBJECTS)
-speedtest_LDADD = $(LDADD)
+am__speedtest_beecrypt_SOURCES_DIST = speedtest_beecrypt.cpp
+@HAVE_BEECRYPT_TRUE@am_speedtest_beecrypt_OBJECTS =  \
+@HAVE_BEECRYPT_TRUE@	speedtest_beecrypt.$(OBJEXT)
+speedtest_beecrypt_OBJECTS = $(am_speedtest_beecrypt_OBJECTS)
 am__DEPENDENCIES_1 =
-speedtest_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-am_verify_OBJECTS = verify.$(OBJEXT) rijndael.$(OBJEXT) \
-	serpent-gladman.$(OBJEXT)
+@HAVE_BEECRYPT_TRUE@speedtest_beecrypt_DEPENDENCIES =  \
+@HAVE_BEECRYPT_TRUE@	$(am__DEPENDENCIES_1)
+am__speedtest_botan_SOURCES_DIST = speedtest_botan.cpp
+@HAVE_BOTAN_TRUE@am_speedtest_botan_OBJECTS =  \
+@HAVE_BOTAN_TRUE@	speedtest_botan-speedtest_botan.$(OBJEXT)
+speedtest_botan_OBJECTS = $(am_speedtest_botan_OBJECTS)
+@HAVE_BOTAN_TRUE@speedtest_botan_DEPENDENCIES = $(am__DEPENDENCIES_1)
+speedtest_botan_LINK = $(CXXLD) $(speedtest_botan_CXXFLAGS) \
+	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+am__speedtest_cryptopp_SOURCES_DIST = speedtest_cryptopp.cpp
+@HAVE_CRYPTOPP_TRUE@am_speedtest_cryptopp_OBJECTS = speedtest_cryptopp-speedtest_cryptopp.$(OBJEXT)
+speedtest_cryptopp_OBJECTS = $(am_speedtest_cryptopp_OBJECTS)
+@HAVE_CRYPTOPP_TRUE@speedtest_cryptopp_DEPENDENCIES =  \
+@HAVE_CRYPTOPP_TRUE@	$(am__DEPENDENCIES_1)
+speedtest_cryptopp_LINK = $(CXXLD) $(speedtest_cryptopp_CXXFLAGS) \
+	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+am_speedtest_custom_OBJECTS = speedtest_custom.$(OBJEXT) \
+	rijndael.$(OBJEXT) serpent-gladman.$(OBJEXT)
+speedtest_custom_OBJECTS = $(am_speedtest_custom_OBJECTS)
+speedtest_custom_LDADD = $(LDADD)
+am__speedtest_gcrypt_SOURCES_DIST = speedtest_gcrypt.cpp
+@HAVE_GCRYPT_TRUE@am_speedtest_gcrypt_OBJECTS =  \
+@HAVE_GCRYPT_TRUE@	speedtest_gcrypt-speedtest_gcrypt.$(OBJEXT)
+speedtest_gcrypt_OBJECTS = $(am_speedtest_gcrypt_OBJECTS)
+@HAVE_GCRYPT_TRUE@speedtest_gcrypt_DEPENDENCIES =  \
+@HAVE_GCRYPT_TRUE@	$(am__DEPENDENCIES_1)
+speedtest_gcrypt_LINK = $(CXXLD) $(speedtest_gcrypt_CXXFLAGS) \
+	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+am__speedtest_mcrypt_SOURCES_DIST = speedtest_mcrypt.cpp
+@HAVE_MCRYPT_TRUE@am_speedtest_mcrypt_OBJECTS =  \
+@HAVE_MCRYPT_TRUE@	speedtest_mcrypt-speedtest_mcrypt.$(OBJEXT)
+speedtest_mcrypt_OBJECTS = $(am_speedtest_mcrypt_OBJECTS)
+@HAVE_MCRYPT_TRUE@speedtest_mcrypt_DEPENDENCIES =  \
+@HAVE_MCRYPT_TRUE@	$(am__DEPENDENCIES_1)
+speedtest_mcrypt_LINK = $(CXXLD) $(speedtest_mcrypt_CXXFLAGS) \
+	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+am__speedtest_nettle_SOURCES_DIST = speedtest_nettle.cpp
+@HAVE_NETTLE_TRUE@am_speedtest_nettle_OBJECTS =  \
+@HAVE_NETTLE_TRUE@	speedtest_nettle.$(OBJEXT)
+speedtest_nettle_OBJECTS = $(am_speedtest_nettle_OBJECTS)
+@HAVE_NETTLE_TRUE@speedtest_nettle_DEPENDENCIES =  \
+@HAVE_NETTLE_TRUE@	$(am__DEPENDENCIES_1)
+am__speedtest_openssl_SOURCES_DIST = speedtest_openssl.cpp
+@HAVE_OPENSSL_TRUE@am_speedtest_openssl_OBJECTS = speedtest_openssl-speedtest_openssl.$(OBJEXT)
+speedtest_openssl_OBJECTS = $(am_speedtest_openssl_OBJECTS)
+@HAVE_OPENSSL_TRUE@speedtest_openssl_DEPENDENCIES =  \
+@HAVE_OPENSSL_TRUE@	$(am__DEPENDENCIES_1)
+speedtest_openssl_LINK = $(CXXLD) $(speedtest_openssl_CXXFLAGS) \
+	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+am__speedtest_tomcrypt_SOURCES_DIST = speedtest_tomcrypt.cpp
+@HAVE_TOMCRYPT_TRUE@am_speedtest_tomcrypt_OBJECTS =  \
+@HAVE_TOMCRYPT_TRUE@	speedtest_tomcrypt.$(OBJEXT)
+speedtest_tomcrypt_OBJECTS = $(am_speedtest_tomcrypt_OBJECTS)
+@HAVE_TOMCRYPT_TRUE@speedtest_tomcrypt_DEPENDENCIES =  \
+@HAVE_TOMCRYPT_TRUE@	$(am__DEPENDENCIES_1)
+am__verify_SOURCES_DIST = verify.cpp rijndael.h rijndael.cpp \
+	serpent-gladman.h serpent-gladman.cpp
+@HAVE_BEECRYPT_TRUE@@HAVE_BOTAN_TRUE@@HAVE_CRYPTOPP_TRUE@@HAVE_GCRYPT_TRUE@@HAVE_MCRYPT_TRUE@@HAVE_NETTLE_TRUE@@HAVE_OPENSSL_TRUE@@HAVE_TOMCRYPT_TRUE@am_verify_OBJECTS = verify.$(OBJEXT) \
+@HAVE_BEECRYPT_TRUE@@HAVE_BOTAN_TRUE@@HAVE_CRYPTOPP_TRUE@@HAVE_GCRYPT_TRUE@@HAVE_MCRYPT_TRUE@@HAVE_NETTLE_TRUE@@HAVE_OPENSSL_TRUE@@HAVE_TOMCRYPT_TRUE@	rijndael.$(OBJEXT) \
+@HAVE_BEECRYPT_TRUE@@HAVE_BOTAN_TRUE@@HAVE_CRYPTOPP_TRUE@@HAVE_GCRYPT_TRUE@@HAVE_MCRYPT_TRUE@@HAVE_NETTLE_TRUE@@HAVE_OPENSSL_TRUE@@HAVE_TOMCRYPT_TRUE@	serpent-gladman.$(OBJEXT)
 verify_OBJECTS = $(am_verify_OBJECTS)
 verify_LDADD = $(LDADD)
-verify_DEPENDENCIES = $(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
-	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
 DEFAULT_INCLUDES = -I.@am__isrc@
 depcomp = $(SHELL) $(top_srcdir)/acscripts/depcomp
 am__depfiles_maybe = depfiles
@@ -73,8 +146,21 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(speedtest_SOURCES) $(verify_SOURCES)
-DIST_SOURCES = $(speedtest_SOURCES) $(verify_SOURCES)
+SOURCES = $(speedtest_beecrypt_SOURCES) $(speedtest_botan_SOURCES) \
+	$(speedtest_cryptopp_SOURCES) $(speedtest_custom_SOURCES) \
+	$(speedtest_gcrypt_SOURCES) $(speedtest_mcrypt_SOURCES) \
+	$(speedtest_nettle_SOURCES) $(speedtest_openssl_SOURCES) \
+	$(speedtest_tomcrypt_SOURCES) $(verify_SOURCES)
+DIST_SOURCES = $(am__speedtest_beecrypt_SOURCES_DIST) \
+	$(am__speedtest_botan_SOURCES_DIST) \
+	$(am__speedtest_cryptopp_SOURCES_DIST) \
+	$(speedtest_custom_SOURCES) \
+	$(am__speedtest_gcrypt_SOURCES_DIST) \
+	$(am__speedtest_mcrypt_SOURCES_DIST) \
+	$(am__speedtest_nettle_SOURCES_DIST) \
+	$(am__speedtest_openssl_SOURCES_DIST) \
+	$(am__speedtest_tomcrypt_SOURCES_DIST) \
+	$(am__verify_SOURCES_DIST)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -194,24 +280,36 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-verify_SOURCES = verify.cpp \
-	rijndael.h rijndael.cpp \
-	serpent-gladman.h serpent-gladman.cpp
+speedtest_custom_SOURCES = speedtest_custom.cpp \
+	rijndael.cpp rijndael.h \
+	serpent-gladman.cpp serpent-gladman.h
 
-speedtest_SOURCES = speedtest.cpp \
-	rijndael.h rijndael.cpp \
-	serpent-gladman.h serpent-gladman.cpp
+AM_CXXFLAGS = -g -W -Wall -Wno-unused -momit-leaf-frame-pointer
+@HAVE_BEECRYPT_TRUE@@HAVE_BOTAN_TRUE@@HAVE_CRYPTOPP_TRUE@@HAVE_GCRYPT_TRUE@@HAVE_MCRYPT_TRUE@@HAVE_NETTLE_TRUE@@HAVE_OPENSSL_TRUE@@HAVE_TOMCRYPT_TRUE@verify_SOURCES = verify.cpp \
+@HAVE_BEECRYPT_TRUE@@HAVE_BOTAN_TRUE@@HAVE_CRYPTOPP_TRUE@@HAVE_GCRYPT_TRUE@@HAVE_MCRYPT_TRUE@@HAVE_NETTLE_TRUE@@HAVE_OPENSSL_TRUE@@HAVE_TOMCRYPT_TRUE@	rijndael.h rijndael.cpp \
+@HAVE_BEECRYPT_TRUE@@HAVE_BOTAN_TRUE@@HAVE_CRYPTOPP_TRUE@@HAVE_GCRYPT_TRUE@@HAVE_MCRYPT_TRUE@@HAVE_NETTLE_TRUE@@HAVE_OPENSSL_TRUE@@HAVE_TOMCRYPT_TRUE@	serpent-gladman.h serpent-gladman.cpp
 
-AM_CXXFLAGS = -g -W -Wall -Wno-unused -momit-leaf-frame-pointer \
-	$(LIBGCRYPT_CFLAGS) $(LIBMCRYPT_CFLAGS) \
-	$(BOTAN_CFLAGS) $(CRYPTO_PP_CXXFLAGS) \
-	$(OPENSSL_CFLAGS)
-
-LDADD = $(LIBS) $(LIBGCRYPT_LIBS) $(LIBMCRYPT_LIBS) \
-	$(BOTAN_LIBS) \
-	$(CRYPTO_PP_LDFLAGS) -l$(CRYPTO_PP_LIB_NAME) \
-	$(OPENSSL_LIBS)
-
+@HAVE_GCRYPT_TRUE@speedtest_gcrypt_SOURCES = speedtest_gcrypt.cpp
+@HAVE_GCRYPT_TRUE@speedtest_gcrypt_CXXFLAGS = $(LIBGCRYPT_CFLAGS)
+@HAVE_GCRYPT_TRUE@speedtest_gcrypt_LDADD = $(LIBGCRYPT_LIBS)
+@HAVE_MCRYPT_TRUE@speedtest_mcrypt_SOURCES = speedtest_mcrypt.cpp
+@HAVE_MCRYPT_TRUE@speedtest_mcrypt_CXXFLAGS = $(LIBMCRYPT_CFLAGS)
+@HAVE_MCRYPT_TRUE@speedtest_mcrypt_LDADD = $(LIBMCRYPT_LIBS)
+@HAVE_BOTAN_TRUE@speedtest_botan_SOURCES = speedtest_botan.cpp
+@HAVE_BOTAN_TRUE@speedtest_botan_CXXFLAGS = $(BOTAN_CFLAGS)
+@HAVE_BOTAN_TRUE@speedtest_botan_LDADD = $(BOTAN_LIBS)
+@HAVE_CRYPTOPP_TRUE@speedtest_cryptopp_SOURCES = speedtest_cryptopp.cpp
+@HAVE_CRYPTOPP_TRUE@speedtest_cryptopp_CXXFLAGS = $(CRYPTO_PP_CXXFLAGS)
+@HAVE_CRYPTOPP_TRUE@speedtest_cryptopp_LDADD = $(CRYPTO_PP_LDFLAGS) -l$(CRYPTO_PP_LIB_NAME)
+@HAVE_OPENSSL_TRUE@speedtest_openssl_SOURCES = speedtest_openssl.cpp
+@HAVE_OPENSSL_TRUE@speedtest_openssl_CXXFLAGS = $(OPENSSL_CFLAGS)
+@HAVE_OPENSSL_TRUE@speedtest_openssl_LDADD = $(OPENSSL_LIBS)
+@HAVE_NETTLE_TRUE@speedtest_nettle_SOURCES = speedtest_nettle.cpp
+@HAVE_NETTLE_TRUE@speedtest_nettle_LDADD = $(LIBS)
+@HAVE_BEECRYPT_TRUE@speedtest_beecrypt_SOURCES = speedtest_beecrypt.cpp
+@HAVE_BEECRYPT_TRUE@speedtest_beecrypt_LDADD = $(LIBS)
+@HAVE_TOMCRYPT_TRUE@speedtest_tomcrypt_SOURCES = speedtest_tomcrypt.cpp
+@HAVE_TOMCRYPT_TRUE@speedtest_tomcrypt_LDADD = $(LIBS)
 all: all-am
 
 .SUFFIXES:
@@ -248,9 +346,33 @@ $(ACLOCAL_M4):  $(am__aclocal_m4_deps)
 
 clean-noinstPROGRAMS:
 	-test -z "$(noinst_PROGRAMS)" || rm -f $(noinst_PROGRAMS)
-speedtest$(EXEEXT): $(speedtest_OBJECTS) $(speedtest_DEPENDENCIES) 
-	@rm -f speedtest$(EXEEXT)
-	$(CXXLINK) $(speedtest_OBJECTS) $(speedtest_LDADD) $(LIBS)
+speedtest_beecrypt$(EXEEXT): $(speedtest_beecrypt_OBJECTS) $(speedtest_beecrypt_DEPENDENCIES) 
+	@rm -f speedtest_beecrypt$(EXEEXT)
+	$(CXXLINK) $(speedtest_beecrypt_OBJECTS) $(speedtest_beecrypt_LDADD) $(LIBS)
+speedtest_botan$(EXEEXT): $(speedtest_botan_OBJECTS) $(speedtest_botan_DEPENDENCIES) 
+	@rm -f speedtest_botan$(EXEEXT)
+	$(speedtest_botan_LINK) $(speedtest_botan_OBJECTS) $(speedtest_botan_LDADD) $(LIBS)
+speedtest_cryptopp$(EXEEXT): $(speedtest_cryptopp_OBJECTS) $(speedtest_cryptopp_DEPENDENCIES) 
+	@rm -f speedtest_cryptopp$(EXEEXT)
+	$(speedtest_cryptopp_LINK) $(speedtest_cryptopp_OBJECTS) $(speedtest_cryptopp_LDADD) $(LIBS)
+speedtest_custom$(EXEEXT): $(speedtest_custom_OBJECTS) $(speedtest_custom_DEPENDENCIES) 
+	@rm -f speedtest_custom$(EXEEXT)
+	$(CXXLINK) $(speedtest_custom_OBJECTS) $(speedtest_custom_LDADD) $(LIBS)
+speedtest_gcrypt$(EXEEXT): $(speedtest_gcrypt_OBJECTS) $(speedtest_gcrypt_DEPENDENCIES) 
+	@rm -f speedtest_gcrypt$(EXEEXT)
+	$(speedtest_gcrypt_LINK) $(speedtest_gcrypt_OBJECTS) $(speedtest_gcrypt_LDADD) $(LIBS)
+speedtest_mcrypt$(EXEEXT): $(speedtest_mcrypt_OBJECTS) $(speedtest_mcrypt_DEPENDENCIES) 
+	@rm -f speedtest_mcrypt$(EXEEXT)
+	$(speedtest_mcrypt_LINK) $(speedtest_mcrypt_OBJECTS) $(speedtest_mcrypt_LDADD) $(LIBS)
+speedtest_nettle$(EXEEXT): $(speedtest_nettle_OBJECTS) $(speedtest_nettle_DEPENDENCIES) 
+	@rm -f speedtest_nettle$(EXEEXT)
+	$(CXXLINK) $(speedtest_nettle_OBJECTS) $(speedtest_nettle_LDADD) $(LIBS)
+speedtest_openssl$(EXEEXT): $(speedtest_openssl_OBJECTS) $(speedtest_openssl_DEPENDENCIES) 
+	@rm -f speedtest_openssl$(EXEEXT)
+	$(speedtest_openssl_LINK) $(speedtest_openssl_OBJECTS) $(speedtest_openssl_LDADD) $(LIBS)
+speedtest_tomcrypt$(EXEEXT): $(speedtest_tomcrypt_OBJECTS) $(speedtest_tomcrypt_DEPENDENCIES) 
+	@rm -f speedtest_tomcrypt$(EXEEXT)
+	$(CXXLINK) $(speedtest_tomcrypt_OBJECTS) $(speedtest_tomcrypt_LDADD) $(LIBS)
 verify$(EXEEXT): $(verify_OBJECTS) $(verify_DEPENDENCIES) 
 	@rm -f verify$(EXEEXT)
 	$(CXXLINK) $(verify_OBJECTS) $(verify_LDADD) $(LIBS)
@@ -263,7 +385,15 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rijndael.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/serpent-gladman.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedtest.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedtest_beecrypt.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedtest_botan-speedtest_botan.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedtest_cryptopp-speedtest_cryptopp.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedtest_custom.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedtest_gcrypt-speedtest_gcrypt.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedtest_mcrypt-speedtest_mcrypt.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedtest_nettle.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedtest_openssl-speedtest_openssl.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/speedtest_tomcrypt.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/verify.Po@am__quote@
 
 .cpp.o:
@@ -279,6 +409,76 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
+
+speedtest_botan-speedtest_botan.o: speedtest_botan.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_botan_CXXFLAGS) $(CXXFLAGS) -MT speedtest_botan-speedtest_botan.o -MD -MP -MF $(DEPDIR)/speedtest_botan-speedtest_botan.Tpo -c -o speedtest_botan-speedtest_botan.o `test -f 'speedtest_botan.cpp' || echo '$(srcdir)/'`speedtest_botan.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/speedtest_botan-speedtest_botan.Tpo $(DEPDIR)/speedtest_botan-speedtest_botan.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='speedtest_botan.cpp' object='speedtest_botan-speedtest_botan.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_botan_CXXFLAGS) $(CXXFLAGS) -c -o speedtest_botan-speedtest_botan.o `test -f 'speedtest_botan.cpp' || echo '$(srcdir)/'`speedtest_botan.cpp
+
+speedtest_botan-speedtest_botan.obj: speedtest_botan.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_botan_CXXFLAGS) $(CXXFLAGS) -MT speedtest_botan-speedtest_botan.obj -MD -MP -MF $(DEPDIR)/speedtest_botan-speedtest_botan.Tpo -c -o speedtest_botan-speedtest_botan.obj `if test -f 'speedtest_botan.cpp'; then $(CYGPATH_W) 'speedtest_botan.cpp'; else $(CYGPATH_W) '$(srcdir)/speedtest_botan.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/speedtest_botan-speedtest_botan.Tpo $(DEPDIR)/speedtest_botan-speedtest_botan.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='speedtest_botan.cpp' object='speedtest_botan-speedtest_botan.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_botan_CXXFLAGS) $(CXXFLAGS) -c -o speedtest_botan-speedtest_botan.obj `if test -f 'speedtest_botan.cpp'; then $(CYGPATH_W) 'speedtest_botan.cpp'; else $(CYGPATH_W) '$(srcdir)/speedtest_botan.cpp'; fi`
+
+speedtest_cryptopp-speedtest_cryptopp.o: speedtest_cryptopp.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_cryptopp_CXXFLAGS) $(CXXFLAGS) -MT speedtest_cryptopp-speedtest_cryptopp.o -MD -MP -MF $(DEPDIR)/speedtest_cryptopp-speedtest_cryptopp.Tpo -c -o speedtest_cryptopp-speedtest_cryptopp.o `test -f 'speedtest_cryptopp.cpp' || echo '$(srcdir)/'`speedtest_cryptopp.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/speedtest_cryptopp-speedtest_cryptopp.Tpo $(DEPDIR)/speedtest_cryptopp-speedtest_cryptopp.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='speedtest_cryptopp.cpp' object='speedtest_cryptopp-speedtest_cryptopp.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_cryptopp_CXXFLAGS) $(CXXFLAGS) -c -o speedtest_cryptopp-speedtest_cryptopp.o `test -f 'speedtest_cryptopp.cpp' || echo '$(srcdir)/'`speedtest_cryptopp.cpp
+
+speedtest_cryptopp-speedtest_cryptopp.obj: speedtest_cryptopp.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_cryptopp_CXXFLAGS) $(CXXFLAGS) -MT speedtest_cryptopp-speedtest_cryptopp.obj -MD -MP -MF $(DEPDIR)/speedtest_cryptopp-speedtest_cryptopp.Tpo -c -o speedtest_cryptopp-speedtest_cryptopp.obj `if test -f 'speedtest_cryptopp.cpp'; then $(CYGPATH_W) 'speedtest_cryptopp.cpp'; else $(CYGPATH_W) '$(srcdir)/speedtest_cryptopp.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/speedtest_cryptopp-speedtest_cryptopp.Tpo $(DEPDIR)/speedtest_cryptopp-speedtest_cryptopp.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='speedtest_cryptopp.cpp' object='speedtest_cryptopp-speedtest_cryptopp.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_cryptopp_CXXFLAGS) $(CXXFLAGS) -c -o speedtest_cryptopp-speedtest_cryptopp.obj `if test -f 'speedtest_cryptopp.cpp'; then $(CYGPATH_W) 'speedtest_cryptopp.cpp'; else $(CYGPATH_W) '$(srcdir)/speedtest_cryptopp.cpp'; fi`
+
+speedtest_gcrypt-speedtest_gcrypt.o: speedtest_gcrypt.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_gcrypt_CXXFLAGS) $(CXXFLAGS) -MT speedtest_gcrypt-speedtest_gcrypt.o -MD -MP -MF $(DEPDIR)/speedtest_gcrypt-speedtest_gcrypt.Tpo -c -o speedtest_gcrypt-speedtest_gcrypt.o `test -f 'speedtest_gcrypt.cpp' || echo '$(srcdir)/'`speedtest_gcrypt.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/speedtest_gcrypt-speedtest_gcrypt.Tpo $(DEPDIR)/speedtest_gcrypt-speedtest_gcrypt.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='speedtest_gcrypt.cpp' object='speedtest_gcrypt-speedtest_gcrypt.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_gcrypt_CXXFLAGS) $(CXXFLAGS) -c -o speedtest_gcrypt-speedtest_gcrypt.o `test -f 'speedtest_gcrypt.cpp' || echo '$(srcdir)/'`speedtest_gcrypt.cpp
+
+speedtest_gcrypt-speedtest_gcrypt.obj: speedtest_gcrypt.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_gcrypt_CXXFLAGS) $(CXXFLAGS) -MT speedtest_gcrypt-speedtest_gcrypt.obj -MD -MP -MF $(DEPDIR)/speedtest_gcrypt-speedtest_gcrypt.Tpo -c -o speedtest_gcrypt-speedtest_gcrypt.obj `if test -f 'speedtest_gcrypt.cpp'; then $(CYGPATH_W) 'speedtest_gcrypt.cpp'; else $(CYGPATH_W) '$(srcdir)/speedtest_gcrypt.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/speedtest_gcrypt-speedtest_gcrypt.Tpo $(DEPDIR)/speedtest_gcrypt-speedtest_gcrypt.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='speedtest_gcrypt.cpp' object='speedtest_gcrypt-speedtest_gcrypt.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_gcrypt_CXXFLAGS) $(CXXFLAGS) -c -o speedtest_gcrypt-speedtest_gcrypt.obj `if test -f 'speedtest_gcrypt.cpp'; then $(CYGPATH_W) 'speedtest_gcrypt.cpp'; else $(CYGPATH_W) '$(srcdir)/speedtest_gcrypt.cpp'; fi`
+
+speedtest_mcrypt-speedtest_mcrypt.o: speedtest_mcrypt.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_mcrypt_CXXFLAGS) $(CXXFLAGS) -MT speedtest_mcrypt-speedtest_mcrypt.o -MD -MP -MF $(DEPDIR)/speedtest_mcrypt-speedtest_mcrypt.Tpo -c -o speedtest_mcrypt-speedtest_mcrypt.o `test -f 'speedtest_mcrypt.cpp' || echo '$(srcdir)/'`speedtest_mcrypt.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/speedtest_mcrypt-speedtest_mcrypt.Tpo $(DEPDIR)/speedtest_mcrypt-speedtest_mcrypt.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='speedtest_mcrypt.cpp' object='speedtest_mcrypt-speedtest_mcrypt.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_mcrypt_CXXFLAGS) $(CXXFLAGS) -c -o speedtest_mcrypt-speedtest_mcrypt.o `test -f 'speedtest_mcrypt.cpp' || echo '$(srcdir)/'`speedtest_mcrypt.cpp
+
+speedtest_mcrypt-speedtest_mcrypt.obj: speedtest_mcrypt.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_mcrypt_CXXFLAGS) $(CXXFLAGS) -MT speedtest_mcrypt-speedtest_mcrypt.obj -MD -MP -MF $(DEPDIR)/speedtest_mcrypt-speedtest_mcrypt.Tpo -c -o speedtest_mcrypt-speedtest_mcrypt.obj `if test -f 'speedtest_mcrypt.cpp'; then $(CYGPATH_W) 'speedtest_mcrypt.cpp'; else $(CYGPATH_W) '$(srcdir)/speedtest_mcrypt.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/speedtest_mcrypt-speedtest_mcrypt.Tpo $(DEPDIR)/speedtest_mcrypt-speedtest_mcrypt.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='speedtest_mcrypt.cpp' object='speedtest_mcrypt-speedtest_mcrypt.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_mcrypt_CXXFLAGS) $(CXXFLAGS) -c -o speedtest_mcrypt-speedtest_mcrypt.obj `if test -f 'speedtest_mcrypt.cpp'; then $(CYGPATH_W) 'speedtest_mcrypt.cpp'; else $(CYGPATH_W) '$(srcdir)/speedtest_mcrypt.cpp'; fi`
+
+speedtest_openssl-speedtest_openssl.o: speedtest_openssl.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_openssl_CXXFLAGS) $(CXXFLAGS) -MT speedtest_openssl-speedtest_openssl.o -MD -MP -MF $(DEPDIR)/speedtest_openssl-speedtest_openssl.Tpo -c -o speedtest_openssl-speedtest_openssl.o `test -f 'speedtest_openssl.cpp' || echo '$(srcdir)/'`speedtest_openssl.cpp
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/speedtest_openssl-speedtest_openssl.Tpo $(DEPDIR)/speedtest_openssl-speedtest_openssl.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='speedtest_openssl.cpp' object='speedtest_openssl-speedtest_openssl.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_openssl_CXXFLAGS) $(CXXFLAGS) -c -o speedtest_openssl-speedtest_openssl.o `test -f 'speedtest_openssl.cpp' || echo '$(srcdir)/'`speedtest_openssl.cpp
+
+speedtest_openssl-speedtest_openssl.obj: speedtest_openssl.cpp
+@am__fastdepCXX_TRUE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_openssl_CXXFLAGS) $(CXXFLAGS) -MT speedtest_openssl-speedtest_openssl.obj -MD -MP -MF $(DEPDIR)/speedtest_openssl-speedtest_openssl.Tpo -c -o speedtest_openssl-speedtest_openssl.obj `if test -f 'speedtest_openssl.cpp'; then $(CYGPATH_W) 'speedtest_openssl.cpp'; else $(CYGPATH_W) '$(srcdir)/speedtest_openssl.cpp'; fi`
+@am__fastdepCXX_TRUE@	mv -f $(DEPDIR)/speedtest_openssl-speedtest_openssl.Tpo $(DEPDIR)/speedtest_openssl-speedtest_openssl.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	source='speedtest_openssl.cpp' object='speedtest_openssl-speedtest_openssl.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(speedtest_openssl_CXXFLAGS) $(CXXFLAGS) -c -o speedtest_openssl-speedtest_openssl.obj `if test -f 'speedtest_openssl.cpp'; then $(CYGPATH_W) 'speedtest_openssl.cpp'; else $(CYGPATH_W) '$(srcdir)/speedtest_openssl.cpp'; fi`
 
 ID: $(HEADERS) $(SOURCES) $(LISP) $(TAGS_FILES)
 	list='$(SOURCES) $(HEADERS) $(LISP) $(TAGS_FILES)'; \

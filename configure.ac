@@ -2,12 +2,15 @@
 
 AC_PREREQ(2.59)
 AC_INIT(crypto-speedtest, 0.1)
-AC_CONFIG_SRCDIR(src/speedtest.cpp)
+AC_CONFIG_SRCDIR(src/speedtest_custom.cpp)
 AC_CONFIG_AUX_DIR(acscripts)
 AC_CANONICAL_HOST
 
 AM_INIT_AUTOMAKE(foreign)
 # AM_MAINTAINER_MODE
+
+m4_include([m4/cryptopp.m4])
+m4_include([m4/libmcrypt.m4])
 
 # enable full optimization by configure switch
 AC_ARG_ENABLE(optimize,
@@ -41,67 +44,76 @@ AC_LANG([C++])
 
 # libgcrypt
 
-AM_PATH_LIBGCRYPT([1.4.0], [],
-    AC_MSG_ERROR([
-*** Could not find a suitable version of the libgcrypt library! ***
-*** Install the libgcrypt-dev package or use the source from http://www.gnupg.org ***]))
+AM_PATH_LIBGCRYPT([1.2.3])
+
+AM_CONDITIONAL(HAVE_GCRYPT, test "$LIBGCRYPT_LIBS" != "")
 
 # libmcrypt
 
-AM_PATH_LIBMCRYPT([2.5.8], [],
-    AC_MSG_ERROR([
-*** Could not find a suitable version of the libmcrypt library! ***
-*** Install the libmcrypt-dev package or use the source from http://mcrypt.sourceforge.net ***]))
+AM_PATH_LIBMCRYPT([2.5.7])
+
+AM_CONDITIONAL(HAVE_MCRYPT, test "$LIBMCRYPT_LIBS" != "")
 
 # Botan
 
-AC_PATH_GENERIC(botan, [1.6.1], [],
-    AC_MSG_ERROR([
-*** Could not find a suitable version of the Botan library! ***
-*** Install the libbotan-dev package or use the source from http://botan.randombit.net ***]))
+AC_PATH_GENERIC(botan, [1.6.0])
+
+AM_CONDITIONAL(HAVE_BOTAN, test "$BOTAN_LIBS" != "")
 
 # Crypto++
 
-m4_include(cryptopp.m4)
 AM_OPTIONS_CRYPTO
 CHECK_CRYPTO(5.5)
 
-case "$CRYPTO_PP_STYLE" in
-    gentoo_debian | installed | sources)
-	;;
-    *) AC_MSG_ERROR([
-*** Could not find a suitable version of the Crypto++ library! ***
-*** Install the libbotan-dev package or use the source from http://www.cryptopp.com ***])
-	;;
-esac
+AM_CONDITIONAL(HAVE_CRYPTOPP, test "$CRYPTO_PP_LIB_NAME" != "")
 
 # OpenSSL's crypto
 
 PKG_CHECK_MODULES(OPENSSL, [libcrypto >= 0.9.8f])
 
+AM_CONDITIONAL(HAVE_OPENSSL, test "$OPENSSL_LIBS" != "")
+
 # Nettle
 
+testflag_nettle=yes
 AC_CHECK_HEADERS([nettle/aes.h])
-AC_CHECK_LIB(nettle, [nettle_aes_encrypt], [],
-    AC_MSG_ERROR([
+AC_CHECK_LIB(nettle, [nettle_aes_encrypt], [], [testflag_nettle=no])
+
+if test "$testflag_nettle" == "no"; then
+    AC_MSG_NOTICE([
 *** Could not find a suitable version of the nettle library! ***
-*** Install the libnettle-dev package or use the source from http://www.lysator.liu.se/~nisse/nettle/ ***]))
+*** Install the libnettle-dev package or use the source from http://www.lysator.liu.se/~nisse/nettle/ ***])
+fi
+
+AM_CONDITIONAL(HAVE_NETTLE, test "$testflag_nettle" == "yes")
 
 # Beecrypt
 
+testflag_beecrypt=yes
 AC_CHECK_HEADERS([beecrypt/aes.h])
-AC_CHECK_LIB(beecrypt, [aesSetup], [],
-    AC_MSG_ERROR([
+AC_CHECK_LIB(beecrypt, [aesSetup], [], [testflag_beecrypt=no])
+
+if test "$testflag_beecrypt" == "no"; then
+    AC_MSG_NOTICE([
 *** Could not find a suitable version of the beecrypt library! ***
-*** Install the libbeecrypt-dev package or use the source from http://beecrypt.sourceforge.net ***]))
+*** Install the libbeecrypt-dev package or use the source from http://beecrypt.sourceforge.net ***])
+fi
+
+AM_CONDITIONAL(HAVE_BEECRYPT, test "$testflag_beecrypt" == "yes")
 
 # libtomcrypt
 
+testflag_tomcrypt=yes
 AC_CHECK_HEADERS([tomcrypt.h])
-AC_CHECK_LIB(tomcrypt, [ecb_start], [],
-    AC_MSG_ERROR([
+AC_CHECK_LIB(tomcrypt, [ecb_start], [], [testflag_tomcrypt=no])
+
+if test "$testflag_tomcrypt" == "no"; then
+    AC_MSG_NOTICE([
 *** Could not find a suitable version of the libtomcrypt library! ***
-*** Install the libtomcrypt-dev package or use the source from http://libtom.org ***]))
+*** Install the libtomcrypt-dev package or use the source from http://libtom.org ***])
+fi
+
+AM_CONDITIONAL(HAVE_TOMCRYPT, test "$testflag_tomcrypt" == "yes")
 
 # Output Makefiles
 

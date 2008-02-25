@@ -576,7 +576,7 @@ PACKAGE_VERSION='0.1'
 PACKAGE_STRING='crypto-speedtest 0.1'
 PACKAGE_BUGREPORT=''
 
-ac_unique_file="src/speedtest.cpp"
+ac_unique_file="src/speedtest_custom.cpp"
 # Factoring default headers for most tests.
 ac_includes_default="\
 #include <stdio.h>
@@ -705,12 +705,18 @@ am__fastdepCXX_FALSE
 LIBGCRYPT_CONFIG
 LIBGCRYPT_CFLAGS
 LIBGCRYPT_LIBS
+HAVE_GCRYPT_TRUE
+HAVE_GCRYPT_FALSE
 LIBMCRYPT_CONFIG
 LIBMCRYPT_CFLAGS
 LIBMCRYPT_LIBS
+HAVE_MCRYPT_TRUE
+HAVE_MCRYPT_FALSE
 BOTAN_CONFIG
 BOTAN_CFLAGS
 BOTAN_LIBS
+HAVE_BOTAN_TRUE
+HAVE_BOTAN_FALSE
 CRYPTO_PP_PREFIX
 CRYPTO_PP_VERSION_STRING
 CRYPTO_PP_VERSION_NUMBER
@@ -719,12 +725,22 @@ CRYPTO_PP_LIB_NAME
 CRYPTO_PP_INCLUDE_PREFIX
 CRYPTO_PP_CXXFLAGS
 CRYPTO_PP_LDFLAGS
+HAVE_CRYPTOPP_TRUE
+HAVE_CRYPTOPP_FALSE
 PKG_CONFIG
 OPENSSL_CFLAGS
 OPENSSL_LIBS
+HAVE_OPENSSL_TRUE
+HAVE_OPENSSL_FALSE
 CXXCPP
 GREP
 EGREP
+HAVE_NETTLE_TRUE
+HAVE_NETTLE_FALSE
+HAVE_BEECRYPT_TRUE
+HAVE_BEECRYPT_FALSE
+HAVE_TOMCRYPT_TRUE
+HAVE_TOMCRYPT_FALSE
 LIBOBJS
 LTLIBOBJS'
 ac_subst_files=''
@@ -2353,6 +2369,26 @@ am__tar='${AMTAR} chof - "$$tardir"'; am__untar='${AMTAR} xf -'
 
 
 # AM_MAINTAINER_MODE
+
+
+
+
+
+
+
+# This script detects libmcrypt version and defines
+# LIBMCRYPT_CFLAGS, LIBMCRYPT_LIBS
+# and LIBMCRYPT24 or LIBMCRYPT22 depending on libmcrypt version
+# found.
+
+# Modified for LIBMCRYPT -- nmav
+# Configure paths for LIBGCRYPT
+# Shamelessly stolen from the one of XDELTA by Owen Taylor
+# Werner Koch   99-12-09
+
+
+
+
 
 # enable full optimization by configure switch
 # Check whether --enable-optimize was given.
@@ -4009,7 +4045,7 @@ echo "${ECHO_T}no" >&6; }
 fi
 
 
-  tmp=1.4.0
+  tmp=1.2.3
   if echo "$tmp" | grep ':' >/dev/null 2>/dev/null ; then
      req_libgcrypt_api=`echo "$tmp"     | sed 's/\(.*\):\(.*\)/\1/'`
      min_libgcrypt_version=`echo "$tmp" | sed 's/\(.*\):\(.*\)/\2/'`
@@ -4084,16 +4120,19 @@ echo "${ECHO_T}does not match. want=$req_libgcrypt_api got=$tmp" >&6; }
   else
     LIBGCRYPT_CFLAGS=""
     LIBGCRYPT_LIBS=""
-    { { echo "$as_me:$LINENO: error:
-*** Could not find a suitable version of the libgcrypt library! ***
-*** Install the libgcrypt-dev package or use the source from http://www.gnupg.org ***" >&5
-echo "$as_me: error:
-*** Could not find a suitable version of the libgcrypt library! ***
-*** Install the libgcrypt-dev package or use the source from http://www.gnupg.org ***" >&2;}
-   { (exit 1); exit 1; }; }
+    :
   fi
 
 
+
+
+ if test "$LIBGCRYPT_LIBS" != ""; then
+  HAVE_GCRYPT_TRUE=
+  HAVE_GCRYPT_FALSE='#'
+else
+  HAVE_GCRYPT_TRUE='#'
+  HAVE_GCRYPT_FALSE=
+fi
 
 
 # libmcrypt
@@ -4156,7 +4195,7 @@ echo "${ECHO_T}no" >&6; }
 fi
 
 
-  min_libmcrypt_version=2.5.8
+  min_libmcrypt_version=2.5.7
   { echo "$as_me:$LINENO: checking for libmcrypt - version >= $min_libmcrypt_version" >&5
 echo $ECHO_N "checking for libmcrypt - version >= $min_libmcrypt_version... $ECHO_C" >&6; }
   no_libmcrypt=""
@@ -4502,17 +4541,20 @@ rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
 
      LIBMCRYPT_CFLAGS=""
      LIBMCRYPT_LIBS=""
-     { { echo "$as_me:$LINENO: error:
-*** Could not find a suitable version of the libmcrypt library! ***
-*** Install the libmcrypt-dev package or use the source from http://mcrypt.sourceforge.net ***" >&5
-echo "$as_me: error:
-*** Could not find a suitable version of the libmcrypt library! ***
-*** Install the libmcrypt-dev package or use the source from http://mcrypt.sourceforge.net ***" >&2;}
-   { (exit 1); exit 1; }; }
+     :
   fi
   rm -f conf.libmcrypttest
 
 
+
+
+ if test "$LIBMCRYPT_LIBS" != ""; then
+  HAVE_MCRYPT_TRUE=
+  HAVE_MCRYPT_FALSE='#'
+else
+  HAVE_MCRYPT_TRUE='#'
+  HAVE_MCRYPT_FALSE=
+fi
 
 
 # Botan
@@ -4589,8 +4631,8 @@ echo "${ECHO_T}no" >&6; }
 fi
 
 
-  { echo "$as_me:$LINENO: checking for botan - version >= 1.6.1" >&5
-echo $ECHO_N "checking for botan - version >= 1.6.1... $ECHO_C" >&6; }
+  { echo "$as_me:$LINENO: checking for botan - version >= 1.6.0" >&5
+echo $ECHO_N "checking for botan - version >= 1.6.0... $ECHO_C" >&6; }
 
   no_botan=""
   if test "$BOTAN_CONFIG" = "no" ; then
@@ -4607,7 +4649,7 @@ echo $ECHO_N "checking for botan - version >= 1.6.1... $ECHO_C" >&6; }
          --version | sed 's/[^0-9]*\([0-9]*\).\([0-9]*\).\([0-9]*\)/\3/'`
         botan_wanted_major_version="1"
         botan_wanted_minor_version="6"
-        botan_wanted_micro_version="1"
+        botan_wanted_micro_version="0"
 
         # Compare wanted version to what config script returned.
         # If I knew what library was being run, i'd probably also compile
@@ -4661,13 +4703,7 @@ echo "${ECHO_T}no" >&6; }
      fi
      BOTAN_CFLAGS=""
      BOTAN_LIBS=""
-     { { echo "$as_me:$LINENO: error:
-*** Could not find a suitable version of the Botan library! ***
-*** Install the libbotan-dev package or use the source from http://botan.randombit.net ***" >&5
-echo "$as_me: error:
-*** Could not find a suitable version of the Botan library! ***
-*** Install the libbotan-dev package or use the source from http://botan.randombit.net ***" >&2;}
-   { (exit 1); exit 1; }; }
+     :
   fi
 
 
@@ -4676,13 +4712,16 @@ echo "$as_me: error:
 
 
 
+ if test "$BOTAN_LIBS" != ""; then
+  HAVE_BOTAN_TRUE=
+  HAVE_BOTAN_FALSE='#'
+else
+  HAVE_BOTAN_TRUE='#'
+  HAVE_BOTAN_FALSE=
+fi
+
+
 # Crypto++
-
-
-
-
-
-
 
 
 
@@ -4703,7 +4742,7 @@ echo $ECHO_N "checking for crypto++ version >= $min_crypto_version... $ECHO_C" >
 crypto_pp_file_with_version="cryptlib.h"
 
 CRYPTO_PP_STYLE="unknown"
-CRYPTO_PP_LIB_NAME="unknown"
+CRYPTO_PP_LIB_NAME=""
 crypto_pp_include_i="unknown"
 CRYPTO_PP_INCLUDE_PREFIX="unknown"
 CRYPTO_PP_DEFINE="unknown"
@@ -4766,53 +4805,54 @@ if test $CRYPTO_PP_STYLE = "unknown"; then
 	#
 	# If the execution reaches here, we have failed.
 	#
-	{ { echo "$as_me:$LINENO: error:
-	Could not find cryptopp header file \"$crypto_pp_file_with_version\".
-	Please check if the path \"$CRYPTO_PP_PREFIX\" is valid." >&5
-echo "$as_me: error:
-	Could not find cryptopp header file \"$crypto_pp_file_with_version\".
-	Please check if the path \"$CRYPTO_PP_PREFIX\" is valid." >&2;}
-   { (exit 1); exit 1; }; }
-fi
+	echo "no"
+	{ echo "$as_me:$LINENO:
+*** Could not find cryptopp header file \"$crypto_pp_file_with_version\".
+*** Please check if the path \"$CRYPTO_PP_PREFIX\" is valid." >&5
+echo "$as_me:
+*** Could not find cryptopp header file \"$crypto_pp_file_with_version\".
+*** Please check if the path \"$CRYPTO_PP_PREFIX\" is valid." >&6;}
 
-#
-# Find out the cryptopp version and check against the minimum required
-#
-crypto_pp_include_dir="$crypto_pp_include_i/$CRYPTO_PP_INCLUDE_PREFIX"
-crypto_pp_header_path="$crypto_pp_include_dir/$crypto_pp_file_with_version"
-
-CRYPTO_PP_VERSION_STRING=$(grep "Reference Manual" $crypto_pp_header_path | \
-	sed -e 's/[^0-9]*\([0-9.]*\).*/\1/')
-
-CRYPTO_PP_VERSION_NUMBER=$(echo $CRYPTO_PP_VERSION_STRING | \
-	$AWK 'BEGIN { FS = "."; } { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}')
-
-minvers=$(echo $min_crypto_version | \
-	$AWK 'BEGIN { FS = "."; } { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}')
-
-if test -n "$CRYPTO_PP_VERSION_NUMBER" && test "$CRYPTO_PP_VERSION_NUMBER" -ge $minvers; then
-	result="yes (version $CRYPTO_PP_VERSION_STRING, $CRYPTO_PP_STYLE)"
+	:
 else
-	result="no"
-fi
-{ echo "$as_me:$LINENO: result: $result" >&5
+	#
+	# Find out the cryptopp version and check against the minimum required
+	#
+	crypto_pp_include_dir="$crypto_pp_include_i/$CRYPTO_PP_INCLUDE_PREFIX"
+	crypto_pp_header_path="$crypto_pp_include_dir/$crypto_pp_file_with_version"
+
+	CRYPTO_PP_VERSION_STRING=$(grep "Reference Manual" $crypto_pp_header_path | \
+		sed -e 's/[^0-9]*\([0-9.]*\).*/\1/')
+
+	CRYPTO_PP_VERSION_NUMBER=$(echo $CRYPTO_PP_VERSION_STRING | \
+		$AWK 'BEGIN { FS = "."; } { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}')
+
+	minvers=$(echo $min_crypto_version | \
+		$AWK 'BEGIN { FS = "."; } { printf "%d", ($1 * 1000 + $2) * 1000 + $3;}')
+
+	if test -n "$CRYPTO_PP_VERSION_NUMBER" && test "$CRYPTO_PP_VERSION_NUMBER" -ge $minvers; then
+		result="yes (version $CRYPTO_PP_VERSION_STRING, $CRYPTO_PP_STYLE)"
+	else
+		result="no"
+	fi
+	{ echo "$as_me:$LINENO: result: $result" >&5
 echo "${ECHO_T}$result" >&6; }
 
-#
-# FLAGS
-#
-CRYPTO_PP_CXXFLAGS="-isystem $crypto_pp_include_i -D$CRYPTO_PP_DEFINE"
-CRYPTO_PP_LDFLAGS="-L$CRYPTO_PP_LIB"
+	#
+	# FLAGS
+	#
+	CRYPTO_PP_CXXFLAGS="-isystem $crypto_pp_include_i -D$CRYPTO_PP_DEFINE"
+	CRYPTO_PP_LDFLAGS="-L$CRYPTO_PP_LIB"
 
 
-cat >>confdefs.h <<_ACEOF
+	cat >>confdefs.h <<_ACEOF
 #define CRYPTOPP_INCLUDE_PREFIX $CRYPTO_PP_INCLUDE_PREFIX
 _ACEOF
 
 
-#
-# Exported symbols
-#
+	#
+	# Exported symbols
+	#
 
 
 
@@ -4823,22 +4863,21 @@ _ACEOF
 
 
 
-{ echo "$as_me:$LINENO: Crypto++ version number is $CRYPTO_PP_VERSION_NUMBER" >&5
+	{ echo "$as_me:$LINENO: Crypto++ version number is $CRYPTO_PP_VERSION_NUMBER" >&5
 echo "$as_me: Crypto++ version number is $CRYPTO_PP_VERSION_NUMBER" >&6;}
 
+	:
+fi
 
-case "$CRYPTO_PP_STYLE" in
-    gentoo_debian | installed | sources)
-	;;
-    *) { { echo "$as_me:$LINENO: error:
-*** Could not find a suitable version of the Crypto++ library! ***
-*** Install the libbotan-dev package or use the source from http://www.cryptopp.com ***" >&5
-echo "$as_me: error:
-*** Could not find a suitable version of the Crypto++ library! ***
-*** Install the libbotan-dev package or use the source from http://www.cryptopp.com ***" >&2;}
-   { (exit 1); exit 1; }; }
-	;;
-esac
+
+ if test "$CRYPTO_PP_LIB_NAME" != ""; then
+  HAVE_CRYPTOPP_TRUE=
+  HAVE_CRYPTOPP_FALSE='#'
+else
+  HAVE_CRYPTOPP_TRUE='#'
+  HAVE_CRYPTOPP_FALSE=
+fi
+
 
 # OpenSSL's crypto
 
@@ -5074,8 +5113,18 @@ echo "${ECHO_T}yes" >&6; }
 	:
 fi
 
+ if test "$OPENSSL_LIBS" != ""; then
+  HAVE_OPENSSL_TRUE=
+  HAVE_OPENSSL_FALSE='#'
+else
+  HAVE_OPENSSL_TRUE='#'
+  HAVE_OPENSSL_FALSE=
+fi
+
+
 # Nettle
 
+testflag_nettle=yes
 ac_ext=cpp
 ac_cpp='$CXXCPP $CPPFLAGS'
 ac_compile='$CXX -c $CXXFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -5918,18 +5967,31 @@ _ACEOF
   LIBS="-lnettle $LIBS"
 
 else
-  { { echo "$as_me:$LINENO: error:
+  testflag_nettle=no
+fi
+
+
+if test "$testflag_nettle" == "no"; then
+    { echo "$as_me:$LINENO:
 *** Could not find a suitable version of the nettle library! ***
 *** Install the libnettle-dev package or use the source from http://www.lysator.liu.se/~nisse/nettle/ ***" >&5
-echo "$as_me: error:
+echo "$as_me:
 *** Could not find a suitable version of the nettle library! ***
-*** Install the libnettle-dev package or use the source from http://www.lysator.liu.se/~nisse/nettle/ ***" >&2;}
-   { (exit 1); exit 1; }; }
+*** Install the libnettle-dev package or use the source from http://www.lysator.liu.se/~nisse/nettle/ ***" >&6;}
+fi
+
+ if test "$testflag_nettle" == "yes"; then
+  HAVE_NETTLE_TRUE=
+  HAVE_NETTLE_FALSE='#'
+else
+  HAVE_NETTLE_TRUE='#'
+  HAVE_NETTLE_FALSE=
 fi
 
 
 # Beecrypt
 
+testflag_beecrypt=yes
 
 for ac_header in beecrypt/aes.h
 do
@@ -6140,18 +6202,31 @@ _ACEOF
   LIBS="-lbeecrypt $LIBS"
 
 else
-  { { echo "$as_me:$LINENO: error:
+  testflag_beecrypt=no
+fi
+
+
+if test "$testflag_beecrypt" == "no"; then
+    { echo "$as_me:$LINENO:
 *** Could not find a suitable version of the beecrypt library! ***
 *** Install the libbeecrypt-dev package or use the source from http://beecrypt.sourceforge.net ***" >&5
-echo "$as_me: error:
+echo "$as_me:
 *** Could not find a suitable version of the beecrypt library! ***
-*** Install the libbeecrypt-dev package or use the source from http://beecrypt.sourceforge.net ***" >&2;}
-   { (exit 1); exit 1; }; }
+*** Install the libbeecrypt-dev package or use the source from http://beecrypt.sourceforge.net ***" >&6;}
+fi
+
+ if test "$testflag_beecrypt" == "yes"; then
+  HAVE_BEECRYPT_TRUE=
+  HAVE_BEECRYPT_FALSE='#'
+else
+  HAVE_BEECRYPT_TRUE='#'
+  HAVE_BEECRYPT_FALSE=
 fi
 
 
 # libtomcrypt
 
+testflag_tomcrypt=yes
 
 for ac_header in tomcrypt.h
 do
@@ -6362,13 +6437,25 @@ _ACEOF
   LIBS="-ltomcrypt $LIBS"
 
 else
-  { { echo "$as_me:$LINENO: error:
+  testflag_tomcrypt=no
+fi
+
+
+if test "$testflag_tomcrypt" == "no"; then
+    { echo "$as_me:$LINENO:
 *** Could not find a suitable version of the libtomcrypt library! ***
 *** Install the libtomcrypt-dev package or use the source from http://libtom.org ***" >&5
-echo "$as_me: error:
+echo "$as_me:
 *** Could not find a suitable version of the libtomcrypt library! ***
-*** Install the libtomcrypt-dev package or use the source from http://libtom.org ***" >&2;}
-   { (exit 1); exit 1; }; }
+*** Install the libtomcrypt-dev package or use the source from http://libtom.org ***" >&6;}
+fi
+
+ if test "$testflag_tomcrypt" == "yes"; then
+  HAVE_TOMCRYPT_TRUE=
+  HAVE_TOMCRYPT_FALSE='#'
+else
+  HAVE_TOMCRYPT_TRUE='#'
+  HAVE_TOMCRYPT_FALSE=
 fi
 
 
@@ -6520,6 +6607,62 @@ if test -z "${am__fastdepCXX_TRUE}" && test -z "${am__fastdepCXX_FALSE}"; then
   { { echo "$as_me:$LINENO: error: conditional \"am__fastdepCXX\" was never defined.
 Usually this means the macro was only invoked conditionally." >&5
 echo "$as_me: error: conditional \"am__fastdepCXX\" was never defined.
+Usually this means the macro was only invoked conditionally." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test -z "${HAVE_GCRYPT_TRUE}" && test -z "${HAVE_GCRYPT_FALSE}"; then
+  { { echo "$as_me:$LINENO: error: conditional \"HAVE_GCRYPT\" was never defined.
+Usually this means the macro was only invoked conditionally." >&5
+echo "$as_me: error: conditional \"HAVE_GCRYPT\" was never defined.
+Usually this means the macro was only invoked conditionally." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test -z "${HAVE_MCRYPT_TRUE}" && test -z "${HAVE_MCRYPT_FALSE}"; then
+  { { echo "$as_me:$LINENO: error: conditional \"HAVE_MCRYPT\" was never defined.
+Usually this means the macro was only invoked conditionally." >&5
+echo "$as_me: error: conditional \"HAVE_MCRYPT\" was never defined.
+Usually this means the macro was only invoked conditionally." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test -z "${HAVE_BOTAN_TRUE}" && test -z "${HAVE_BOTAN_FALSE}"; then
+  { { echo "$as_me:$LINENO: error: conditional \"HAVE_BOTAN\" was never defined.
+Usually this means the macro was only invoked conditionally." >&5
+echo "$as_me: error: conditional \"HAVE_BOTAN\" was never defined.
+Usually this means the macro was only invoked conditionally." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test -z "${HAVE_CRYPTOPP_TRUE}" && test -z "${HAVE_CRYPTOPP_FALSE}"; then
+  { { echo "$as_me:$LINENO: error: conditional \"HAVE_CRYPTOPP\" was never defined.
+Usually this means the macro was only invoked conditionally." >&5
+echo "$as_me: error: conditional \"HAVE_CRYPTOPP\" was never defined.
+Usually this means the macro was only invoked conditionally." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test -z "${HAVE_OPENSSL_TRUE}" && test -z "${HAVE_OPENSSL_FALSE}"; then
+  { { echo "$as_me:$LINENO: error: conditional \"HAVE_OPENSSL\" was never defined.
+Usually this means the macro was only invoked conditionally." >&5
+echo "$as_me: error: conditional \"HAVE_OPENSSL\" was never defined.
+Usually this means the macro was only invoked conditionally." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test -z "${HAVE_NETTLE_TRUE}" && test -z "${HAVE_NETTLE_FALSE}"; then
+  { { echo "$as_me:$LINENO: error: conditional \"HAVE_NETTLE\" was never defined.
+Usually this means the macro was only invoked conditionally." >&5
+echo "$as_me: error: conditional \"HAVE_NETTLE\" was never defined.
+Usually this means the macro was only invoked conditionally." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test -z "${HAVE_BEECRYPT_TRUE}" && test -z "${HAVE_BEECRYPT_FALSE}"; then
+  { { echo "$as_me:$LINENO: error: conditional \"HAVE_BEECRYPT\" was never defined.
+Usually this means the macro was only invoked conditionally." >&5
+echo "$as_me: error: conditional \"HAVE_BEECRYPT\" was never defined.
+Usually this means the macro was only invoked conditionally." >&2;}
+   { (exit 1); exit 1; }; }
+fi
+if test -z "${HAVE_TOMCRYPT_TRUE}" && test -z "${HAVE_TOMCRYPT_FALSE}"; then
+  { { echo "$as_me:$LINENO: error: conditional \"HAVE_TOMCRYPT\" was never defined.
+Usually this means the macro was only invoked conditionally." >&5
+echo "$as_me: error: conditional \"HAVE_TOMCRYPT\" was never defined.
 Usually this means the macro was only invoked conditionally." >&2;}
    { (exit 1); exit 1; }; }
 fi
@@ -7131,11 +7274,11 @@ am__fastdepCXX_FALSE!$am__fastdepCXX_FALSE$ac_delim
 LIBGCRYPT_CONFIG!$LIBGCRYPT_CONFIG$ac_delim
 LIBGCRYPT_CFLAGS!$LIBGCRYPT_CFLAGS$ac_delim
 LIBGCRYPT_LIBS!$LIBGCRYPT_LIBS$ac_delim
+HAVE_GCRYPT_TRUE!$HAVE_GCRYPT_TRUE$ac_delim
+HAVE_GCRYPT_FALSE!$HAVE_GCRYPT_FALSE$ac_delim
 LIBMCRYPT_CONFIG!$LIBMCRYPT_CONFIG$ac_delim
 LIBMCRYPT_CFLAGS!$LIBMCRYPT_CFLAGS$ac_delim
 LIBMCRYPT_LIBS!$LIBMCRYPT_LIBS$ac_delim
-BOTAN_CONFIG!$BOTAN_CONFIG$ac_delim
-BOTAN_CFLAGS!$BOTAN_CFLAGS$ac_delim
 _ACEOF
 
   if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 97; then
@@ -7177,7 +7320,13 @@ _ACEOF
 ac_delim='%!_!# '
 for ac_last_try in false false false false false :; do
   cat >conf$$subs.sed <<_ACEOF
+HAVE_MCRYPT_TRUE!$HAVE_MCRYPT_TRUE$ac_delim
+HAVE_MCRYPT_FALSE!$HAVE_MCRYPT_FALSE$ac_delim
+BOTAN_CONFIG!$BOTAN_CONFIG$ac_delim
+BOTAN_CFLAGS!$BOTAN_CFLAGS$ac_delim
 BOTAN_LIBS!$BOTAN_LIBS$ac_delim
+HAVE_BOTAN_TRUE!$HAVE_BOTAN_TRUE$ac_delim
+HAVE_BOTAN_FALSE!$HAVE_BOTAN_FALSE$ac_delim
 CRYPTO_PP_PREFIX!$CRYPTO_PP_PREFIX$ac_delim
 CRYPTO_PP_VERSION_STRING!$CRYPTO_PP_VERSION_STRING$ac_delim
 CRYPTO_PP_VERSION_NUMBER!$CRYPTO_PP_VERSION_NUMBER$ac_delim
@@ -7186,17 +7335,27 @@ CRYPTO_PP_LIB_NAME!$CRYPTO_PP_LIB_NAME$ac_delim
 CRYPTO_PP_INCLUDE_PREFIX!$CRYPTO_PP_INCLUDE_PREFIX$ac_delim
 CRYPTO_PP_CXXFLAGS!$CRYPTO_PP_CXXFLAGS$ac_delim
 CRYPTO_PP_LDFLAGS!$CRYPTO_PP_LDFLAGS$ac_delim
+HAVE_CRYPTOPP_TRUE!$HAVE_CRYPTOPP_TRUE$ac_delim
+HAVE_CRYPTOPP_FALSE!$HAVE_CRYPTOPP_FALSE$ac_delim
 PKG_CONFIG!$PKG_CONFIG$ac_delim
 OPENSSL_CFLAGS!$OPENSSL_CFLAGS$ac_delim
 OPENSSL_LIBS!$OPENSSL_LIBS$ac_delim
+HAVE_OPENSSL_TRUE!$HAVE_OPENSSL_TRUE$ac_delim
+HAVE_OPENSSL_FALSE!$HAVE_OPENSSL_FALSE$ac_delim
 CXXCPP!$CXXCPP$ac_delim
 GREP!$GREP$ac_delim
 EGREP!$EGREP$ac_delim
+HAVE_NETTLE_TRUE!$HAVE_NETTLE_TRUE$ac_delim
+HAVE_NETTLE_FALSE!$HAVE_NETTLE_FALSE$ac_delim
+HAVE_BEECRYPT_TRUE!$HAVE_BEECRYPT_TRUE$ac_delim
+HAVE_BEECRYPT_FALSE!$HAVE_BEECRYPT_FALSE$ac_delim
+HAVE_TOMCRYPT_TRUE!$HAVE_TOMCRYPT_TRUE$ac_delim
+HAVE_TOMCRYPT_FALSE!$HAVE_TOMCRYPT_FALSE$ac_delim
 LIBOBJS!$LIBOBJS$ac_delim
 LTLIBOBJS!$LTLIBOBJS$ac_delim
 _ACEOF
 
-  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 17; then
+  if test `sed -n "s/.*$ac_delim\$/X/p" conf$$subs.sed | grep -c X` = 33; then
     break
   elif $ac_last_try; then
     { { echo "$as_me:$LINENO: error: could not make $CONFIG_STATUS" >&5

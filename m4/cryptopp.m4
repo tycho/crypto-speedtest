@@ -50,7 +50,7 @@ AC_MSG_CHECKING([for crypto++ version >= $min_crypto_version])
 crypto_pp_file_with_version="cryptlib.h"
 
 CRYPTO_PP_STYLE="unknown"
-CRYPTO_PP_LIB_NAME="unknown"
+CRYPTO_PP_LIB_NAME=""
 crypto_pp_include_i="unknown"
 CRYPTO_PP_INCLUDE_PREFIX="unknown"
 CRYPTO_PP_DEFINE="unknown"
@@ -105,54 +105,58 @@ if test $CRYPTO_PP_STYLE = "unknown"; then
 	#
 	# If the execution reaches here, we have failed.
 	#
-	AC_MSG_ERROR([
-	Could not find cryptopp header file "$crypto_pp_file_with_version".
-	Please check if the path "$CRYPTO_PP_PREFIX" is valid.])
-fi
+	echo "no"
+	AC_MSG_NOTICE([
+*** Could not find cryptopp header file "$crypto_pp_file_with_version".
+*** Please check if the path "$CRYPTO_PP_PREFIX" is valid.])
 
-#
-# Find out the cryptopp version and check against the minimum required
-#
-crypto_pp_include_dir="$crypto_pp_include_i/$CRYPTO_PP_INCLUDE_PREFIX"
-crypto_pp_header_path="$crypto_pp_include_dir/$crypto_pp_file_with_version"
-
-CRYPTO_PP_VERSION_STRING=$(grep "Reference Manual" $crypto_pp_header_path | \
-	sed -e ['s/[^0-9]*\([0-9.]*\).*/\1/'])
-
-CRYPTO_PP_VERSION_NUMBER=$(echo $CRYPTO_PP_VERSION_STRING | \
-	$AWK 'BEGIN { FS = "."; } { printf "%d", ([$]1 * 1000 + [$]2) * 1000 + [$]3;}')
-
-minvers=$(echo $min_crypto_version | \
-	$AWK 'BEGIN { FS = "."; } { printf "%d", ([$]1 * 1000 + [$]2) * 1000 + [$]3;}')
-
-if test -n "$CRYPTO_PP_VERSION_NUMBER" && test "$CRYPTO_PP_VERSION_NUMBER" -ge $minvers; then
-	result="yes (version $CRYPTO_PP_VERSION_STRING, $CRYPTO_PP_STYLE)"
+	ifelse([$3], , :, [$3])
 else
-	result="no"
+	#
+	# Find out the cryptopp version and check against the minimum required
+	#
+	crypto_pp_include_dir="$crypto_pp_include_i/$CRYPTO_PP_INCLUDE_PREFIX"
+	crypto_pp_header_path="$crypto_pp_include_dir/$crypto_pp_file_with_version"
+
+	CRYPTO_PP_VERSION_STRING=$(grep "Reference Manual" $crypto_pp_header_path | \
+		sed -e ['s/[^0-9]*\([0-9.]*\).*/\1/'])
+
+	CRYPTO_PP_VERSION_NUMBER=$(echo $CRYPTO_PP_VERSION_STRING | \
+		$AWK 'BEGIN { FS = "."; } { printf "%d", ([$]1 * 1000 + [$]2) * 1000 + [$]3;}')
+
+	minvers=$(echo $min_crypto_version | \
+		$AWK 'BEGIN { FS = "."; } { printf "%d", ([$]1 * 1000 + [$]2) * 1000 + [$]3;}')
+
+	if test -n "$CRYPTO_PP_VERSION_NUMBER" && test "$CRYPTO_PP_VERSION_NUMBER" -ge $minvers; then
+		result="yes (version $CRYPTO_PP_VERSION_STRING, $CRYPTO_PP_STYLE)"
+	else
+		result="no"
+	fi
+	AC_MSG_RESULT([$result])
+
+	#
+	# FLAGS
+	#
+	CRYPTO_PP_CXXFLAGS="-isystem $crypto_pp_include_i -D$CRYPTO_PP_DEFINE"
+	CRYPTO_PP_LDFLAGS="-L$CRYPTO_PP_LIB"
+	AH_TEMPLATE([CRYPTOPP_INCLUDE_PREFIX], [Define this to the include prefix of crypto++])
+	AC_DEFINE_UNQUOTED([CRYPTOPP_INCLUDE_PREFIX], $CRYPTO_PP_INCLUDE_PREFIX)
+
+	#
+	# Exported symbols
+	#
+	AC_SUBST([CRYPTO_PP_PREFIX])
+	AC_SUBST([CRYPTO_PP_VERSION_STRING])
+	AC_SUBST([CRYPTO_PP_VERSION_NUMBER])
+
+	AC_SUBST([CRYPTO_PP_STYLE])
+	AC_SUBST([CRYPTO_PP_LIB_NAME])
+	AC_SUBST([CRYPTO_PP_INCLUDE_PREFIX])
+	AC_SUBST([CRYPTO_PP_CXXFLAGS])
+	AC_SUBST([CRYPTO_PP_LDFLAGS])
+
+	AC_MSG_NOTICE([Crypto++ version number is $CRYPTO_PP_VERSION_NUMBER])
+
+	ifelse([$2], , :, [$2])
 fi
-AC_MSG_RESULT([$result])
-
-#
-# FLAGS
-#
-CRYPTO_PP_CXXFLAGS="-isystem $crypto_pp_include_i -D$CRYPTO_PP_DEFINE"
-CRYPTO_PP_LDFLAGS="-L$CRYPTO_PP_LIB"
-AH_TEMPLATE([CRYPTOPP_INCLUDE_PREFIX], [Define this to the include prefix of crypto++])
-AC_DEFINE_UNQUOTED([CRYPTOPP_INCLUDE_PREFIX], $CRYPTO_PP_INCLUDE_PREFIX)
-
-#
-# Exported symbols
-#
-AC_SUBST([CRYPTO_PP_PREFIX])
-AC_SUBST([CRYPTO_PP_VERSION_STRING])
-AC_SUBST([CRYPTO_PP_VERSION_NUMBER])
-
-AC_SUBST([CRYPTO_PP_STYLE])
-AC_SUBST([CRYPTO_PP_LIB_NAME])
-AC_SUBST([CRYPTO_PP_INCLUDE_PREFIX])
-AC_SUBST([CRYPTO_PP_CXXFLAGS])
-AC_SUBST([CRYPTO_PP_LDFLAGS])
-
-AC_MSG_NOTICE([Crypto++ version number is $CRYPTO_PP_VERSION_NUMBER])
 ])
-
