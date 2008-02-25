@@ -145,9 +145,9 @@ void verify_rijndael_ecb()
 
     {
 	CryptoPP::ECB_Mode<CryptoPP::Rijndael>::Encryption encctx;
-	encctx.SetKey((byte*)enckey, 32);
+	encctx.SetKey((uint8_t*)enckey, 32);
 
-	encctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
+	encctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
     }
 #endif
 
@@ -159,10 +159,10 @@ void verify_rijndael_ecb()
 
     {
 	AES_KEY aeskey;
-	AES_set_encrypt_key((byte*)enckey, 256, &aeskey);
+	AES_set_encrypt_key((uint8_t*)enckey, 256, &aeskey);
 
 	for(unsigned int p = 0; p < bufferlen; p += AES_BLOCK_SIZE)
-	    AES_encrypt((byte*)buffer_openssl + p, (byte*)buffer_openssl + p, &aeskey);
+	    AES_encrypt((uint8_t*)buffer_openssl + p, (uint8_t*)buffer_openssl + p, &aeskey);
     }
 #endif
 
@@ -174,7 +174,7 @@ void verify_rijndael_ecb()
 
     {
 	aes_ctx encctx;
-	aes_set_encrypt_key(&encctx, 32, (byte*)enckey);
+	aes_set_encrypt_key(&encctx, 32, (uint8_t*)enckey);
 	aes_encrypt(&encctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
     }
 #endif
@@ -187,7 +187,7 @@ void verify_rijndael_ecb()
 
     {
 	aesParam encctx;
-	aesSetup(&encctx, (byte*)enckey, 256, ENCRYPT);
+	aesSetup(&encctx, (uint8_t*)enckey, 256, ENCRYPT);
 
 	for(unsigned int p = 0; p < bufferlen; p += 16)
 	    aesEncrypt(&encctx, (uint32_t*)(buffer_beecrypt + p), (uint32_t*)(buffer_beecrypt + p));
@@ -215,7 +215,7 @@ void verify_rijndael_ecb()
 
     {
 	RijndaelEncryptECB encctx;
-	encctx.set_key((byte*)enckey, 32);
+	encctx.set_key((uint8_t*)enckey, 32);
 	encctx.encrypt(buffer_my, buffer_my, bufferlen);
     }
 
@@ -286,9 +286,9 @@ void verify_rijndael_ecb()
 
     {
 	CryptoPP::ECB_Mode<CryptoPP::Rijndael>::Decryption decctx;
-	decctx.SetKey((byte*)enckey, 32);
+	decctx.SetKey((uint8_t*)enckey, 32);
 
-	decctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
+	decctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
     }
 #endif
 
@@ -297,10 +297,10 @@ void verify_rijndael_ecb()
 
     {
 	AES_KEY aeskey;
-	AES_set_decrypt_key((byte*)enckey, 256, &aeskey);
+	AES_set_decrypt_key((uint8_t*)enckey, 256, &aeskey);
 
 	for(unsigned int p = 0; p < bufferlen; p += AES_BLOCK_SIZE)
-	    AES_decrypt((byte*)buffer_openssl + p, (byte*)buffer_openssl + p, &aeskey);
+	    AES_decrypt((uint8_t*)buffer_openssl + p, (uint8_t*)buffer_openssl + p, &aeskey);
     }
 #endif
 
@@ -309,7 +309,7 @@ void verify_rijndael_ecb()
 
     {
 	aes_ctx decctx;
-	aes_set_decrypt_key(&decctx, 32, (byte*)enckey);
+	aes_set_decrypt_key(&decctx, 32, (uint8_t*)enckey);
 	aes_decrypt(&decctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
     }
 #endif
@@ -319,7 +319,7 @@ void verify_rijndael_ecb()
 
     {
 	aesParam decctx;
-	aesSetup(&decctx, (byte*)enckey, 256, DECRYPT);
+	aesSetup(&decctx, (uint8_t*)enckey, 256, DECRYPT);
 
 	for(unsigned int p = 0; p < bufferlen; p += 16)
 	    aesDecrypt(&decctx, (uint32_t*)(buffer_beecrypt + p), (uint32_t*)(buffer_beecrypt + p));
@@ -341,7 +341,7 @@ void verify_rijndael_ecb()
 
     {
 	RijndaelDecryptECB decctx;
-	decctx.set_key((byte*)enckey, 32);
+	decctx.set_key((uint8_t*)enckey, 32);
 	decctx.decrypt(buffer_my, buffer_my, bufferlen);
     }
 
@@ -430,9 +430,9 @@ void verify_serpent_ecb()
 
     {
 	CryptoPP::ECB_Mode<CryptoPP::Serpent>::Encryption encctx;
-	encctx.SetKey((byte*)enckey, 32);
+	encctx.SetKey((uint8_t*)enckey, 32);
 
-	encctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
+	encctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
     }
 #endif
 
@@ -444,7 +444,7 @@ void verify_serpent_ecb()
 
     {
 	serpent_ctx encctx;
-	serpent_set_key(&encctx, 32, (byte*)enckey);
+	serpent_set_key(&encctx, 32, (uint8_t*)enckey);
 	serpent_encrypt(&encctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
     }
 #endif
@@ -532,9 +532,9 @@ void verify_serpent_ecb()
 
     {
 	CryptoPP::ECB_Mode<CryptoPP::Serpent>::Decryption decctx;
-	decctx.SetKey((byte*)enckey, 32);
+	decctx.SetKey((uint8_t*)enckey, 32);
 
-	decctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
+	decctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
     }
 #endif
 
@@ -543,7 +543,7 @@ void verify_serpent_ecb()
 
     {
 	serpent_ctx decctx;
-	serpent_set_key(&decctx, 32, (byte*)enckey);
+	serpent_set_key(&decctx, 32, (uint8_t*)enckey);
 	serpent_decrypt(&decctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
     }
 #endif
@@ -643,9 +643,9 @@ void verify_twofish_ecb()
 
     {
 	CryptoPP::ECB_Mode<CryptoPP::Twofish>::Encryption encctx;
-	encctx.SetKey((byte*)enckey, 32);
+	encctx.SetKey((uint8_t*)enckey, 32);
 
-	encctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
+	encctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
     }
 #endif
 
@@ -720,9 +720,9 @@ void verify_twofish_ecb()
 
     {
 	CryptoPP::ECB_Mode<CryptoPP::Twofish>::Decryption decctx;
-	decctx.SetKey((byte*)enckey, 32);
+	decctx.SetKey((uint8_t*)enckey, 32);
 
-	decctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
+	decctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
     }
 #endif
 
@@ -763,7 +763,7 @@ void verify_3des_ecb()
 #if HAVE_LIBNETTLE
     // Nettle requires some parity fix of the key
 
-    des_fix_parity(24, (byte*)enckey, (byte*)enckey);
+    des_fix_parity(24, (uint8_t*)enckey, (uint8_t*)enckey);
 #endif
 
 #if HAVE_LIBGCRYPT
@@ -818,9 +818,9 @@ void verify_3des_ecb()
 
     {
 	CryptoPP::ECB_Mode<CryptoPP::DES_EDE3>::Encryption encctx;
-	encctx.SetKey((byte*)enckey, 24);
+	encctx.SetKey((uint8_t*)enckey, 24);
 
-	encctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
+	encctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
     }
 #endif
 
@@ -850,8 +850,8 @@ void verify_3des_ecb()
 
     {
 	des3_ctx encctx;
-	des3_set_key(&encctx, (byte*)enckey);
-	des3_encrypt(&encctx, bufferlen, (byte*)buffer_nettle, (byte*)buffer_nettle);
+	des3_set_key(&encctx, (uint8_t*)enckey);
+	des3_encrypt(&encctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
     }
 #endif
 
@@ -932,9 +932,9 @@ void verify_3des_ecb()
 
     {
 	CryptoPP::ECB_Mode<CryptoPP::DES_EDE3>::Decryption decctx;
-	decctx.SetKey((byte*)enckey, 24);
+	decctx.SetKey((uint8_t*)enckey, 24);
 
-	decctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
+	decctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
     }
 #endif
 
@@ -958,8 +958,8 @@ void verify_3des_ecb()
 
     {
 	des3_ctx decctx;
-	des3_set_key(&decctx, (byte*)enckey);
-	des3_decrypt(&decctx, bufferlen, (byte*)buffer_nettle, (byte*)buffer_nettle);
+	des3_set_key(&decctx, (uint8_t*)enckey);
+	des3_decrypt(&decctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
     }
 #endif
 
