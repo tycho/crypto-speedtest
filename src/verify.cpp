@@ -9,6 +9,12 @@
 #include <numeric>
 #include <math.h>
 
+#include <tomcrypt.h>
+// remove some macros slashing with other libraries
+#undef byte
+#undef XTEA
+#undef DES
+
 #include <gcrypt.h>
 
 #include <mcrypt.h>
@@ -16,11 +22,13 @@
 #include <botan/botan.h>
 #include <botan/aes.h>
 #include <botan/serpent.h>
+#include <botan/twofish.h>
 #include <botan/des.h>
 
 #include <crypto++/modes.h>
 #include <crypto++/rijndael.h>
 #include <crypto++/serpent.h>
+#include <crypto++/twofish.h>
 #include <crypto++/des.h>
 
 #define NCOMPAT
@@ -155,6 +163,18 @@ void verify_rijndael_ecb()
 	    aesEncrypt(&encctx, (uint32_t*)(buffer_beecrypt + p), (uint32_t*)(buffer_beecrypt + p));
     }
 
+    // Tomcrypt
+
+    char buffer_tomcrypt[bufferlen];
+    fill_buffer(buffer_tomcrypt, bufferlen);
+
+    {
+	symmetric_ECB encctx;
+	ecb_start(find_cipher("rijndael"), (uint8_t*)enckey, 32, 0, &encctx);
+	ecb_encrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &encctx);
+	ecb_done(&encctx);
+    }
+
     // My Implementation
 
     char buffer_my[bufferlen];
@@ -174,6 +194,7 @@ void verify_rijndael_ecb()
     compare_buffers(buffer_gcrypt, buffer_openssl, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_nettle, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_beecrypt, bufferlen);
+    compare_buffers(buffer_gcrypt, buffer_tomcrypt, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_my, bufferlen);
 
     // libgcrypt
@@ -242,6 +263,15 @@ void verify_rijndael_ecb()
 	    aesDecrypt(&decctx, (uint32_t*)(buffer_beecrypt + p), (uint32_t*)(buffer_beecrypt + p));
     }
 
+    // Tomcrypt
+
+    {
+	symmetric_ECB decctx;
+	ecb_start(find_cipher("rijndael"), (uint8_t*)enckey, 32, 0, &decctx);
+	ecb_decrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &decctx);
+	ecb_done(&decctx);
+    }
+
     // My Implementation
 
     {
@@ -259,6 +289,7 @@ void verify_rijndael_ecb()
     check_buffer(buffer_openssl, bufferlen);
     check_buffer(buffer_nettle, bufferlen);
     check_buffer(buffer_beecrypt, bufferlen);
+    check_buffer(buffer_tomcrypt, bufferlen);
     check_buffer(buffer_my, bufferlen);
 }
 
@@ -412,6 +443,135 @@ void verify_serpent_ecb()
     check_buffer(buffer_gladman, bufferlen);
 }
 
+// *** Verify Twofish Implementations
+
+void verify_twofish_ecb()
+{
+    // libgcrypt
+
+    char buffer_gcrypt[bufferlen];
+    fill_buffer(buffer_gcrypt, bufferlen);
+
+    {
+	gcry_cipher_hd_t encctx;
+	gcry_cipher_open(&encctx, GCRY_CIPHER_TWOFISH, GCRY_CIPHER_MODE_ECB, 0);
+	gcry_cipher_setkey(encctx, (uint8_t*)enckey, 32);
+	gcry_cipher_encrypt(encctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
+	gcry_cipher_close(encctx);
+    }
+
+    // libmcrypt
+
+    char buffer_mcrypt[bufferlen];
+    fill_buffer(buffer_mcrypt, bufferlen);
+
+    {
+	MCRYPT encctx = mcrypt_module_open(MCRYPT_TWOFISH, NULL, MCRYPT_ECB, NULL);
+	mcrypt_generic_init(encctx, enckey, 32, NULL);
+	mcrypt_generic(encctx, buffer_mcrypt, bufferlen);
+	mcrypt_generic_end(encctx);
+    }
+
+    // Botan
+
+    char buffer_botan[bufferlen];
+    fill_buffer(buffer_botan, bufferlen);
+
+    {
+	Botan::Twofish encctx;
+	encctx.set_key((Botan::byte*)enckey, 32);
+
+	for(unsigned int p = 0; p < bufferlen; p += encctx.BLOCK_SIZE)
+	    encctx.encrypt((Botan::byte*)buffer_botan + p);
+    }
+
+    // Crypto++
+
+    char buffer_cryptopp[bufferlen];
+    fill_buffer(buffer_cryptopp, bufferlen);
+
+    {
+	CryptoPP::ECB_Mode<CryptoPP::Twofish>::Encryption encctx;
+	encctx.SetKey((byte*)enckey, 32);
+
+	encctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
+    }
+
+    // Tomcrypt
+
+    char buffer_tomcrypt[bufferlen];
+    fill_buffer(buffer_tomcrypt, bufferlen);
+
+    {
+	symmetric_ECB encctx;
+	ecb_start(find_cipher("twofish"), (uint8_t*)enckey, 32, 0, &encctx);
+	ecb_encrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &encctx);
+	ecb_done(&encctx);
+    }
+
+    // compare buffers
+
+    compare_buffers(buffer_gcrypt, buffer_mcrypt, bufferlen);
+    compare_buffers(buffer_gcrypt, buffer_botan, bufferlen);
+    compare_buffers(buffer_gcrypt, buffer_cryptopp, bufferlen);
+    compare_buffers(buffer_gcrypt, buffer_tomcrypt, bufferlen);
+
+    // libgcrypt
+
+    {
+	gcry_cipher_hd_t decctx;
+	gcry_cipher_open(&decctx, GCRY_CIPHER_TWOFISH, GCRY_CIPHER_MODE_ECB, 0);
+	gcry_cipher_setkey(decctx, (uint8_t*)enckey, 32);
+	gcry_cipher_decrypt(decctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
+	gcry_cipher_close(decctx);
+    }
+
+    // libmcrypt
+
+    {
+	MCRYPT decctx = mcrypt_module_open(MCRYPT_TWOFISH, NULL, MCRYPT_ECB, NULL);
+	mcrypt_generic_init(decctx, enckey, 32, NULL);
+	mdecrypt_generic(decctx, buffer_mcrypt, bufferlen);
+	mcrypt_generic_end(decctx);
+    }
+
+    // Botan
+
+    {
+	Botan::Twofish decctx;
+	decctx.set_key((Botan::byte*)enckey, 32);
+
+	for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
+	    decctx.decrypt((Botan::byte*)buffer_botan + p);
+    }
+
+    // Crypto++
+
+    {
+	CryptoPP::ECB_Mode<CryptoPP::Twofish>::Decryption decctx;
+	decctx.SetKey((byte*)enckey, 32);
+
+	decctx.ProcessData((byte*)buffer_cryptopp, (byte*)buffer_cryptopp, bufferlen);
+    }
+
+    // Tomcrypt
+
+    {
+	symmetric_ECB decctx;
+	ecb_start(find_cipher("twofish"), (uint8_t*)enckey, 32, 0, &decctx);
+	ecb_decrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &decctx);
+	ecb_done(&decctx);
+    }
+
+    // test buffers
+
+    check_buffer(buffer_gcrypt, bufferlen);
+    check_buffer(buffer_mcrypt, bufferlen);
+    check_buffer(buffer_botan, bufferlen);
+    check_buffer(buffer_cryptopp, bufferlen);
+    check_buffer(buffer_tomcrypt, bufferlen);
+}
+
 // *** Verify Triple DES Implementations
 
 void verify_3des_ecb()
@@ -486,7 +646,7 @@ void verify_3des_ecb()
 	    DES_encrypt3((DES_LONG*)(buffer_openssl + p), &eks1, &eks2, &eks3);
     }
 
-   // Nettle
+    // Nettle
 
     char buffer_nettle[bufferlen];
     fill_buffer(buffer_nettle, bufferlen);
@@ -497,6 +657,18 @@ void verify_3des_ecb()
 	des3_encrypt(&encctx, bufferlen, (byte*)buffer_nettle, (byte*)buffer_nettle);
     }
 
+    // Tomcrypt
+
+    char buffer_tomcrypt[bufferlen];
+    fill_buffer(buffer_tomcrypt, bufferlen);
+
+    {
+	symmetric_ECB encctx;
+	ecb_start(find_cipher("3des"), (uint8_t*)enckey, 24, 0, &encctx);
+	ecb_encrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &encctx);
+	ecb_done(&encctx);
+    }
+
     // compare buffers
 
     compare_buffers(buffer_gcrypt, buffer_mcrypt, bufferlen);
@@ -504,6 +676,7 @@ void verify_3des_ecb()
     compare_buffers(buffer_gcrypt, buffer_cryptopp, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_openssl, bufferlen);
     compare_buffers(buffer_gcrypt, buffer_nettle, bufferlen);
+    compare_buffers(buffer_gcrypt, buffer_tomcrypt, bufferlen);
 
     // libgcrypt
 
@@ -564,6 +737,15 @@ void verify_3des_ecb()
 	des3_decrypt(&decctx, bufferlen, (byte*)buffer_nettle, (byte*)buffer_nettle);
     }
 
+    // Tomcrypt
+
+    {
+	symmetric_ECB decctx;
+	ecb_start(find_cipher("3des"), (uint8_t*)enckey, 24, 0, &decctx);
+	ecb_decrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &decctx);
+	ecb_done(&decctx);
+    }
+
     // test buffers
 
     check_buffer(buffer_gcrypt, bufferlen);
@@ -572,6 +754,7 @@ void verify_3des_ecb()
     check_buffer(buffer_cryptopp, bufferlen);
     check_buffer(buffer_openssl, bufferlen);
     check_buffer(buffer_nettle, bufferlen);
+    check_buffer(buffer_tomcrypt, bufferlen);
 }
 
 int main()
@@ -581,6 +764,10 @@ int main()
     gcry_check_version(GCRYPT_VERSION);
 
     Botan::LibraryInitializer init;
+
+    register_cipher(&rijndael_desc);
+    register_cipher(&twofish_desc);
+    register_cipher(&des3_desc);
 
     // Create (somewhat) random encryption key
 
@@ -593,6 +780,7 @@ int main()
 
     verify_rijndael_ecb();
     verify_serpent_ecb();
+    verify_twofish_ecb();
     verify_3des_ecb();
 
     return 0;

@@ -75,6 +75,10 @@ case "$CRYPTO_PP_STYLE" in
 	;;
 esac
 
+# OpenSSL's crypto
+
+PKG_CHECK_MODULES(OPENSSL, [libcrypto >= 0.9.8f])
+
 # Nettle
 
 AC_CHECK_HEADERS([nettle/aes.h])
@@ -89,11 +93,15 @@ AC_CHECK_HEADERS([beecrypt/aes.h])
 AC_CHECK_LIB(beecrypt, [aesSetup], [],
     AC_MSG_ERROR([
 *** Could not find a suitable version of the beecrypt library! ***
-*** Install the libnbeecrypt-dev package or use the source from http://beecrypt.sourceforge.net ***]))
+*** Install the libbeecrypt-dev package or use the source from http://beecrypt.sourceforge.net ***]))
 
-# OpenSSL's crypto
+# libtomcrypt
 
-PKG_CHECK_MODULES(OPENSSL, [libcrypto >= 0.9.8f])
+AC_CHECK_HEADERS([tomcrypt.h])
+AC_CHECK_LIB(tomcrypt, [ecb_start], [],
+    AC_MSG_ERROR([
+*** Could not find a suitable version of the libtomcrypt library! ***
+*** Install the libtomcrypt-dev package or use the source from http://libtom.org ***]))
 
 # Output Makefiles
 
