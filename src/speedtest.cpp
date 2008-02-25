@@ -16,6 +16,17 @@
 
 #include <mcrypt.h>
 
+#include <botan/botan.h>
+#include <botan/aes.h>
+#include <botan/serpent.h>
+#include <botan/twofish.h>
+#include <botan/cast256.h>
+#include <botan/gost.h>
+#include <botan/xtea.h>
+#include <botan/blowfish.h>
+#include <botan/cast128.h>
+#include <botan/des.h>
+
 // *** Speedtest Parameters ***
 
 // speed test different buffer sizes in this range
@@ -294,6 +305,143 @@ void test_libmcrypt_3des_ecb()
     mcrypt_generic_end(decctx);
 }
 
+// *** Test Functions for Botan ***
+
+void test_botan_rijndael_ecb()
+{
+    Botan::AES_256 encctx;
+    encctx.set_key((Botan::byte*)enckey, 32);
+
+    for(unsigned int p = 0; p < bufferlen; p += encctx.BLOCK_SIZE)
+	encctx.encrypt((Botan::byte*)buffer + p);
+
+    Botan::AES_256 decctx;
+    decctx.set_key((Botan::byte*)enckey, 32);
+
+    for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
+	decctx.decrypt((Botan::byte*)buffer + p);
+}
+
+void test_botan_serpent_ecb()
+{
+    Botan::Serpent encctx;
+    encctx.set_key((Botan::byte*)enckey, 32);
+
+    for(unsigned int p = 0; p < bufferlen; p += encctx.BLOCK_SIZE)
+	encctx.encrypt((Botan::byte*)buffer + p);
+
+    Botan::Serpent decctx;
+    decctx.set_key((Botan::byte*)enckey, 32);
+
+    for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
+	decctx.decrypt((Botan::byte*)buffer + p);
+}
+
+void test_botan_twofish_ecb()
+{
+    Botan::Twofish encctx;
+    encctx.set_key((Botan::byte*)enckey, 32);
+
+    for(unsigned int p = 0; p < bufferlen; p += encctx.BLOCK_SIZE)
+	encctx.encrypt((Botan::byte*)buffer + p);
+
+    Botan::Twofish decctx;
+    decctx.set_key((Botan::byte*)enckey, 32);
+
+    for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
+	decctx.decrypt((Botan::byte*)buffer + p);
+}
+
+void test_botan_cast6_ecb()
+{
+    Botan::CAST_256 encctx;
+    encctx.set_key((Botan::byte*)enckey, 32);
+
+    for(unsigned int p = 0; p < bufferlen; p += encctx.BLOCK_SIZE)
+	encctx.encrypt((Botan::byte*)buffer + p);
+
+    Botan::CAST_256 decctx;
+    decctx.set_key((Botan::byte*)enckey, 32);
+
+    for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
+	decctx.decrypt((Botan::byte*)buffer + p);
+}
+
+void test_botan_gost_ecb()
+{
+    Botan::GOST encctx;
+    encctx.set_key((Botan::byte*)enckey, 32);
+
+    for(unsigned int p = 0; p < bufferlen; p += encctx.BLOCK_SIZE)
+	encctx.encrypt((Botan::byte*)buffer + p);
+
+    Botan::GOST decctx;
+    decctx.set_key((Botan::byte*)enckey, 32);
+
+    for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
+	decctx.decrypt((Botan::byte*)buffer + p);
+}
+
+void test_botan_xtea_ecb()
+{
+    Botan::XTEA encctx;
+    encctx.set_key((Botan::byte*)enckey, 16);
+
+    for(unsigned int p = 0; p < bufferlen; p += encctx.BLOCK_SIZE)
+	encctx.encrypt((Botan::byte*)buffer + p);
+
+    Botan::XTEA decctx;
+    decctx.set_key((Botan::byte*)enckey, 16);
+
+    for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
+	decctx.decrypt((Botan::byte*)buffer + p);
+}
+
+void test_botan_blowfish_ecb()
+{
+    Botan::Blowfish encctx;
+    encctx.set_key((Botan::byte*)enckey, 16);
+
+    for(unsigned int p = 0; p < bufferlen; p += encctx.BLOCK_SIZE)
+	encctx.encrypt((Botan::byte*)buffer + p);
+
+    Botan::Blowfish decctx;
+    decctx.set_key((Botan::byte*)enckey, 16);
+
+    for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
+	decctx.decrypt((Botan::byte*)buffer + p);
+}
+
+void test_botan_cast5_ecb()
+{
+    Botan::CAST_128 encctx;
+    encctx.set_key((Botan::byte*)enckey, 16);
+
+    for(unsigned int p = 0; p < bufferlen; p += encctx.BLOCK_SIZE)
+	encctx.encrypt((Botan::byte*)buffer + p);
+
+    Botan::CAST_128 decctx;
+    decctx.set_key((Botan::byte*)enckey, 16);
+
+    for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
+	decctx.decrypt((Botan::byte*)buffer + p);
+}
+
+void test_botan_3des_ecb()
+{
+    Botan::TripleDES encctx;
+    encctx.set_key((Botan::byte*)enckey, 16);
+
+    for(unsigned int p = 0; p < bufferlen; p += encctx.BLOCK_SIZE)
+	encctx.encrypt((Botan::byte*)buffer + p);
+
+    Botan::TripleDES decctx;
+    decctx.set_key((Botan::byte*)enckey, 16);
+
+    for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
+	decctx.decrypt((Botan::byte*)buffer + p);
+}
+
 // *** main() and run_test() ***
 
 /**
@@ -363,6 +511,10 @@ void run_test(const char* logfile)
 
 	double stddev = std::sqrt(variance);
 
+	if (timelist.size() == 1) { // only one run -> no variance or stddev
+	    variance = stddev = 0.0;
+	}
+
 	double vmin = *std::min_element(timelist.begin(), timelist.end());
 	double vmax = *std::max_element(timelist.begin(), timelist.end());
 
@@ -375,8 +527,9 @@ int main()
 {
     // Initialize all cryptographic libaries
 
-    const char *gcryversion = gcry_check_version(GCRYPT_VERSION);
-    assert(gcryversion);
+    gcry_check_version(GCRYPT_VERSION);
+
+    Botan::LibraryInitializer init;
 
     // Create (somewhat) random encryption key and initialization vector
 
@@ -400,6 +553,7 @@ int main()
     run_test<test_libgcrypt_3des_ecb>("gcrypt-3des-ecb.txt");
 #endif
 
+#if 0
     run_test<test_libmcrypt_rijndael_ecb>("mcrypt-rijndael-ecb.txt");
     run_test<test_libmcrypt_serpent_ecb>("mcrypt-serpent-ecb.txt");
     run_test<test_libmcrypt_twofish_ecb>("mcrypt-twofish-ecb.txt");
@@ -411,4 +565,17 @@ int main()
     run_test<test_libmcrypt_gost_ecb>("mcrypt-gost-ecb.txt");
     run_test<test_libmcrypt_cast5_ecb>("mcrypt-cast5-ecb.txt");
     run_test<test_libmcrypt_3des_ecb>("mcrypt-3des-ecb.txt");
+#endif
+
+#if 0
+    run_test<test_botan_rijndael_ecb>("botan-rijndael-ecb.txt");
+    run_test<test_botan_serpent_ecb>("botan-serpent-ecb.txt");
+    run_test<test_botan_twofish_ecb>("botan-twofish-ecb.txt");
+    run_test<test_botan_cast6_ecb>("botan-cast6-ecb.txt");
+    run_test<test_botan_gost_ecb>("botan-gost-ecb.txt");
+    run_test<test_botan_xtea_ecb>("botan-xtea-ecb.txt");
+    run_test<test_botan_blowfish_ecb>("botan-blowfish-ecb.txt");
+    run_test<test_botan_cast5_ecb>("botan-cast5-ecb.txt");
+    run_test<test_botan_3des_ecb>("botan-3des-ecb.txt");
+#endif
 }

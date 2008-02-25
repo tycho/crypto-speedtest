@@ -49,6 +49,11 @@ AM_PATH_LIBMCRYPT([2.5.8], [],
 *** Could not find a suitable version of the libmcrypt library! ***
 *** Install the libmcrypt-dev package or use the source from http://mcrypt.sourceforge.net ***]))
 
+AC_PATH_GENERIC(botan, [1.6.1], [],
+    AC_MSG_ERROR([
+*** Could not find a suitable version of the Botan library! ***
+*** Install the libbotan-dev package or use the source from http://botan.randombit.net ***]))
+
 # Output Makefiles
 
 AC_CONFIG_FILES([Makefile src/Makefile])
