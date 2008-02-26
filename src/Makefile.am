@@ -141,3 +141,29 @@ speedtest_tomcrypt_LDADD = $(LIBS)
 
 endif
 
+runall:
+	./speedtest_custom
+if HAVE_GCRYPT
+	./speedtest_gcrypt
+endif
+if HAVE_MCRYPT
+	./speedtest_mcrypt
+endif
+if HAVE_BOTAN
+	./speedtest_botan
+endif
+if HAVE_CRYPTOPP
+	./speedtest_cryptopp
+endif
+if HAVE_OPENSSL
+	./speedtest_openssl
+endif
+if HAVE_NETTLE
+	./speedtest_nettle
+endif
+if HAVE_BEECRYPT
+	./speedtest_beecrypt
+endif
+if HAVE_TOMCRYPT
+	./speedtest_tomcrypt
+endif

@@ -815,6 +815,17 @@ uninstall-am:
 	mostlyclean-generic pdf pdf-am ps ps-am tags uninstall \
 	uninstall-am
 
+
+runall:
+	./speedtest_custom
+@HAVE_GCRYPT_TRUE@	./speedtest_gcrypt
+@HAVE_MCRYPT_TRUE@	./speedtest_mcrypt
+@HAVE_BOTAN_TRUE@	./speedtest_botan
+@HAVE_CRYPTOPP_TRUE@	./speedtest_cryptopp
+@HAVE_OPENSSL_TRUE@	./speedtest_openssl
+@HAVE_NETTLE_TRUE@	./speedtest_nettle
+@HAVE_BEECRYPT_TRUE@	./speedtest_beecrypt
+@HAVE_TOMCRYPT_TRUE@	./speedtest_tomcrypt
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
