@@ -20,7 +20,7 @@ const unsigned int buffermin = 16;
 const unsigned int buffermax = 16 * 65536;
 const unsigned int repeatsize = 65536;
 const unsigned int minrepeats = 2;
-const unsigned int measureruns = 32;
+const unsigned int measureruns = 64;
 
 /// Time is measured using gettimeofday()
 inline double timestamp()

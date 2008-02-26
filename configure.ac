@@ -65,14 +65,6 @@ fi
 
 AC_PATH_GENERIC(botan, [1.6.0])
 
-if test "$BOTAN_LIBS" == ""; then
-    AC_PATH_GENERIC(botan1.6, [1.6.0])
-    if test "$BOTAN1.6_LIBS" != ""; then
-        BOTAN_CFLAGS=$BOTAN1.6_CFLAGS
-        BOTAN_LIBS=$BOTAN1.6_LIBS
-    fi
-fi
-
 AM_CONDITIONAL(HAVE_BOTAN, test "$BOTAN_LIBS" != "")
 
 if test "$BOTAN_LIBS" != ""; then
