@@ -9,9 +9,6 @@ AC_CANONICAL_HOST
 AM_INIT_AUTOMAKE(foreign)
 # AM_MAINTAINER_MODE
 
-m4_include([m4/cryptopp.m4])
-m4_include([m4/libmcrypt.m4])
-
 # enable full optimization by configure switch
 AC_ARG_ENABLE(optimize,
 	AS_HELP_STRING([--enable-optimize],
@@ -54,6 +51,8 @@ fi
 
 # libmcrypt
 
+m4_include([m4/libmcrypt.m4])
+
 AM_PATH_LIBMCRYPT([2.5.7])
 
 AM_CONDITIONAL(HAVE_MCRYPT, test "$LIBMCRYPT_LIBS" != "")
@@ -73,6 +72,8 @@ if test "$BOTAN_LIBS" != ""; then
 fi
 
 # Crypto++
+
+m4_include([m4/cryptopp.m4])
 
 AM_OPTIONS_CRYPTO
 CHECK_CRYPTO(5.5)

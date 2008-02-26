@@ -20,7 +20,7 @@ const unsigned int buffermin = 16;
 const unsigned int buffermax = 16 * 65536;
 const unsigned int repeatsize = 65536;
 const unsigned int minrepeats = 2;
-const unsigned int measureruns = 4;
+const unsigned int measureruns = 32;
 
 /// Time is measured using gettimeofday()
 inline double timestamp()
@@ -65,7 +65,7 @@ void run_test(const char* logfile)
 	    unsigned int repeat = repeatsize / bufflen;
 	    if (repeat < minrepeats) repeat = minrepeats;
 
-	    std::cout << "Test: bufflen " << bufflen << " repeat " << repeat << "\n";
+	    // std::cout << "Test: bufflen " << bufflen << " repeat " << repeat << "\n";
 
 	    bufferlen = bufflen;
 

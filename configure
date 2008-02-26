@@ -2370,26 +2370,6 @@ am__tar='${AMTAR} chof - "$$tardir"'; am__untar='${AMTAR} xf -'
 
 # AM_MAINTAINER_MODE
 
-
-
-
-
-
-
-# This script detects libmcrypt version and defines
-# LIBMCRYPT_CFLAGS, LIBMCRYPT_LIBS
-# and LIBMCRYPT24 or LIBMCRYPT22 depending on libmcrypt version
-# found.
-
-# Modified for LIBMCRYPT -- nmav
-# Configure paths for LIBGCRYPT
-# Shamelessly stolen from the one of XDELTA by Owen Taylor
-# Werner Koch   99-12-09
-
-
-
-
-
 # enable full optimization by configure switch
 # Check whether --enable-optimize was given.
 if test "${enable_optimize+set}" = set; then
@@ -4145,6 +4125,21 @@ fi
 # libmcrypt
 
 
+# This script detects libmcrypt version and defines
+# LIBMCRYPT_CFLAGS, LIBMCRYPT_LIBS
+# and LIBMCRYPT24 or LIBMCRYPT22 depending on libmcrypt version
+# found.
+
+# Modified for LIBMCRYPT -- nmav
+# Configure paths for LIBGCRYPT
+# Shamelessly stolen from the one of XDELTA by Owen Taylor
+# Werner Koch   99-12-09
+
+
+
+
+
+
 
 # Check whether --with-libmcrypt-prefix was given.
 if test "${with_libmcrypt_prefix+set}" = set; then
@@ -4743,6 +4738,12 @@ _ACEOF
 fi
 
 # Crypto++
+
+
+
+
+
+
 
 
 
