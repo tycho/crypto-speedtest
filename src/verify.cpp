@@ -48,9 +48,11 @@
 #endif
 
 #if HAVE_LIBNETTLE
+extern "C" {
 #include <nettle/aes.h>
 #include <nettle/serpent.h>
 #include <nettle/des.h>
+}
 #endif
 
 #if HAVE_LIBBEECRYPT

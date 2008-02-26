@@ -65,6 +65,14 @@ fi
 
 AC_PATH_GENERIC(botan, [1.6.0])
 
+if test "$BOTAN_LIBS" == ""; then
+    AC_PATH_GENERIC(botan1.6, [1.6.0])
+    if test "$BOTAN1.6_LIBS" != ""; then
+        BOTAN_CFLAGS=$BOTAN1.6_CFLAGS
+        BOTAN_LIBS=$BOTAN1.6_LIBS
+    fi
+fi
+
 AM_CONDITIONAL(HAVE_BOTAN, test "$BOTAN_LIBS" != "")
 
 if test "$BOTAN_LIBS" != ""; then
@@ -76,7 +84,7 @@ fi
 m4_include([m4/cryptopp.m4])
 
 AM_OPTIONS_CRYPTO
-CHECK_CRYPTO(5.5)
+CHECK_CRYPTO(5.2)
 
 AM_CONDITIONAL(HAVE_CRYPTOPP, test "$CRYPTO_PP_LIB_NAME" != "")
 

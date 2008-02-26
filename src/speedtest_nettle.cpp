@@ -1,11 +1,13 @@
 // $Id$
 
+extern "C" {
 #include <nettle/aes.h>
 #include <nettle/serpent.h>
 #include <nettle/twofish.h>
 #include <nettle/cast128.h>
 #include <nettle/blowfish.h>
 #include <nettle/des.h>
+}
 
 #include "speedtest.h"
 
