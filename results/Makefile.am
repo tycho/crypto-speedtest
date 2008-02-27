@@ -1,8 +1,8 @@
 # $Id$
 
-all-local: pdfs morepdfs
+pdfs: baseplots sidebysideplots
 
-pdfs:
+baseplots:
 	PLOTNAME=p2-300-debian-etch ./speedtest.gnuplot
 	PLOTNAME=p3-1000-ubuntu-gutsy ./speedtest.gnuplot
 	PLOTNAME=p4-3200-debian-etch ./speedtest.gnuplot
@@ -12,7 +12,7 @@ pdfs:
 
 PAGELIST=`for p in \`seq 1 26\`; do echo A$$p B$$p C$$p D$$p E$$p F$$p; done`
 
-morepdfs:
+sidebysideplots:
 # Make other plots which will fill an A4 paper
 
 	PLOTNAME=p2-300-debian-etch FILENAME=p2-300-debian-etch-a4 PAPER=a4 ./speedtest.gnuplot
@@ -35,3 +35,14 @@ morepdfs:
 
 	rm p2-300-debian-etch-a4.pdf p3-1000-ubuntu-gutsy-a4.pdf p4-3200-debian-etch-a4.pdf
 	rm p4-3200-debian-lenny-a4.pdf p4-3200-gentoo-a4.pdf p4-3200-ubuntu-gutsy-a4.pdf
+
+EXTRA_DIST = \
+	README \
+	speedtest.gnuplot \
+	*.pdf \
+	p2-300-debian-etch/*.txt \
+	p3-1000-ubuntu-gutsy/*.txt \
+	p4-3200-debian-etch/*.txt \
+	p4-3200-debian-lenny/*.txt \
+	p4-3200-gentoo/*.txt \
+	p4-3200-ubuntu-gutsy/*.txt

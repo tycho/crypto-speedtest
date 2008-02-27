@@ -162,6 +162,17 @@ target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 PAGELIST = `for p in \`seq 1 26\`; do echo A$$p B$$p C$$p D$$p E$$p F$$p; done`
+EXTRA_DIST = \
+	README \
+	speedtest.gnuplot \
+	*.pdf \
+	p2-300-debian-etch/*.txt \
+	p3-1000-ubuntu-gutsy/*.txt \
+	p4-3200-debian-etch/*.txt \
+	p4-3200-debian-lenny/*.txt \
+	p4-3200-gentoo/*.txt \
+	p4-3200-ubuntu-gutsy/*.txt
+
 all: all-am
 
 .SUFFIXES:
@@ -229,7 +240,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-all-am: Makefile all-local
+all-am: Makefile
 installdirs:
 install: install-am
 install-exec: install-exec-am
@@ -311,21 +322,20 @@ uninstall-am:
 
 .MAKE: install-am install-strip
 
-.PHONY: all all-am all-local check check-am clean clean-generic \
-	distclean distclean-generic distdir dvi dvi-am html html-am \
-	info info-am install install-am install-data install-data-am \
-	install-dvi install-dvi-am install-exec install-exec-am \
-	install-html install-html-am install-info install-info-am \
-	install-man install-pdf install-pdf-am install-ps \
-	install-ps-am install-strip installcheck installcheck-am \
-	installdirs maintainer-clean maintainer-clean-generic \
-	mostlyclean mostlyclean-generic pdf pdf-am ps ps-am uninstall \
-	uninstall-am
+.PHONY: all all-am check check-am clean clean-generic distclean \
+	distclean-generic distdir dvi dvi-am html html-am info info-am \
+	install install-am install-data install-data-am install-dvi \
+	install-dvi-am install-exec install-exec-am install-html \
+	install-html-am install-info install-info-am install-man \
+	install-pdf install-pdf-am install-ps install-ps-am \
+	install-strip installcheck installcheck-am installdirs \
+	maintainer-clean maintainer-clean-generic mostlyclean \
+	mostlyclean-generic pdf pdf-am ps ps-am uninstall uninstall-am
 
 
-all-local: pdfs morepdfs
+pdfs: baseplots sidebysideplots
 
-pdfs:
+baseplots:
 	PLOTNAME=p2-300-debian-etch ./speedtest.gnuplot
 	PLOTNAME=p3-1000-ubuntu-gutsy ./speedtest.gnuplot
 	PLOTNAME=p4-3200-debian-etch ./speedtest.gnuplot
@@ -333,7 +343,7 @@ pdfs:
 	PLOTNAME=p4-3200-gentoo ./speedtest.gnuplot
 	PLOTNAME=p4-3200-ubuntu-gutsy ./speedtest.gnuplot
 
-morepdfs:
+sidebysideplots:
 # Make other plots which will fill an A4 paper
 
 	PLOTNAME=p2-300-debian-etch FILENAME=p2-300-debian-etch-a4 PAPER=a4 ./speedtest.gnuplot

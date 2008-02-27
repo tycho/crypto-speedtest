@@ -5,6 +5,7 @@ TESTS = verify
 noinst_PROGRAMS = speedtest_custom verify
 
 speedtest_custom_SOURCES = speedtest_custom.cpp \
+	speedtest.h \
 	rijndael.cpp rijndael.h \
 	serpent-gladman.cpp serpent-gladman.h \
 	serpent.h serpent.cpp
@@ -15,6 +16,8 @@ verify_SOURCES = verify.cpp \
 	serpent.h serpent.cpp
 
 AM_CXXFLAGS = -g -W -Wall -Wno-unused -O3 -fomit-frame-pointer -momit-leaf-frame-pointer
+
+EXTRA_DIST = speedtest.gnuplot
 
 verify_CXXFLAGS =
 verify_LDADD =
@@ -60,7 +63,7 @@ if HAVE_GCRYPT
 
 noinst_PROGRAMS += speedtest_gcrypt
 
-speedtest_gcrypt_SOURCES = speedtest_gcrypt.cpp
+speedtest_gcrypt_SOURCES = speedtest_gcrypt.cpp speedtest.h
 
 speedtest_gcrypt_CXXFLAGS = $(LIBGCRYPT_CFLAGS)
 speedtest_gcrypt_LDADD = $(LIBGCRYPT_LIBS)
@@ -71,7 +74,7 @@ if HAVE_MCRYPT
 
 noinst_PROGRAMS += speedtest_mcrypt
 
-speedtest_mcrypt_SOURCES = speedtest_mcrypt.cpp
+speedtest_mcrypt_SOURCES = speedtest_mcrypt.cpp speedtest.h
 
 speedtest_mcrypt_CXXFLAGS = $(LIBMCRYPT_CFLAGS)
 speedtest_mcrypt_LDADD = $(LIBMCRYPT_LIBS)
@@ -82,7 +85,7 @@ if HAVE_BOTAN
 
 noinst_PROGRAMS += speedtest_botan
 
-speedtest_botan_SOURCES = speedtest_botan.cpp
+speedtest_botan_SOURCES = speedtest_botan.cpp speedtest.h
 
 speedtest_botan_CXXFLAGS = $(BOTAN_CFLAGS)
 speedtest_botan_LDADD = $(BOTAN_LIBS)
@@ -93,7 +96,7 @@ if HAVE_CRYPTOPP
 
 noinst_PROGRAMS += speedtest_cryptopp
 
-speedtest_cryptopp_SOURCES = speedtest_cryptopp.cpp
+speedtest_cryptopp_SOURCES = speedtest_cryptopp.cpp speedtest.h
 
 speedtest_cryptopp_CXXFLAGS = $(CRYPTO_PP_CXXFLAGS)
 speedtest_cryptopp_LDADD = $(CRYPTO_PP_LDFLAGS) -l$(CRYPTO_PP_LIB_NAME)
@@ -104,7 +107,7 @@ if HAVE_OPENSSL
 
 noinst_PROGRAMS += speedtest_openssl
 
-speedtest_openssl_SOURCES = speedtest_openssl.cpp
+speedtest_openssl_SOURCES = speedtest_openssl.cpp speedtest.h
 
 speedtest_openssl_CXXFLAGS = $(OPENSSL_CFLAGS)
 speedtest_openssl_LDADD = $(OPENSSL_LIBS)
@@ -115,7 +118,7 @@ if HAVE_NETTLE
 
 noinst_PROGRAMS += speedtest_nettle
 
-speedtest_nettle_SOURCES = speedtest_nettle.cpp
+speedtest_nettle_SOURCES = speedtest_nettle.cpp speedtest.h
 
 speedtest_nettle_LDADD = $(LIBS)
 
@@ -125,7 +128,7 @@ if HAVE_BEECRYPT
 
 noinst_PROGRAMS += speedtest_beecrypt
 
-speedtest_beecrypt_SOURCES = speedtest_beecrypt.cpp
+speedtest_beecrypt_SOURCES = speedtest_beecrypt.cpp speedtest.h
 
 speedtest_beecrypt_LDADD = $(LIBS)
 
@@ -135,7 +138,7 @@ if HAVE_TOMCRYPT
 
 noinst_PROGRAMS += speedtest_tomcrypt
 
-speedtest_tomcrypt_SOURCES = speedtest_tomcrypt.cpp
+speedtest_tomcrypt_SOURCES = speedtest_tomcrypt.cpp speedtest.h
 
 speedtest_tomcrypt_LDADD = $(LIBS)
 
