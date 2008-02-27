@@ -138,5 +138,5 @@ AM_CONDITIONAL(HAVE_TOMCRYPT, test "$testflag_tomcrypt" == "yes")
 
 # Output Makefiles
 
-AC_CONFIG_FILES([Makefile src/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile results/Makefile])
 AC_OUTPUT

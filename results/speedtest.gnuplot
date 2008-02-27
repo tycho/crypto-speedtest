@@ -1,10 +1,25 @@
 #!/usr/bin/env gnuplot
 
-set terminal pdf solid size 5.0, 3.5
-set output 'speedtest.pdf'
+# Magic to get the different plot formats and output file names from the
+# environment variable set by the Makefile
+
+set macros
+name = "'`echo $PLOTNAME`'"
+
+cd @name
+
+filebase = "'`echo $FILENAME`'"
+if (@filebase eq '') filebase = "@name"
+
+paper = "'`echo $PAPER`'"
+if (@paper eq 'a4') height = "4.71"; else height = "3.5"
+
+set terminal pdf solid size 5.0, @height
+set output "../" . @filebase . ".pdf"
 
 set xrange [10:1600000]
 set format x "%.0f"
+set label @name at screen 0.0,1.0 offset 2.5,-1.5
 
 ### Plot ###
 
@@ -40,7 +55,7 @@ plot "gcrypt-rijndael-ecb.txt" using 1:($1 / $2) / 1048576 title "Rijndael" with
 
 ### Plot ###
 
-set title "libmcrypt Ciphers: Absolute Time by Data Length with Standard Deviation"
+set title " libmcrypt Ciphers: Absolute Time by Data Length with Standard Deviation"
 set xlabel "Data Length in Bytes"
 set ylabel "Seconds"
 set logscale x
@@ -467,7 +482,7 @@ plot "gcrypt-3des-ecb.txt" using 1:($1 / $2) / 1048576 title "libgcrypt" with li
 ### Plot ###
 
 set terminal pdf dashed linewidth 2.0 size 5.0, 7.07
-set output 'speedtest-all.pdf'
+set output "../" . @name . "-all.pdf"
 
 set title "All Tests: Speed by Data Length"
 set xlabel "Data Length in Bytes"
