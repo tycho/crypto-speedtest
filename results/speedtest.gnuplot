@@ -12,7 +12,7 @@ filebase = "'`echo $FILENAME`'"
 if (@filebase eq '') filebase = "@name"
 
 paper = "'`echo $PAPER`'"
-if (@paper eq 'a4') height = "4.71"; else height = "3.5"
+if (@paper eq 'a4') height = "3.535"; else height = "3.5"
 
 set terminal pdf solid size 5.0, @height
 set output "../" . @filebase . ".pdf"
