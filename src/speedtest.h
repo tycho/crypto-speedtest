@@ -158,6 +158,4 @@ void run_test(const char* logfile)
 	of << ti->first << " " << average << " " << stddev << " " << vmin << " " << vmax << "\n";
     }
     of.close();
-
-    exit(0);
 }

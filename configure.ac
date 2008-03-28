@@ -7,21 +7,7 @@ AC_CONFIG_AUX_DIR(acscripts)
 AC_CANONICAL_HOST
 
 AM_INIT_AUTOMAKE(foreign)
-# AM_MAINTAINER_MODE
-
-# enable full optimization by configure switch
-AC_ARG_ENABLE(optimize,
-	AS_HELP_STRING([--enable-optimize],
-		       [Build with full optimization @<:@default=no@:>@]),
-        [ case "${enableval}" in
-          yes)
-                CFLAGS="$CFLAGS -O3";
-                CXXFLAGS="$CXXFLAGS -O3";
-          ;;
-          no) ;;
-          *) AC_MSG_ERROR(bad value ${enableval} for --enable-optimize) ;;
-          esac ],
-        [ optimize=false ])
+AM_MAINTAINER_MODE
 
 # set debug info flag if no optimization flags are set.
 if test "$CFLAGS" == ""; then
@@ -182,5 +168,5 @@ NOT available:
 
    $NOT_LIBS
 
-Use "make run_all" in src/ to run all built binaries.
+Use "make runall" in src/ to run all built binaries.
 ])
