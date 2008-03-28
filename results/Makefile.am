@@ -63,5 +63,5 @@ EXTRA_DIST = \
 	p4-3200-debian-lenny/*.txt \
 	p4-3200-gentoo/*.txt \
 	p4-3200-ubuntu-gutsy/*.txt \
-	cel-850-debian-etch-a4/*.txt \
-	cel-2660-debian-etch-a4/*.txt
+	cel-850-debian-etch/*.txt \
+	cel-2660-debian-etch/*.txt

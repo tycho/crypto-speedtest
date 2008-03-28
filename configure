@@ -3968,6 +3968,9 @@ ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
 
 # Check for libraries
 
+LIST_LIBS="custom"
+NOT_LIBS=""
+
 # libgcrypt
 
 
@@ -4120,6 +4123,9 @@ if test "$LIBGCRYPT_LIBS" != ""; then
 #define HAVE_LIBGCRYPT 1
 _ACEOF
 
+    LIST_LIBS="$LIST_LIBS libgcrypt"
+else
+    NOT_LIBS="$NOTLIBS libgcrypt"
 fi
 
 # libmcrypt
@@ -4564,6 +4570,9 @@ if test "$LIBMCRYPT_LIBS" != ""; then
 #define HAVE_LIBMCRYPT 1
 _ACEOF
 
+    LIST_LIBS="$LIST_LIBS libmcrypt"
+else
+    NOT_LIBS="$NOTLIBS libmcrypt"
 fi
 
 # Botan
@@ -4735,6 +4744,9 @@ if test "$BOTAN_LIBS" != ""; then
 #define HAVE_BOTAN 1
 _ACEOF
 
+    LIST_LIBS="$LIST_LIBS botan"
+else
+    NOT_LIBS="$NOTLIBS botan"
 fi
 
 # Crypto++
@@ -4906,6 +4918,9 @@ if test "$CRYPTO_PP_LIB_NAME" != ""; then
 #define HAVE_CRYPTOPP 1
 _ACEOF
 
+    LIST_LIBS="$LIST_LIBS crypto++"
+else
+    NOT_LIBS="$NOTLIBS crypto++"
 fi
 
 # OpenSSL's crypto
@@ -5156,6 +5171,9 @@ if test "$OPENSSL_LIBS" != ""; then
 #define HAVE_OPENSSL 1
 _ACEOF
 
+    LIST_LIBS="$LIST_LIBS openssl"
+else
+    NOT_LIBS="$NOTLIBS openssl"
 fi
 
 # Nettle
@@ -6014,6 +6032,9 @@ if test "$testflag_nettle" == "no"; then
 echo "$as_me:
 *** Could not find a suitable version of the nettle library! ***
 *** Install the libnettle-dev package or use the source from http://www.lysator.liu.se/~nisse/nettle/ ***" >&6;}
+    NOT_LIBS="$NOTLIBS nettle"
+else
+    LIST_LIBS="$LIST_LIBS nettle"
 fi
 
  if test "$testflag_nettle" == "yes"; then
@@ -6249,6 +6270,9 @@ if test "$testflag_beecrypt" == "no"; then
 echo "$as_me:
 *** Could not find a suitable version of the beecrypt library! ***
 *** Install the libbeecrypt-dev package or use the source from http://beecrypt.sourceforge.net ***" >&6;}
+    NOT_LIBS="$NOTLIBS beecrypt"
+else
+    LIST_LIBS="$LIST_LIBS beecrypt"
 fi
 
  if test "$testflag_beecrypt" == "yes"; then
@@ -6484,6 +6508,9 @@ if test "$testflag_tomcrypt" == "no"; then
 echo "$as_me:
 *** Could not find a suitable version of the libtomcrypt library! ***
 *** Install the libtomcrypt-dev package or use the source from http://libtom.org ***" >&6;}
+    NOT_LIBS="$NOTLIBS libtomcrypt"
+else
+    LIST_LIBS="$LIST_LIBS libtomcrypt"
 fi
 
  if test "$testflag_tomcrypt" == "yes"; then
@@ -7860,3 +7887,32 @@ if test "$no_create" != yes; then
   $ac_cs_success || { (exit 1); exit 1; }
 fi
 
+
+echo
+
+# Give feedback on which libraries are available.
+
+{ echo "$as_me:$LINENO:
+
+Speed tests are built to for following libraries:
+
+    $LIST_LIBS
+
+NOT available:
+
+   $NOT_LIBS
+
+Use \"make run_all\" in src/ to run all built binaries.
+" >&5
+echo "$as_me:
+
+Speed tests are built to for following libraries:
+
+    $LIST_LIBS
+
+NOT available:
+
+   $NOT_LIBS
+
+Use \"make run_all\" in src/ to run all built binaries.
+" >&6;}

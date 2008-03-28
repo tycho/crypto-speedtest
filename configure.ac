@@ -39,6 +39,9 @@ AC_LANG([C++])
 
 # Check for libraries
 
+LIST_LIBS="custom"
+NOT_LIBS=""
+
 # libgcrypt
 
 AM_PATH_LIBGCRYPT([1.2.3])
@@ -47,6 +50,9 @@ AM_CONDITIONAL(HAVE_GCRYPT, test "$LIBGCRYPT_LIBS" != "")
 
 if test "$LIBGCRYPT_LIBS" != ""; then
     AC_DEFINE(HAVE_LIBGCRYPT, 1)
+    LIST_LIBS="$LIST_LIBS libgcrypt"
+else
+    NOT_LIBS="$NOTLIBS libgcrypt"
 fi
 
 # libmcrypt
@@ -59,6 +65,9 @@ AM_CONDITIONAL(HAVE_MCRYPT, test "$LIBMCRYPT_LIBS" != "")
 
 if test "$LIBMCRYPT_LIBS" != ""; then
     AC_DEFINE(HAVE_LIBMCRYPT, 1)
+    LIST_LIBS="$LIST_LIBS libmcrypt"
+else
+    NOT_LIBS="$NOTLIBS libmcrypt"
 fi
 
 # Botan
@@ -69,6 +78,9 @@ AM_CONDITIONAL(HAVE_BOTAN, test "$BOTAN_LIBS" != "")
 
 if test "$BOTAN_LIBS" != ""; then
     AC_DEFINE(HAVE_BOTAN, 1)
+    LIST_LIBS="$LIST_LIBS botan"
+else
+    NOT_LIBS="$NOTLIBS botan"
 fi
 
 # Crypto++
@@ -82,6 +94,9 @@ AM_CONDITIONAL(HAVE_CRYPTOPP, test "$CRYPTO_PP_LIB_NAME" != "")
 
 if test "$CRYPTO_PP_LIB_NAME" != ""; then
     AC_DEFINE(HAVE_CRYPTOPP, 1)
+    LIST_LIBS="$LIST_LIBS crypto++"
+else
+    NOT_LIBS="$NOTLIBS crypto++"
 fi
 
 # OpenSSL's crypto
@@ -92,6 +107,9 @@ AM_CONDITIONAL(HAVE_OPENSSL, test "$OPENSSL_LIBS" != "")
 
 if test "$OPENSSL_LIBS" != ""; then
     AC_DEFINE(HAVE_OPENSSL, 1)
+    LIST_LIBS="$LIST_LIBS openssl"
+else
+    NOT_LIBS="$NOTLIBS openssl"
 fi
 
 # Nettle
@@ -104,6 +122,9 @@ if test "$testflag_nettle" == "no"; then
     AC_MSG_NOTICE([
 *** Could not find a suitable version of the nettle library! ***
 *** Install the libnettle-dev package or use the source from http://www.lysator.liu.se/~nisse/nettle/ ***])
+    NOT_LIBS="$NOTLIBS nettle"
+else
+    LIST_LIBS="$LIST_LIBS nettle"
 fi
 
 AM_CONDITIONAL(HAVE_NETTLE, test "$testflag_nettle" == "yes")
@@ -118,6 +139,9 @@ if test "$testflag_beecrypt" == "no"; then
     AC_MSG_NOTICE([
 *** Could not find a suitable version of the beecrypt library! ***
 *** Install the libbeecrypt-dev package or use the source from http://beecrypt.sourceforge.net ***])
+    NOT_LIBS="$NOTLIBS beecrypt"
+else
+    LIST_LIBS="$LIST_LIBS beecrypt"
 fi
 
 AM_CONDITIONAL(HAVE_BEECRYPT, test "$testflag_beecrypt" == "yes")
@@ -132,6 +156,9 @@ if test "$testflag_tomcrypt" == "no"; then
     AC_MSG_NOTICE([
 *** Could not find a suitable version of the libtomcrypt library! ***
 *** Install the libtomcrypt-dev package or use the source from http://libtom.org ***])
+    NOT_LIBS="$NOTLIBS libtomcrypt"
+else
+    LIST_LIBS="$LIST_LIBS libtomcrypt"
 fi
 
 AM_CONDITIONAL(HAVE_TOMCRYPT, test "$testflag_tomcrypt" == "yes")
@@ -140,3 +167,20 @@ AM_CONDITIONAL(HAVE_TOMCRYPT, test "$testflag_tomcrypt" == "yes")
 
 AC_CONFIG_FILES([Makefile src/Makefile results/Makefile])
 AC_OUTPUT
+
+echo
+
+# Give feedback on which libraries are available.
+
+AC_MSG_NOTICE([
+
+Speed tests are built to for following libraries:
+
+    $LIST_LIBS
+
+NOT available:
+
+   $NOT_LIBS
+
+Use "make run_all" in src/ to run all built binaries.
+])
