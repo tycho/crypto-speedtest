@@ -38,7 +38,7 @@ if test "$LIBGCRYPT_LIBS" != ""; then
     AC_DEFINE(HAVE_LIBGCRYPT, 1)
     LIST_LIBS="$LIST_LIBS libgcrypt"
 else
-    NOT_LIBS="$NOTLIBS libgcrypt"
+    NOT_LIBS="$NOT_LIBS libgcrypt"
 fi
 
 # libmcrypt
@@ -53,7 +53,7 @@ if test "$LIBMCRYPT_LIBS" != ""; then
     AC_DEFINE(HAVE_LIBMCRYPT, 1)
     LIST_LIBS="$LIST_LIBS libmcrypt"
 else
-    NOT_LIBS="$NOTLIBS libmcrypt"
+    NOT_LIBS="$NOT_LIBS libmcrypt"
 fi
 
 # Botan
@@ -66,7 +66,7 @@ if test "$BOTAN_LIBS" != ""; then
     AC_DEFINE(HAVE_BOTAN, 1)
     LIST_LIBS="$LIST_LIBS botan"
 else
-    NOT_LIBS="$NOTLIBS botan"
+    NOT_LIBS="$NOT_LIBS botan"
 fi
 
 # Crypto++
@@ -82,7 +82,7 @@ if test "$CRYPTO_PP_LIB_NAME" != ""; then
     AC_DEFINE(HAVE_CRYPTOPP, 1)
     LIST_LIBS="$LIST_LIBS crypto++"
 else
-    NOT_LIBS="$NOTLIBS crypto++"
+    NOT_LIBS="$NOT_LIBS crypto++"
 fi
 
 # OpenSSL's crypto
@@ -95,7 +95,7 @@ if test "$OPENSSL_LIBS" != ""; then
     AC_DEFINE(HAVE_OPENSSL, 1)
     LIST_LIBS="$LIST_LIBS openssl"
 else
-    NOT_LIBS="$NOTLIBS openssl"
+    NOT_LIBS="$NOT_LIBS openssl"
 fi
 
 # Nettle
@@ -108,7 +108,7 @@ if test "$testflag_nettle" == "no"; then
     AC_MSG_NOTICE([
 *** Could not find a suitable version of the nettle library! ***
 *** Install the libnettle-dev package or use the source from http://www.lysator.liu.se/~nisse/nettle/ ***])
-    NOT_LIBS="$NOTLIBS nettle"
+    NOT_LIBS="$NOT_LIBS nettle"
 else
     LIST_LIBS="$LIST_LIBS nettle"
 fi
@@ -125,7 +125,7 @@ if test "$testflag_beecrypt" == "no"; then
     AC_MSG_NOTICE([
 *** Could not find a suitable version of the beecrypt library! ***
 *** Install the libbeecrypt-dev package or use the source from http://beecrypt.sourceforge.net ***])
-    NOT_LIBS="$NOTLIBS beecrypt"
+    NOT_LIBS="$NOT_LIBS beecrypt"
 else
     LIST_LIBS="$LIST_LIBS beecrypt"
 fi
@@ -142,7 +142,7 @@ if test "$testflag_tomcrypt" == "no"; then
     AC_MSG_NOTICE([
 *** Could not find a suitable version of the libtomcrypt library! ***
 *** Install the libtomcrypt-dev package or use the source from http://libtom.org ***])
-    NOT_LIBS="$NOTLIBS libtomcrypt"
+    NOT_LIBS="$NOT_LIBS libtomcrypt"
 else
     LIST_LIBS="$LIST_LIBS libtomcrypt"
 fi
