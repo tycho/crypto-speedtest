@@ -93,6 +93,7 @@ void run_test(const char* logfile)
     // Calculate and output statistics.
     std::ofstream of (logfile);
 
+    // First output time absolute measurements
     for(std::map<unsigned int, std::vector<double> >::const_iterator ti = timelog.begin();
 	ti != timelog.end(); ++ti)
     {
@@ -102,7 +103,9 @@ void run_test(const char* logfile)
 
 	double variance = 0.0;
 	for(unsigned int i = 0; i < timelist.size(); ++i)
+	{
 	    variance += (timelist[i] - average) * (timelist[i] - average);
+	}
 	variance = variance / (timelist.size() - 1);
 
 	double stddev = std::sqrt(variance);
@@ -117,4 +120,44 @@ void run_test(const char* logfile)
 	of << std::setprecision(16);
 	of << ti->first << " " << average << " " << stddev << " " << vmin << " " << vmax << "\n";
     }
+    of << "\n";
+
+    // Second output speed measurements
+    for(std::map<unsigned int, std::vector<double> >::const_iterator ti = timelog.begin();
+	ti != timelog.end(); ++ti)
+    {
+	const std::vector<double>& timelist = ti->second;
+
+	double average = 0.0;
+	double vmin = +INFINITY;
+	double vmax = -INFINITY;
+
+	for(unsigned int i = 0; i < timelist.size(); ++i)
+	{
+	    average += ti->first / timelist[i];
+	    vmin = std::min(vmin, (ti->first / timelist[i]));
+	    vmax = std::max(vmax, (ti->first / timelist[i]));
+	}
+	average /= timelist.size();
+
+	double variance = 0.0;
+	for(unsigned int i = 0; i < timelist.size(); ++i)
+	{
+	    double delta = (ti->first / timelist[i]) - average;
+	    variance += delta * delta;
+	}
+	variance = variance / (timelist.size() - 1);
+
+	double stddev = std::sqrt(variance);
+
+	if (timelist.size() == 1) { // only one run -> no variance or stddev
+	    variance = stddev = 0.0;
+	}
+
+	of << std::setprecision(16);
+	of << ti->first << " " << average << " " << stddev << " " << vmin << " " << vmax << "\n";
+    }
+    of.close();
+
+    exit(0);
 }
