@@ -120,7 +120,7 @@ void run_test(const char* logfile)
 	of << std::setprecision(16);
 	of << ti->first << " " << average << " " << stddev << " " << vmin << " " << vmax << "\n";
     }
-    of << "\n";
+    of << "\n\n";
 
     // Second output speed measurements
     for(std::map<unsigned int, std::vector<double> >::const_iterator ti = timelog.begin();
