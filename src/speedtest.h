@@ -21,9 +21,9 @@
 // speed test different buffer sizes in this range
 const unsigned int buffermin = 16;
 const unsigned int buffermax = 16 * 65536;
-unsigned int repeatsize = 16 * 65536;
+const unsigned int baserepeatsize = 65536;
 const unsigned int minrepeats = 4;
-const unsigned int measureruns = 32;
+const unsigned int measureruns = 16;
 
 #ifndef _MSC_VER
 #include <sys/time.h>
@@ -67,9 +67,11 @@ void run_test(const char* logfile)
 
     // Save the time required for each run.
     std::map<unsigned int, std::vector<double> > timelog;
-
+	
     for(unsigned int fullrun = 0; fullrun < measureruns; ++fullrun)
     {
+        unsigned int repeatsize = baserepeatsize;
+
 	for(unsigned int bufflen = buffermin; bufflen <= buffermax; bufflen *= 2)
 	{
 REDO:
@@ -99,7 +101,7 @@ REDO:
 	    double tsdelta = ts2 - ts1;
 
 	    // Adapt number of repetitions to the clock's accuracy.
-	    if (tsdelta < 0.75) {
+	    if (tsdelta < 0.5) {
        		printf("Run %d bufferlen %d repeat %d took only %.2f sec. Increasing repetitons.\n",
 		       fullrun, bufferlen, repeat, tsdelta);
 		repeatsize *= 2;
