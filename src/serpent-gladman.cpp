@@ -76,7 +76,9 @@ namespace SerpentGladman {
 #define rotl(x,n)   (((x) << ((uint32_t)(n))) | ((x) >> (32 - (uint32_t)(n))))
 #define rotr(x,n)   (((x) >> ((uint32_t)(n))) | ((x) << (32 - (uint32_t)(n))))
 
+#ifndef _MSC_VER
 #include <byteswap.h>
+#endif
 
 #ifdef swap32
 #  define byteswap32(x) swap32(x)
