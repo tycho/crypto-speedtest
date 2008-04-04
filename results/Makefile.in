@@ -345,8 +345,8 @@ baseplots:
 	PLOTNAME=p4-3200-debian-lenny ./speedtest.gnuplot
 	PLOTNAME=p4-3200-gentoo ./speedtest.gnuplot
 	PLOTNAME=p4-3200-ubuntu-gutsy ./speedtest.gnuplot
+	PLOTNAME=p4-3200-fedora8 ./speedtest.gnuplot
 	PLOTNAME=cel-2660-debian-etch ./speedtest.gnuplot
-	PLOTNAME=cel-850-debian-etch ./speedtest.gnuplot
 
 sidebysideplots:
 # Make other plots which will fill an A4 paper
@@ -357,24 +357,24 @@ sidebysideplots:
 	PLOTNAME=p4-3200-debian-lenny FILENAME=p4-3200-debian-lenny-a4 PAPER=a4 ./speedtest.gnuplot
 	PLOTNAME=p4-3200-gentoo FILENAME=p4-3200-gentoo-a4 PAPER=a4 ./speedtest.gnuplot
 	PLOTNAME=p4-3200-ubuntu-gutsy FILENAME=p4-3200-ubuntu-gutsy-a4 PAPER=a4 ./speedtest.gnuplot
+	PLOTNAME=p4-3200-fedora8 FILENAME=p4-3200-fedora8-a4 PAPER=a4 ./speedtest.gnuplot
 	PLOTNAME=cel-2660-debian-etch FILENAME=cel-2660-debian-etch-a4 PAPER=a4 ./speedtest.gnuplot
-	PLOTNAME=cel-850-debian-etch FILENAME=cel-850-debian-etch-a4 PAPER=a4 ./speedtest.gnuplot
 
 # Extract pages in order from each pdf
 	pdftk \
 		A=p2-300-debian-etch-a4.pdf B=p3-1000-ubuntu-gutsy-a4.pdf \
-		C=p4-3200-debian-etch-a4.pdf D=p4-3200-debian-lenny-a4.pdf \
-		E=p4-3200-gentoo-a4.pdf F=p4-3200-ubuntu-gutsy-a4.pdf \
-		G=cel-850-debian-etch-a4.pdf H=cel-2660-debian-etch-a4.pdf \
+		C=cel-2660-debian-etch-a4.pdf D=p4-3200-debian-etch-a4.pdf \
+		E=p4-3200-ubuntu-gutsy-a4.pdf F=p4-3200-debian-lenny-a4.pdf \
+		G=p4-3200-gentoo-a4.pdf H=p4-3200-fedora8-a4.pdf  \
 		cat $(PAGELIST) output sidebyside-comparison.pdf
 
 # Put all pages with same graph onto one for quick comparison
-	pdfnup --nup 2x4 --orient portrait --paper a4paper --frame true sidebyside-comparison.pdf
+	pdfnup --nup 2x4 --orient portrait --paper a4paper --frame false sidebyside-comparison.pdf
 	mv sidebyside-comparison-2x4.pdf sidebyside-comparison.pdf
 
 	rm p2-300-debian-etch-a4.pdf p3-1000-ubuntu-gutsy-a4.pdf p4-3200-debian-etch-a4.pdf
 	rm p4-3200-debian-lenny-a4.pdf p4-3200-gentoo-a4.pdf p4-3200-ubuntu-gutsy-a4.pdf
-	rm cel-2660-debian-etch-a4.pdf cel-850-debian-etch-a4.pdf
+	rm cel-2660-debian-etch-a4.pdf p4-3200-fedora8-a4.pdf
 
 pngplots:
 	for pdf in *.pdf; do \
