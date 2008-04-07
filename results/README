@@ -1,16 +1,17 @@
-This directory contains speed test result data from five different computers
-and three different Linux distributions that are available to me. This file
-contains a description of the test environments. All tests were run with a
-minimal set of process (usually just a shell) running in background. Tests were
-performed around 2008-02-27 with up-to-date distribution packages.
+This directory contains speed test result data sets from four different
+computers and five different Linux distributions that are available to me. This
+file contains a description of the test environments. All tests were run with a
+minimal set of process (usually just init and a shell) running in
+background. Tests were performed around 2008-04-02 with up-to-date distribution
+packages.
 
 *** CPUs / Computers ***
 
 ** p4-3200 **
 
 is an Intel Pentium 4 clocked at 3.2 GHz with 1024 KB level 2 cache. It has
-four different distributions installed: gentoo (base) and chrooted:
-debian-etch, debian-lenny and ubuntu-gutsy.
+give different distributions installed: gentoo (base) and chrooted:
+debian-etch, debian-lenny, ubuntu-gutsy and fedora 8.
 
 ** p3-1000 **
 
@@ -22,11 +23,6 @@ stable).
 
 is an Intel Celeron clocked at 2.66 GHz with 256 KB level 2 cache. It has
 Debian etch (currently the stable) installed.
-
-** cel-850 **
-
-is another older Intel Celeron (Coppermine) clocked at 850 MHz with 128 KB
-level 2 cache. It has Debian etch installed.
 
 ** p2-300 **
 
@@ -40,7 +36,7 @@ cache. It also has only Debian etch installed.
 The speedtest was performed using the following ebuilt library versions. All
 where compiled using portage with:
 
-CFLAGS="-march=i686 -O3 -pipe"
+CFLAGS="-march=i686 -O2 -fomit-frame-pointer -pipe"
 CXXFLAGS="${CFLAGS}"
 
 ebuild package versions used in speedtest:
@@ -101,14 +97,14 @@ This source package was compiled in Debian etch.
 
 The speedtest source itself was compiled using:
 
-gcc			4.1.1-15
+gcc-4.1			4.1.1-21
 
 gcc (GCC) 4.1.2 20061115 (prerelease) (Debian 4.1.1-21)
 
 *** debian-lenny ***
 
 Debian lenny is currently the testing distribution. The following libraries
-were taken from the standard packages repositories:
+were taken from the standard package repositories:
 
 package			version
 
@@ -135,14 +131,14 @@ libtomcrypt0-dev	1.17-1
 
 The speedtest source itself was compiled using:
 
-gcc			4:4.2.2-2
+gcc-4.1			4:4.2.3-2
 
-gcc (GCC) 4.2.3 (Debian 4.2.3-1)
+gcc (GCC) 4.2.3 (Debian 4.2.3-2)
 
 *** ubuntu-gutsy ***
 
 Ubuntu 7.10 Gutsy Gibbon is currently the stable distribution. The following
-libraries were taken from the standard packages repositories:
+libraries were taken from the standard package repositories:
 
 package			version
 
@@ -152,6 +148,8 @@ libmcrypt4		2.5.7-5
 libmcrypt-dev		2.5.7-5
 libcrypto++6		5.5-3
 libcrypto++-dev		5.5-3
+libbotan1.6		1.6.2-3
+libbotan-dev		1.6.2-3
 libnettle2		1.15-4
 libnettle-dev		1.15-4
 libssl0.9.8		0.9.8e-5ubuntu3.1
@@ -168,9 +166,48 @@ libtomcrypt0-dev	1.17-0ubuntu1~ppa2
 
 The speedtest source itself was compiled using:
 
-gcc			4:4.1.2-9ubuntu2
+gcc-4.1			4:4.1.2-16ubuntu2
 
 gcc (GCC) 4.1.3 20070929 (prerelease) (Ubuntu 4.1.2-16ubuntu2)
+
+*** fedora8 ***
+
+Fedora 8 is currently the stable distribution. The following libraries were
+taken from the standard package repositories:
+
+package			version
+
+libgcrypt		1.2.4-6
+libgcrypt-devel		1.2.4-6
+libmcrypt		2.5.8-4.fc8
+libmcrypt-devel		2.5.8-4.fc8
+nettle			1.15-4.fc8
+nettle-devel		1.15-4.fc8
+openssl			0.9.8b-17.fc8
+openssl-devel		0.9.8b-17.fc8
+beecrypt		4.1.2-13
+beecrypt-devel		4.1.2-13
+libtomcrypt		1.17-8.fc8
+libtomcrypt-devel	1.17-8.fc8
+
+The standard repositories did not contain Crypto++ and Botan. They were
+retrieved from the DAG / RPMforge package repository:
+
+cryptopp		5.2.1-2.1.fc3.rf
+cryptopp-devel		5.2.1-2.1.fc3.rf
+botan			1.6.3-1.fc8.rf
+botan-devel		1.6.3-1.fc8.rf
+
+From the urls:
+
+http://dag.wieers.com/rpm/packages/cryptopp/
+http://dag.wieers.com/rpm/packages/botan/
+
+The speedtest source itself was compiled using:
+
+gcc			4.1.2-33
+
+gcc (GCC) 4.1.2 20070925 (Red Hat 4.1.2-33)
 
 *** Results ***
 
@@ -182,7 +219,7 @@ Each <cpu>-<distro>.pdf contains 26 pages comparing ciphers and cryptography
 libraries. The second <cpu>-<distro>-all.pdf is a A4-sized plot containing
 _all_ ciphers in _all_ libraries making the graph very full.
 
-Lastly this directory contains a sidebyside-comparison.pdf which collect each
-of the 26 different plots from the 8 different CPU / Distro combinations and
-displays all 8 plots on a A4-sized page. This enables quick comparison of the
-different architectures.
+Furthermore this directory contains a sidebyside-comparison.pdf, which collect
+each of the 26 different plots from the 8 different CPU / Distro combinations
+and displays all 8 plots on a A4-sized page. This enables quick comparison of
+the different architectures.

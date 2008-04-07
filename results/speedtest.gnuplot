@@ -23,7 +23,7 @@ set label @name at screen 0.0,1.0 offset 2.5,-1.5
 
 ### Plot ###
 
-set title "libgcrypt Ciphers: Absolute Time by Data Length with Standard Deviation"
+set title "libgcrypt Ciphers: Absolute Time by Data Length"
 set xlabel "Data Length in Bytes"
 set ylabel "Seconds"
 set logscale x
@@ -55,7 +55,7 @@ plot "gcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) tit
 
 ### Plot ###
 
-set title "libmcrypt Ciphers: Absolute Time by Data Length with Standard Deviation"
+set title "libmcrypt Ciphers: Absolute Time by Data Length"
 set xlabel "Data Length in Bytes"
 set ylabel "Seconds"
 set logscale x
@@ -97,7 +97,7 @@ plot "mcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) tit
 
 ### Plot ###
 
-set title "Botan Ciphers: Absolute Time by Data Length with Standard Deviation"
+set title "Botan Ciphers: Absolute Time by Data Length"
 set xlabel "Data Length in Bytes"
 set ylabel "Seconds"
 set logscale x
@@ -135,7 +135,7 @@ plot "botan-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) titl
 
 ### Plot ###
 
-set title "Crypto++ Ciphers: Absolute Time by Data Length with Standard Deviation"
+set title "Crypto++ Ciphers: Absolute Time by Data Length"
 set xlabel "Data Length in Bytes"
 set ylabel "Seconds"
 set logscale x
@@ -173,7 +173,7 @@ plot "cryptopp-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) t
 
 ### Plot ###
 
-set title "OpenSSL Ciphers: Absolute Time by Data Length with Standard Deviation"
+set title "OpenSSL Ciphers: Absolute Time by Data Length"
 set xlabel "Data Length in Bytes"
 set ylabel "Seconds"
 set logscale x
@@ -201,7 +201,7 @@ plot "openssl-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) ti
 
 ### Plot ###
 
-set title "Nettle Ciphers: Absolute Time by Data Length with Standard Deviation"
+set title "Nettle Ciphers: Absolute Time by Data Length"
 set xlabel "Data Length in Bytes"
 set ylabel "Seconds"
 set logscale x
@@ -233,7 +233,7 @@ plot "nettle-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) tit
 
 ### Plot ###
 
-set title "Tomcrypt Ciphers: Absolute Time by Data Length with Standard Deviation"
+set title "Tomcrypt Ciphers: Absolute Time by Data Length"
 set xlabel "Data Length in Bytes"
 set ylabel "Seconds"
 set logscale x
@@ -273,25 +273,6 @@ plot "tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) t
 
 ### Plot ###
 
-set title "Rijndael AES: Absolute Time by Data Length with Standard Deviation"
-set xlabel "Data Length in Bytes"
-set ylabel "Seconds"
-set logscale x
-set logscale y
-set key below
-
-plot "gcrypt-rijndael-ecb.txt" index 0 using 1:2:3 title "libgcrypt" with errorlines pt 0, \
-     "mcrypt-rijndael-ecb.txt" index 0 using 1:2:3 title "libmcrypt" with errorlines pt 0, \
-     "botan-rijndael-ecb.txt" index 0 using 1:2:3 title "Botan" with errorlines pt 0, \
-     "cryptopp-rijndael-ecb.txt" index 0 using 1:2:3 title "Crypto++" with errorlines pt 0, \
-     "openssl-rijndael-ecb.txt" index 0 using 1:2:3 title "OpenSSL" with errorlines pt 0, \
-     "nettle-rijndael-ecb.txt" index 0 using 1:2:3 title "Nettle" with errorlines pt 0, \
-     "beecrypt-rijndael-ecb.txt" index 0 using 1:2:3 title "Beecrypt" with errorlines pt 0, \
-     "tomcrypt-rijndael-ecb.txt" index 0 using 1:2:3 title "Tomcrypt" with errorlines pt 0, \
-     "my-rijndael-ecb.txt" index 0 using 1:2:3 title "Custom" with errorlines pt 0
-
-### Plot ###
-
 set title "Rijndael AES: Speed by Data Length"
 set xlabel "Data Length in Bytes"
 set ylabel "Megabyte / Second"
@@ -308,23 +289,6 @@ plot "gcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) tit
      "beecrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Beecrypt" with errorlines pt 0, \
      "tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Tomcrypt" with errorlines pt 0, \
      "my-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Custom" with errorlines pt 0
-
-### Plot ###
-
-set title "Serpent: Absolute Time by Data Length with Standard Deviation"
-set xlabel "Data Length in Bytes"
-set ylabel "Seconds"
-set logscale x
-set logscale y
-set key below
-
-plot "gcrypt-serpent-ecb.txt" index 0 using 1:2:3 title "libgcrypt" with errorlines pt 0, \
-     "mcrypt-serpent-ecb.txt" index 0 using 1:2:3 title "libmcrypt" with errorlines pt 0, \
-     "botan-serpent-ecb.txt" index 0 using 1:2:3 title "Botan" with errorlines pt 0, \
-     "cryptopp-serpent-ecb.txt" index 0 using 1:2:3 title "Crypto++" with errorlines pt 0, \
-     "nettle-serpent-ecb.txt" index 0 using 1:2:3 title "Nettle" with errorlines pt 0, \
-     "gladman-serpent-ecb.txt" index 0 using 1:2:3 title "Gladman" with errorlines pt 0, \
-     "mybotan-serpent-ecb.txt" index 0 using 1:2:3 title "MyBotan" with errorlines pt 0
 
 ### Plot ###
 
@@ -345,22 +309,6 @@ plot "gcrypt-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) titl
 
 ### Plot ###
 
-set title "Twofish: Absolute Time by Data Length with Standard Deviation"
-set xlabel "Data Length in Bytes"
-set ylabel "Seconds"
-set logscale x
-set logscale y
-set key below
-
-plot "gcrypt-twofish-ecb.txt" index 0 using 1:2:3 title "libgcrypt" with errorlines pt 0, \
-     "mcrypt-twofish-ecb.txt" index 0 using 1:2:3 title "libmcrypt" with errorlines pt 0, \
-     "botan-twofish-ecb.txt" index 0 using 1:2:3 title "Botan" with errorlines pt 0, \
-     "cryptopp-twofish-ecb.txt" index 0 using 1:2:3 title "Crypto++" with errorlines pt 0, \
-     "nettle-twofish-ecb.txt" index 0 using 1:2:3 title "Nettle" with errorlines pt 0, \
-     "tomcrypt-twofish-ecb.txt" index 0 using 1:2:3 title "Tomcrypt" with errorlines pt 0
-
-### Plot ###
-
 set title "Twofish: Speed by Data Length"
 set xlabel "Data Length in Bytes"
 set ylabel "Megabyte / Second"
@@ -374,24 +322,6 @@ plot "gcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) titl
      "cryptopp-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Crypto++" with errorlines pt 0, \
      "nettle-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Nettle" with errorlines pt 0, \
      "tomcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Tomcrypt" with errorlines pt 0
-
-### Plot ###
-
-set title "Blowfish: Absolute Time by Data Length with Standard Deviation"
-set xlabel "Data Length in Bytes"
-set ylabel "Seconds"
-set logscale x
-set logscale y
-set key below
-
-plot "gcrypt-blowfish-ecb.txt" index 0 using 1:2:3 title "libgcrypt" with errorlines pt 0, \
-     "mcrypt-blowfish-ecb.txt" index 0 using 1:2:3 title "libmcrypt" with errorlines pt 0, \
-     "botan-blowfish-ecb.txt" index 0 using 1:2:3 title "Botan" with errorlines pt 0, \
-     "cryptopp-blowfish-ecb.txt" index 0 using 1:2:3 title "Crypto++" with errorlines pt 0, \
-     "openssl-blowfish-ecb.txt" index 0 using 1:2:3 title "OpenSSL" with errorlines pt 0, \
-     "nettle-blowfish-ecb.txt" index 0 using 1:2:3 title "Nettle" with errorlines pt 0, \
-     "beecrypt-blowfish-ecb.txt" index 0 using 1:2:3 title "Beecrypt" with errorlines pt 0, \
-     "tomcrypt-blowfish-ecb.txt" index 0 using 1:2:3 title "Tomcrypt" with errorlines pt 0
 
 ### Plot ###
 
@@ -413,23 +343,6 @@ plot "gcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) tit
 
 ### Plot ###
 
-set title "CAST5: Absolute Time by Data Length with Standard Deviation"
-set xlabel "Data Length in Bytes"
-set ylabel "Seconds"
-set logscale x
-set logscale y
-set key below
-
-plot "gcrypt-cast5-ecb.txt" index 0 using 1:2:3 title "libgcrypt" with errorlines pt 0, \
-     "mcrypt-cast5-ecb.txt" index 0 using 1:2:3 title "libmcrypt" with errorlines pt 0, \
-     "botan-cast5-ecb.txt" index 0 using 1:2:3 title "Botan" with errorlines pt 0, \
-     "cryptopp-cast5-ecb.txt" index 0 using 1:2:3 title "Crypto++" with errorlines pt 0, \
-     "openssl-cast5-ecb.txt" index 0 using 1:2:3 title "OpenSSL" with errorlines pt 0, \
-     "nettle-cast5-ecb.txt" index 0 using 1:2:3 title "Nettle" with errorlines pt 0, \
-     "tomcrypt-cast5-ecb.txt" index 0 using 1:2:3 title "Tomcrypt" with errorlines pt 0
-
-### Plot ###
-
 set title "CAST5: Speed by Data Length"
 set xlabel "Data Length in Bytes"
 set ylabel "Megabyte / Second"
@@ -444,23 +357,6 @@ plot "gcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title 
      "openssl-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "OpenSSL" with errorlines pt 0, \
      "nettle-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Nettle" with errorlines pt 0, \
      "tomcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Tomcrypt" with errorlines pt 0
-
-### Plot ###
-
-set title "Triple DES: Absolute Time by Data Length with Standard Deviation"
-set xlabel "Data Length in Bytes"
-set ylabel "Seconds"
-set logscale x
-set logscale y
-set key below
-
-plot "gcrypt-3des-ecb.txt" index 0 using 1:2:3 title "libgcrypt" with errorlines pt 0, \
-     "mcrypt-3des-ecb.txt" index 0 using 1:2:3 title "libmcrypt" with errorlines pt 0, \
-     "botan-3des-ecb.txt" index 0 using 1:2:3 title "Botan" with errorlines pt 0, \
-     "cryptopp-3des-ecb.txt" index 0 using 1:2:3 title "Crypto++" with errorlines pt 0, \
-     "openssl-3des-ecb.txt" index 0 using 1:2:3 title "OpenSSL" with errorlines pt 0, \
-     "nettle-3des-ecb.txt" index 0 using 1:2:3 title "Nettle" with errorlines pt 0, \
-     "tomcrypt-3des-ecb.txt" index 0 using 1:2:3 title "Tomcrypt" with errorlines pt 0
 
 ### Plot ###
 
