@@ -46,13 +46,13 @@ void test_openssl_blowfish_ecb()
     BF_set_key(&encctx, 16, (uint8_t*)enckey);
 
     for(unsigned int p = 0; p < bufferlen; p += BF_BLOCK)
-	BF_encrypt((BF_LONG*)(buffer + p), &encctx);
+	BF_ecb_encrypt((uint8_t*)(buffer + p), (uint8_t*)(buffer + p), &encctx, BF_ENCRYPT);
 
     BF_KEY decctx;
     BF_set_key(&decctx, 16, (uint8_t*)enckey);
 
     for(unsigned int p = 0; p < bufferlen; p += BF_BLOCK)
-	BF_decrypt((BF_LONG*)(buffer + p), &decctx);
+	BF_ecb_encrypt((uint8_t*)(buffer + p), (uint8_t*)(buffer + p), &decctx, BF_DECRYPT);
 }
 
 void test_openssl_3des_ecb()

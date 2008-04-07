@@ -30,6 +30,7 @@
 #include <botan/aes.h>
 #include <botan/serpent.h>
 #include <botan/twofish.h>
+#include <botan/blowfish.h>
 #include <botan/des.h>
 #endif
 
@@ -38,6 +39,7 @@
 #include <crypto++/rijndael.h>
 #include <crypto++/serpent.h>
 #include <crypto++/twofish.h>
+#include <crypto++/blowfish.h>
 #include <crypto++/des.h>
 #endif
 
@@ -45,12 +47,14 @@
 #define NCOMPAT
 #include <openssl/aes.h>
 #include <openssl/des.h>
+#include <openssl/blowfish.h>
 #endif
 
 #if HAVE_LIBNETTLE
 extern "C" {
 #include <nettle/aes.h>
 #include <nettle/serpent.h>
+#include <nettle/blowfish.h>
 #include <nettle/des.h>
 }
 #endif
@@ -99,6 +103,8 @@ void check_buffer(void *buffer, unsigned int bufferlen)
 
 void verify_rijndael_ecb()
 {
+    std::cout << "Testing Rijndael AES implementations\n";
+
     // Custom Implementation
 
     char buffer_custom[bufferlen];
@@ -111,7 +117,8 @@ void verify_rijndael_ecb()
     }
 
 #if HAVE_LIBGCRYPT
-    { // libgcrypt
+    {
+	std::cout << "libgcrypt\n";
 
 	char buffer_gcrypt[bufferlen];
 	fill_buffer(buffer_gcrypt, bufferlen);
@@ -139,7 +146,8 @@ void verify_rijndael_ecb()
 #endif
 
 #if HAVE_LIBMCRYPT
-    { // libmcrypt
+    {
+	std::cout << "libmcrypt\n";
 
 	char buffer_mcrypt[bufferlen];
 	fill_buffer(buffer_mcrypt, bufferlen);
@@ -165,7 +173,8 @@ void verify_rijndael_ecb()
 #endif
 
 #if HAVE_BOTAN
-    { // Botan
+    {
+	std::cout << "botan\n";
 
 	char buffer_botan[bufferlen];
 	fill_buffer(buffer_botan, bufferlen);
@@ -193,7 +202,8 @@ void verify_rijndael_ecb()
 #endif
 
 #if HAVE_CRYPTOPP
-    { // Crypto++
+    {
+	std::cout << "crypto++\n";
 
 	char buffer_cryptopp[bufferlen];
 	fill_buffer(buffer_cryptopp, bufferlen);
@@ -219,7 +229,8 @@ void verify_rijndael_ecb()
 #endif
 
 #if HAVE_OPENSSL
-    { // OpenSSL
+    {
+	std::cout << "openssl\n";
 
 	char buffer_openssl[bufferlen];
 	fill_buffer(buffer_openssl, bufferlen);
@@ -247,7 +258,8 @@ void verify_rijndael_ecb()
 #endif
 
 #if HAVE_LIBNETTLE
-    { // Nettle
+    {
+	std::cout << "nettle\n";
 
 	char buffer_nettle[bufferlen];
 	fill_buffer(buffer_nettle, bufferlen);
@@ -271,7 +283,8 @@ void verify_rijndael_ecb()
 #endif
 
 #if HAVE_LIBBEECRYPT
-    { // Beecrypt
+    {
+	std::cout << "beecrypt\n";
 
 	char buffer_beecrypt[bufferlen];
 	fill_buffer(buffer_beecrypt, bufferlen);
@@ -299,7 +312,8 @@ void verify_rijndael_ecb()
 #endif
 
 #if HAVE_LIBTOMCRYPT
-    { // Tomcrypt
+    {
+	std::cout << "tomcrypt\n";
 
 	char buffer_tomcrypt[bufferlen];
 	fill_buffer(buffer_tomcrypt, bufferlen);
@@ -327,6 +341,8 @@ void verify_rijndael_ecb()
     // Custom Implementation
 
     {
+	std::cout << "custom\n";
+
 	RijndaelDecryptECB decctx;
 	decctx.set_key((uint8_t*)enckey, 32);
 	decctx.decrypt(buffer_custom, buffer_custom, bufferlen);
@@ -339,6 +355,8 @@ void verify_rijndael_ecb()
 
 void verify_serpent_ecb()
 {
+    std::cout << "Testing Serpent implementations\n";
+
     // gladman implementation
 
     char buffer_gladman[bufferlen];
@@ -352,6 +370,7 @@ void verify_serpent_ecb()
     }
 
     { // botan-extracted implementation
+	std::cout << "mybotan\n";
 
 	char buffer_mybotan[bufferlen];
 	fill_buffer(buffer_mybotan, bufferlen);
@@ -376,8 +395,9 @@ void verify_serpent_ecb()
     }
 
 #if HAVE_LIBGCRYPT
-    { // libgcrypt
-
+    {
+	std::cout << "libgcrypt\n";
+	
 	char buffer_gcrypt[bufferlen];
 	fill_buffer(buffer_gcrypt, bufferlen);
 
@@ -404,7 +424,8 @@ void verify_serpent_ecb()
 #endif
 
 #if HAVE_LIBMCRYPT
-    { // libmcrypt
+    {
+	std::cout << "libmcrypt\n";
 
 	char buffer_mcrypt[bufferlen];
 	fill_buffer(buffer_mcrypt, bufferlen);
@@ -430,7 +451,8 @@ void verify_serpent_ecb()
 #endif
 
 #if HAVE_BOTAN
-    { // Botan
+    {
+	std::cout << "botan\n";
 
 	char buffer_botan[bufferlen];
 	fill_buffer(buffer_botan, bufferlen);
@@ -458,7 +480,8 @@ void verify_serpent_ecb()
 #endif
 
 #if HAVE_CRYPTOPP
-    { // Crypto++
+    {
+	std::cout << "crypto++\n";
 
 	uint8_t buffer_cryptopp[bufferlen];
 	fill_buffer(buffer_cryptopp, bufferlen);
@@ -484,7 +507,8 @@ void verify_serpent_ecb()
 #endif
 
 #if HAVE_LIBNETTLE
-    { // Nettle
+    {
+	std::cout << "nettle\n";
 
 	uint8_t buffer_nettle[bufferlen];
 	fill_buffer(buffer_nettle, bufferlen);
@@ -511,6 +535,8 @@ void verify_serpent_ecb()
     // gladman implementation
 
     {
+	std::cout << "gladman\n";
+
 	SerpentGladman::DecryptECB decctx;
 
 	decctx.set_key((uint8_t*)enckey, 256);
@@ -524,6 +550,8 @@ void verify_serpent_ecb()
 
 void verify_twofish_ecb()
 {
+    std::cout << "Testing Twofish implementations\n";
+
 #if HAVE_LIBGCRYPT
     // libgcrypt
 
@@ -539,7 +567,8 @@ void verify_twofish_ecb()
     }
 
 #if HAVE_LIBMCRYPT
-    { // libmcrypt
+    {
+	std::cout << "libmcrypt\n";
 
 	char buffer_mcrypt[bufferlen];
 	fill_buffer(buffer_mcrypt, bufferlen);
@@ -565,7 +594,8 @@ void verify_twofish_ecb()
 #endif
 
 #if HAVE_BOTAN
-    { // Botan
+    {
+	std::cout << "botan\n";
 
 	char buffer_botan[bufferlen];
 	fill_buffer(buffer_botan, bufferlen);
@@ -593,7 +623,8 @@ void verify_twofish_ecb()
 #endif
 
 #if HAVE_CRYPTOPP
-    { // Crypto++
+    {
+	std::cout << "crypto++\n";
 
 	char buffer_cryptopp[bufferlen];
 	fill_buffer(buffer_cryptopp, bufferlen);
@@ -619,7 +650,8 @@ void verify_twofish_ecb()
 #endif
 
 #if HAVE_LIBTOMCRYPT
-    { // Tomcrypt
+    {
+	std::cout << "tomcrypt\n";
 
 	char buffer_tomcrypt[bufferlen];
 	fill_buffer(buffer_tomcrypt, bufferlen);
@@ -645,9 +677,212 @@ void verify_twofish_ecb()
 #endif
 
     {
+	std::cout << "libgcrypt\n";
+
 	gcry_cipher_hd_t decctx;
 	gcry_cipher_open(&decctx, GCRY_CIPHER_TWOFISH, GCRY_CIPHER_MODE_ECB, 0);
 	gcry_cipher_setkey(decctx, (uint8_t*)enckey, 32);
+	gcry_cipher_decrypt(decctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
+	gcry_cipher_close(decctx);
+    }
+
+    check_buffer(buffer_gcrypt, bufferlen);
+
+#endif // HAVE_LIBGCRYPT
+}
+
+// *** Verify Blowfish Implementations
+
+void verify_blowfish_ecb()
+{
+    std::cout << "Testing Blowfish implementations\n";
+
+#if HAVE_LIBGCRYPT
+    // libgcrypt
+
+    char buffer_gcrypt[bufferlen];
+    fill_buffer(buffer_gcrypt, bufferlen);
+
+    {
+	gcry_cipher_hd_t encctx;
+	gcry_cipher_open(&encctx, GCRY_CIPHER_BLOWFISH, GCRY_CIPHER_MODE_ECB, 0);
+	gcry_cipher_setkey(encctx, (uint8_t*)enckey, 16);
+	gcry_cipher_encrypt(encctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
+	gcry_cipher_close(encctx);
+    }
+
+#if HAVE_LIBMCRYPT
+    {
+	std::cout << "libmcrypt\n";
+
+	char buffer_mcrypt[bufferlen];
+	fill_buffer(buffer_mcrypt, bufferlen);
+
+	{
+	    MCRYPT encctx = mcrypt_module_open(MCRYPT_BLOWFISH, NULL, MCRYPT_ECB, NULL);
+	    mcrypt_generic_init(encctx, enckey, 16, NULL);
+	    mcrypt_generic(encctx, buffer_mcrypt, bufferlen);
+	    mcrypt_generic_end(encctx);
+	}
+
+	compare_buffers(buffer_gcrypt, buffer_mcrypt, bufferlen);
+
+	{
+	    MCRYPT decctx = mcrypt_module_open(MCRYPT_BLOWFISH, NULL, MCRYPT_ECB, NULL);
+	    mcrypt_generic_init(decctx, enckey, 16, NULL);
+	    mdecrypt_generic(decctx, buffer_mcrypt, bufferlen);
+	    mcrypt_generic_end(decctx);
+	}
+
+	check_buffer(buffer_mcrypt, bufferlen);
+    }
+#endif
+
+#if HAVE_BOTAN
+    {
+	std::cout << "botan\n";
+
+	char buffer_botan[bufferlen];
+	fill_buffer(buffer_botan, bufferlen);
+
+	{
+	    Botan::Blowfish encctx;
+	    encctx.set_key((Botan::byte*)enckey, 16);
+
+	    for(unsigned int p = 0; p < bufferlen; p += encctx.BLOCK_SIZE)
+		encctx.encrypt((Botan::byte*)buffer_botan + p);
+	}
+
+	compare_buffers(buffer_gcrypt, buffer_botan, bufferlen);
+
+	{
+	    Botan::Blowfish decctx;
+	    decctx.set_key((Botan::byte*)enckey, 16);
+
+	    for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
+		decctx.decrypt((Botan::byte*)buffer_botan + p);
+	}
+
+	check_buffer(buffer_botan, bufferlen);
+    }
+#endif
+
+#if HAVE_CRYPTOPP
+    {
+	std::cout << "crypto++\n";
+
+	char buffer_cryptopp[bufferlen];
+	fill_buffer(buffer_cryptopp, bufferlen);
+
+	{
+	    CryptoPP::ECB_Mode<CryptoPP::Blowfish>::Encryption encctx;
+	    encctx.SetKey((uint8_t*)enckey, 16);
+
+	    encctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
+	}
+
+	compare_buffers(buffer_gcrypt, buffer_cryptopp, bufferlen);
+
+	{
+	    CryptoPP::ECB_Mode<CryptoPP::Blowfish>::Decryption decctx;
+	    decctx.SetKey((uint8_t*)enckey, 16);
+
+	    decctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
+	}
+
+	check_buffer(buffer_cryptopp, bufferlen);
+    }
+#endif
+
+#if HAVE_OPENSSL
+    {
+	std::cout << "openssl\n";
+
+	char buffer_openssl[bufferlen];
+	fill_buffer(buffer_openssl, bufferlen);
+
+	{
+	    BF_KEY encctx;
+	    BF_set_key(&encctx, 16, (uint8_t*)enckey);
+
+	    for(unsigned int p = 0; p < bufferlen; p += BF_BLOCK)
+		BF_ecb_encrypt((uint8_t*)(buffer_openssl + p), (uint8_t*)(buffer_openssl + p), &encctx, BF_ENCRYPT);
+	}
+
+	compare_buffers(buffer_gcrypt, buffer_openssl, bufferlen);
+
+	{
+	    BF_KEY decctx;
+	    BF_set_key(&decctx, 16, (uint8_t*)enckey);
+
+	    for(unsigned int p = 0; p < bufferlen; p += BF_BLOCK)
+		BF_ecb_encrypt((uint8_t*)(buffer_openssl + p), (uint8_t*)(buffer_openssl + p), &decctx, BF_DECRYPT);
+	}
+
+	check_buffer(buffer_openssl, bufferlen);
+    }
+#endif
+
+#if HAVE_LIBNETTLE
+    {
+	std::cout << "nettle\n";
+
+	char buffer_nettle[bufferlen];
+	fill_buffer(buffer_nettle, bufferlen);
+
+	{
+	    blowfish_ctx encctx;
+	    blowfish_set_key(&encctx, 16, (uint8_t*)enckey);
+	    blowfish_encrypt(&encctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
+	}
+
+	compare_buffers(buffer_gcrypt, buffer_nettle, bufferlen);
+
+	{
+	    blowfish_ctx decctx;
+	    blowfish_set_key(&decctx, 16, (uint8_t*)enckey);
+	    blowfish_decrypt(&decctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
+	}
+
+	check_buffer(buffer_nettle, bufferlen);
+    }
+#endif
+
+#if HAVE_LIBTOMCRYPT
+    {
+	std::cout << "tomcrypt\n";
+
+	char buffer_tomcrypt[bufferlen];
+	fill_buffer(buffer_tomcrypt, bufferlen);
+
+	{
+	    symmetric_ECB encctx;
+	    int i = find_cipher("blowfish");
+	    printf("%d \n", i);
+	    ecb_start(find_cipher("blowfish"), (uint8_t*)enckey, 16, 0, &encctx);
+	    ecb_encrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &encctx);
+	    ecb_done(&encctx);
+	}
+
+	compare_buffers(buffer_gcrypt, buffer_tomcrypt, bufferlen);
+
+	{
+	    symmetric_ECB decctx;
+	    ecb_start(find_cipher("blowfish"), (uint8_t*)enckey, 16, 0, &decctx);
+	    ecb_decrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &decctx);
+	    ecb_done(&decctx);
+	}
+
+	check_buffer(buffer_tomcrypt, bufferlen);
+    }
+#endif
+
+    {
+	std::cout << "libgcrypt\n";
+
+	gcry_cipher_hd_t decctx;
+	gcry_cipher_open(&decctx, GCRY_CIPHER_BLOWFISH, GCRY_CIPHER_MODE_ECB, 0);
+	gcry_cipher_setkey(decctx, (uint8_t*)enckey, 16);
 	gcry_cipher_decrypt(decctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	gcry_cipher_close(decctx);
     }
@@ -661,6 +896,8 @@ void verify_twofish_ecb()
 
 void verify_3des_ecb()
 {
+    std::cout << "Testing Triple DES implementations\n";
+
 #if HAVE_LIBNETTLE
     // Nettle requires some parity fix of the key
 
@@ -682,7 +919,8 @@ void verify_3des_ecb()
     }
 
 #if HAVE_LIBMCRYPT
-    { // libmcrypt
+    {
+	std::cout << "libmcrypt\n";
 
 	char buffer_mcrypt[bufferlen];
 	fill_buffer(buffer_mcrypt, bufferlen);
@@ -708,7 +946,8 @@ void verify_3des_ecb()
 #endif
 
 #if HAVE_BOTAN
-    { // Botan
+    {
+	std::cout << "botan\n";
 
 	char buffer_botan[bufferlen];
 	fill_buffer(buffer_botan, bufferlen);
@@ -736,7 +975,8 @@ void verify_3des_ecb()
 #endif
 
 #if HAVE_CRYPTOPP
-    { // Crypto++
+    {
+	std::cout << "crypto++\n";
 
 	char buffer_cryptopp[bufferlen];
 	fill_buffer(buffer_cryptopp, bufferlen);
@@ -762,7 +1002,8 @@ void verify_3des_ecb()
 #endif
 
 #if HAVE_OPENSSL
-    { // OpenSSL
+    {
+	std::cout << "openssl\n";
 
 	char buffer_openssl[bufferlen];
 	fill_buffer(buffer_openssl, bufferlen);
@@ -796,7 +1037,8 @@ void verify_3des_ecb()
 #endif
 
 #if HAVE_LIBNETTLE
-    { // Nettle
+    {
+	std::cout << "nettle\n";
 
 	char buffer_nettle[bufferlen];
 	fill_buffer(buffer_nettle, bufferlen);
@@ -820,7 +1062,8 @@ void verify_3des_ecb()
 #endif
 
 #if HAVE_LIBTOMCRYPT
-    { // Tomcrypt
+    {
+	std::cout << "tomcrypt\n";
 
 	char buffer_tomcrypt[bufferlen];
 	fill_buffer(buffer_tomcrypt, bufferlen);
@@ -846,6 +1089,8 @@ void verify_3des_ecb()
 #endif
 
     {
+	std::cout << "libgcrypt\n";
+
 	gcry_cipher_hd_t decctx;
 	gcry_cipher_open(&decctx, GCRY_CIPHER_3DES, GCRY_CIPHER_MODE_ECB, 0);
 	gcry_cipher_setkey(decctx, (uint8_t*)enckey, 24);
@@ -888,6 +1133,7 @@ int main()
     verify_rijndael_ecb();
     verify_serpent_ecb();
     verify_twofish_ecb();
+    verify_blowfish_ecb();
     verify_3des_ecb();
 
     return 0;

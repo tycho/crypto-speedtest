@@ -113,12 +113,12 @@ void test_tomcrypt_xtea_ecb()
 void test_tomcrypt_blowfish_ecb()
 {
     symmetric_ECB encctx;
-    ecb_start(find_cipher("blowfish"), (uint8_t*)enckey, 32, 0, &encctx);
+    ecb_start(find_cipher("blowfish"), (uint8_t*)enckey, 16, 0, &encctx);
     ecb_encrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &encctx);
     ecb_done(&encctx);
 
     symmetric_ECB decctx;
-    ecb_start(find_cipher("blowfish"), (uint8_t*)enckey, 32, 0, &decctx);
+    ecb_start(find_cipher("blowfish"), (uint8_t*)enckey, 16, 0, &decctx);
     ecb_decrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &decctx);
     ecb_done(&decctx);
 }

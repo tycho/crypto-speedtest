@@ -102,12 +102,12 @@ void test_libmcrypt_loki97_ecb()
 void test_libmcrypt_blowfish_ecb()
 {
     MCRYPT encctx = mcrypt_module_open(MCRYPT_BLOWFISH, NULL, MCRYPT_ECB, NULL);
-    mcrypt_generic_init(encctx, enckey, 32, NULL);
+    mcrypt_generic_init(encctx, enckey, 16, NULL);
     mcrypt_generic(encctx, buffer, bufferlen);
     mcrypt_generic_end(encctx);
 
     MCRYPT decctx = mcrypt_module_open(MCRYPT_BLOWFISH, NULL, MCRYPT_ECB, NULL);
-    mcrypt_generic_init(decctx, enckey, 32, NULL);
+    mcrypt_generic_init(decctx, enckey, 16, NULL);
     mdecrypt_generic(decctx, buffer, bufferlen);
     mcrypt_generic_end(decctx);
 }
