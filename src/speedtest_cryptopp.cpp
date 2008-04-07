@@ -1,14 +1,24 @@
 // $Id$
 
-#include <cryptopp/modes.h>
-#include <cryptopp/rijndael.h>
-#include <cryptopp/serpent.h>
-#include <cryptopp/twofish.h>
-#include <cryptopp/cast.h>
-#include <cryptopp/gost.h>
-#include <cryptopp/tea.h>
-#include <cryptopp/blowfish.h>
-#include <cryptopp/des.h>
+#define CRYPTOPP_INCLUDE_MODES 		<CRYPTOPP_INCLUDE_PREFIX/modes.h>
+#define CRYPTOPP_INCLUDE_RIJNDAEL 	<CRYPTOPP_INCLUDE_PREFIX/rijndael.h>
+#define CRYPTOPP_INCLUDE_SERPENT 	<CRYPTOPP_INCLUDE_PREFIX/serpent.h>
+#define CRYPTOPP_INCLUDE_TWOFISH 	<CRYPTOPP_INCLUDE_PREFIX/twofish.h>
+#define CRYPTOPP_INCLUDE_CAST 		<CRYPTOPP_INCLUDE_PREFIX/cast.h>
+#define CRYPTOPP_INCLUDE_GOST 		<CRYPTOPP_INCLUDE_PREFIX/gost.h>
+#define CRYPTOPP_INCLUDE_TEA 		<CRYPTOPP_INCLUDE_PREFIX/tea.h>
+#define CRYPTOPP_INCLUDE_BLOWFISH 	<CRYPTOPP_INCLUDE_PREFIX/blowfish.h>
+#define CRYPTOPP_INCLUDE_DES	 	<CRYPTOPP_INCLUDE_PREFIX/des.h>
+
+#include CRYPTOPP_INCLUDE_MODES
+#include CRYPTOPP_INCLUDE_RIJNDAEL
+#include CRYPTOPP_INCLUDE_SERPENT
+#include CRYPTOPP_INCLUDE_TWOFISH
+#include CRYPTOPP_INCLUDE_CAST
+#include CRYPTOPP_INCLUDE_GOST
+#include CRYPTOPP_INCLUDE_TEA
+#include CRYPTOPP_INCLUDE_BLOWFISH
+#include CRYPTOPP_INCLUDE_DES
 
 #include "speedtest.h"
 

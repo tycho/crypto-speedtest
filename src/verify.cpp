@@ -35,12 +35,21 @@
 #endif
 
 #if HAVE_CRYPTOPP
-#include <cryptopp/modes.h>
-#include <cryptopp/rijndael.h>
-#include <cryptopp/serpent.h>
-#include <cryptopp/twofish.h>
-#include <cryptopp/blowfish.h>
-#include <cryptopp/des.h>
+
+#define CRYPTOPP_INCLUDE_MODES 		<CRYPTOPP_INCLUDE_PREFIX/modes.h>
+#define CRYPTOPP_INCLUDE_RIJNDAEL 	<CRYPTOPP_INCLUDE_PREFIX/rijndael.h>
+#define CRYPTOPP_INCLUDE_SERPENT 	<CRYPTOPP_INCLUDE_PREFIX/serpent.h>
+#define CRYPTOPP_INCLUDE_TWOFISH 	<CRYPTOPP_INCLUDE_PREFIX/twofish.h>
+#define CRYPTOPP_INCLUDE_BLOWFISH 	<CRYPTOPP_INCLUDE_PREFIX/blowfish.h>
+#define CRYPTOPP_INCLUDE_DES	 	<CRYPTOPP_INCLUDE_PREFIX/des.h>
+
+#include CRYPTOPP_INCLUDE_MODES
+#include CRYPTOPP_INCLUDE_RIJNDAEL
+#include CRYPTOPP_INCLUDE_SERPENT
+#include CRYPTOPP_INCLUDE_TWOFISH
+#include CRYPTOPP_INCLUDE_BLOWFISH
+#include CRYPTOPP_INCLUDE_DES
+
 #endif
 
 #if HAVE_OPENSSL

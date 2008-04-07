@@ -381,7 +381,7 @@ sidebysideplots:
 		G=p4-3200-gentoo-a4.pdf H=p4-3200-fedora8-a4.pdf  \
 		cat $(PAGELIST) output sidebyside-comparison.pdf
 
-	pdflatex sidebyside-comparison-4x2.tex
+	pdflatex -halt-on-error sidebyside-comparison-4x2.tex
 	rm sidebyside-comparison.pdf
 
 	rm p2-300-debian-etch-a4.pdf p3-1000-ubuntu-gutsy-a4.pdf cel-2660-debian-etch-a4.pdf
