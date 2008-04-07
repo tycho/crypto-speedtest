@@ -1,14 +1,14 @@
 // $Id$
 
-#include <crypto++/modes.h>
-#include <crypto++/rijndael.h>
-#include <crypto++/serpent.h>
-#include <crypto++/twofish.h>
-#include <crypto++/cast.h>
-#include <crypto++/gost.h>
-#include <crypto++/tea.h>
-#include <crypto++/blowfish.h>
-#include <crypto++/des.h>
+#include <cryptopp/modes.h>
+#include <cryptopp/rijndael.h>
+#include <cryptopp/serpent.h>
+#include <cryptopp/twofish.h>
+#include <cryptopp/cast.h>
+#include <cryptopp/gost.h>
+#include <cryptopp/tea.h>
+#include <cryptopp/blowfish.h>
+#include <cryptopp/des.h>
 
 #include "speedtest.h"
 

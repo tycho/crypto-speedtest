@@ -35,12 +35,12 @@
 #endif
 
 #if HAVE_CRYPTOPP
-#include <crypto++/modes.h>
-#include <crypto++/rijndael.h>
-#include <crypto++/serpent.h>
-#include <crypto++/twofish.h>
-#include <crypto++/blowfish.h>
-#include <crypto++/des.h>
+#include <cryptopp/modes.h>
+#include <cryptopp/rijndael.h>
+#include <cryptopp/serpent.h>
+#include <cryptopp/twofish.h>
+#include <cryptopp/blowfish.h>
+#include <cryptopp/des.h>
 #endif
 
 #if HAVE_OPENSSL
