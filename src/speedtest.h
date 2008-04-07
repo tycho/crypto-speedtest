@@ -87,7 +87,7 @@ REDO:
 
 	    // fill buffer
 	    for(unsigned int i = 0; i < bufferlen; ++i)
-		buffer[i] = (char)i;
+		buffer[i] = (uint8_t)i;
 
 	    double ts1 = timestamp();
 
@@ -114,7 +114,7 @@ REDO:
 
 	    // check buffer status after repeated en/decryption
 	    for(unsigned int i = 0; i < bufferlen; ++i)
-		assert(buffer[i] == (char)i);
+		assert(buffer[i] == (uint8_t)i);
 
 	    timelog[bufferlen].push_back( tsdelta / (double)repeat );
 	}
