@@ -11,33 +11,33 @@
 void test_my_rijndael_ecb()
 {
     RijndaelEncryptECB encctx;
-    encctx.set_key((uint8_t*)enckey, 32);
+    encctx.set_key(enckey, 32);
     encctx.encrypt(buffer, buffer, bufferlen);
 
     RijndaelDecryptECB decctx;
-    decctx.set_key((uint8_t*)enckey, 32);
+    decctx.set_key(enckey, 32);
     decctx.decrypt(buffer, buffer, bufferlen);
 }
 
 void test_gladman_serpent_ecb()
 {
     SerpentGladman::EncryptECB encctx;
-    encctx.set_key((uint8_t*)enckey, 32);
+    encctx.set_key(enckey, 32);
     encctx.encrypt(buffer, buffer, bufferlen);
 
     SerpentGladman::DecryptECB decctx;
-    decctx.set_key((uint8_t*)enckey, 32);
+    decctx.set_key(enckey, 32);
     decctx.decrypt(buffer, buffer, bufferlen);
 }
 
 void test_mybotan_serpent_ecb()
 {
     SerpentBotan::EncryptECB encctx;
-    encctx.set_key((uint8_t*)enckey, 32);
+    encctx.set_key(enckey, 32);
     encctx.encrypt(buffer, buffer, bufferlen);
 
     SerpentBotan::DecryptECB decctx;
-    decctx.set_key((uint8_t*)enckey, 32);
+    decctx.set_key(enckey, 32);
     decctx.decrypt(buffer, buffer, bufferlen);
 }
 

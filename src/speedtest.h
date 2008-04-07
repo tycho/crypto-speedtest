@@ -45,11 +45,11 @@ inline double timestamp()
 
 // *** Global Buffers and Settings for the Speedtest Functions ***
 
-char	enckey[32];	/// 256 bit encryption key
-char	enciv[16];	/// 16 byte initialization vector if needed.
+unsigned char	enckey[32];	/// 256 bit encryption key
+unsigned char	enciv[16];	/// 16 byte initialization vector if needed.
 
-char	buffer[buffermax];	/// encryption buffer
-unsigned int bufferlen;		/// currently tested buffer length
+unsigned char	buffer[buffermax];	/// encryption buffer
+unsigned int	bufferlen;		/// currently tested buffer length
 
 // *** run_test() ***
 

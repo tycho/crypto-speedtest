@@ -9,143 +9,143 @@
 void test_tomcrypt_rijndael_ecb()
 {
     symmetric_ECB encctx;
-    ecb_start(find_cipher("rijndael"), (uint8_t*)enckey, 32, 0, &encctx);
-    ecb_encrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &encctx);
+    ecb_start(find_cipher("rijndael"), enckey, 32, 0, &encctx);
+    ecb_encrypt(buffer, buffer, bufferlen, &encctx);
     ecb_done(&encctx);
 
     symmetric_ECB decctx;
-    ecb_start(find_cipher("rijndael"), (uint8_t*)enckey, 32, 0, &decctx);
-    ecb_decrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &decctx);
+    ecb_start(find_cipher("rijndael"), enckey, 32, 0, &decctx);
+    ecb_decrypt(buffer, buffer, bufferlen, &decctx);
     ecb_done(&decctx);
 }
 
 void test_tomcrypt_twofish_ecb()
 {
     symmetric_ECB encctx;
-    ecb_start(find_cipher("twofish"), (uint8_t*)enckey, 32, 0, &encctx);
-    ecb_encrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &encctx);
+    ecb_start(find_cipher("twofish"), enckey, 32, 0, &encctx);
+    ecb_encrypt(buffer, buffer, bufferlen, &encctx);
     ecb_done(&encctx);
 
     symmetric_ECB decctx;
-    ecb_start(find_cipher("twofish"), (uint8_t*)enckey, 32, 0, &decctx);
-    ecb_decrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &decctx);
+    ecb_start(find_cipher("twofish"), enckey, 32, 0, &decctx);
+    ecb_decrypt(buffer, buffer, bufferlen, &decctx);
     ecb_done(&decctx);
 }
 
 void test_tomcrypt_saferp_ecb()
 {
     symmetric_ECB encctx;
-    ecb_start(find_cipher("safer+"), (uint8_t*)enckey, 16, 0, &encctx);
-    ecb_encrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &encctx);
+    ecb_start(find_cipher("safer+"), enckey, 16, 0, &encctx);
+    ecb_encrypt(buffer, buffer, bufferlen, &encctx);
     ecb_done(&encctx);
 
     symmetric_ECB decctx;
-    ecb_start(find_cipher("safer+"), (uint8_t*)enckey, 16, 0, &decctx);
-    ecb_decrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &decctx);
+    ecb_start(find_cipher("safer+"), enckey, 16, 0, &decctx);
+    ecb_decrypt(buffer, buffer, bufferlen, &decctx);
     ecb_done(&decctx);
 }
 
 void test_tomcrypt_noekeon_ecb()
 {
     symmetric_ECB encctx;
-    ecb_start(find_cipher("noekeon"), (uint8_t*)enckey, 16, 0, &encctx);
-    ecb_encrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &encctx);
+    ecb_start(find_cipher("noekeon"), enckey, 16, 0, &encctx);
+    ecb_encrypt(buffer, buffer, bufferlen, &encctx);
     ecb_done(&encctx);
 
     symmetric_ECB decctx;
-    ecb_start(find_cipher("noekeon"), (uint8_t*)enckey, 16, 0, &decctx);
-    ecb_decrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &decctx);
+    ecb_start(find_cipher("noekeon"), enckey, 16, 0, &decctx);
+    ecb_decrypt(buffer, buffer, bufferlen, &decctx);
     ecb_done(&decctx);
 }
 
 void test_tomcrypt_skipjack_ecb()
 {
     symmetric_ECB encctx;
-    ecb_start(find_cipher("skipjack"), (uint8_t*)enckey, 10, 0, &encctx);
-    ecb_encrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &encctx);
+    ecb_start(find_cipher("skipjack"), enckey, 10, 0, &encctx);
+    ecb_encrypt(buffer, buffer, bufferlen, &encctx);
     ecb_done(&encctx);
 
     symmetric_ECB decctx;
-    ecb_start(find_cipher("skipjack"), (uint8_t*)enckey, 10, 0, &decctx);
-    ecb_decrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &decctx);
+    ecb_start(find_cipher("skipjack"), enckey, 10, 0, &decctx);
+    ecb_decrypt(buffer, buffer, bufferlen, &decctx);
     ecb_done(&decctx);
 }
 
 void test_tomcrypt_anubis_ecb()
 {
     symmetric_ECB encctx;
-    ecb_start(find_cipher("anubis"), (uint8_t*)enckey, 32, 0, &encctx);
-    ecb_encrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &encctx);
+    ecb_start(find_cipher("anubis"), enckey, 32, 0, &encctx);
+    ecb_encrypt(buffer, buffer, bufferlen, &encctx);
     ecb_done(&encctx);
 
     symmetric_ECB decctx;
-    ecb_start(find_cipher("anubis"), (uint8_t*)enckey, 32, 0, &decctx);
-    ecb_decrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &decctx);
+    ecb_start(find_cipher("anubis"), enckey, 32, 0, &decctx);
+    ecb_decrypt(buffer, buffer, bufferlen, &decctx);
     ecb_done(&decctx);
 }
 
 void test_tomcrypt_khazad_ecb()
 {
     symmetric_ECB encctx;
-    ecb_start(find_cipher("khazad"), (uint8_t*)enckey, 16, 0, &encctx);
-    ecb_encrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &encctx);
+    ecb_start(find_cipher("khazad"), enckey, 16, 0, &encctx);
+    ecb_encrypt(buffer, buffer, bufferlen, &encctx);
     ecb_done(&encctx);
 
     symmetric_ECB decctx;
-    ecb_start(find_cipher("khazad"), (uint8_t*)enckey, 16, 0, &decctx);
-    ecb_decrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &decctx);
+    ecb_start(find_cipher("khazad"), enckey, 16, 0, &decctx);
+    ecb_decrypt(buffer, buffer, bufferlen, &decctx);
     ecb_done(&decctx);
 }
 
 void test_tomcrypt_xtea_ecb()
 {
     symmetric_ECB encctx;
-    ecb_start(find_cipher("xtea"), (uint8_t*)enckey, 16, 0, &encctx);
-    ecb_encrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &encctx);
+    ecb_start(find_cipher("xtea"), enckey, 16, 0, &encctx);
+    ecb_encrypt(buffer, buffer, bufferlen, &encctx);
     ecb_done(&encctx);
 
     symmetric_ECB decctx;
-    ecb_start(find_cipher("xtea"), (uint8_t*)enckey, 16, 0, &decctx);
-    ecb_decrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &decctx);
+    ecb_start(find_cipher("xtea"), enckey, 16, 0, &decctx);
+    ecb_decrypt(buffer, buffer, bufferlen, &decctx);
     ecb_done(&decctx);
 }
 
 void test_tomcrypt_blowfish_ecb()
 {
     symmetric_ECB encctx;
-    ecb_start(find_cipher("blowfish"), (uint8_t*)enckey, 16, 0, &encctx);
-    ecb_encrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &encctx);
+    ecb_start(find_cipher("blowfish"), enckey, 16, 0, &encctx);
+    ecb_encrypt(buffer, buffer, bufferlen, &encctx);
     ecb_done(&encctx);
 
     symmetric_ECB decctx;
-    ecb_start(find_cipher("blowfish"), (uint8_t*)enckey, 16, 0, &decctx);
-    ecb_decrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &decctx);
+    ecb_start(find_cipher("blowfish"), enckey, 16, 0, &decctx);
+    ecb_decrypt(buffer, buffer, bufferlen, &decctx);
     ecb_done(&decctx);
 }
 
 void test_tomcrypt_cast5_ecb()
 {
     symmetric_ECB encctx;
-    ecb_start(find_cipher("cast5"), (uint8_t*)enckey, 16, 0, &encctx);
-    ecb_encrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &encctx);
+    ecb_start(find_cipher("cast5"), enckey, 16, 0, &encctx);
+    ecb_encrypt(buffer, buffer, bufferlen, &encctx);
     ecb_done(&encctx);
 
     symmetric_ECB decctx;
-    ecb_start(find_cipher("cast5"), (uint8_t*)enckey, 16, 0, &decctx);
-    ecb_decrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &decctx);
+    ecb_start(find_cipher("cast5"), enckey, 16, 0, &decctx);
+    ecb_decrypt(buffer, buffer, bufferlen, &decctx);
     ecb_done(&decctx);
 }
 
 void test_tomcrypt_3des_ecb()
 {
     symmetric_ECB encctx;
-    ecb_start(find_cipher("3des"), (uint8_t*)enckey, 24, 0, &encctx);
-    ecb_encrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &encctx);
+    ecb_start(find_cipher("3des"), enckey, 24, 0, &encctx);
+    ecb_encrypt(buffer, buffer, bufferlen, &encctx);
     ecb_done(&encctx);
 
     symmetric_ECB decctx;
-    ecb_start(find_cipher("3des"), (uint8_t*)enckey, 24, 0, &decctx);
-    ecb_decrypt((uint8_t*)buffer, (uint8_t*)buffer, bufferlen, &decctx);
+    ecb_start(find_cipher("3des"), enckey, 24, 0, &decctx);
+    ecb_decrypt(buffer, buffer, bufferlen, &decctx);
     ecb_done(&decctx);
 }
 

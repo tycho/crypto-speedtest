@@ -73,30 +73,26 @@ const unsigned int bufferlen = 8192*16;
 
 // *** Global Buffers and Settings for the Verify Functions ***
 
-char enckey[32];
+unsigned char enckey[32];
 
 // *** Tool Functions to Fill, Check and Compare Buffers ***
 
-void fill_buffer(void *buffer, unsigned int bufferlen)
+void fill_buffer(uint8_t *buffer, unsigned int bufferlen)
 {
-    uint8_t* cbuffer = (uint8_t*)buffer;
     for(unsigned int i = 0; i < bufferlen; ++i)
-	cbuffer[i] = (uint8_t)i;
+	buffer[i] = (uint8_t)i;
 }
 
-void compare_buffers(void *buffer1, void* buffer2, unsigned int bufferlen)
+void compare_buffers(uint8_t *buffer1, uint8_t* buffer2, unsigned int bufferlen)
 {
-    uint8_t* cbuffer1 = (uint8_t*)buffer1;
-    uint8_t* cbuffer2 = (uint8_t*)buffer2;
     for(unsigned int i = 0; i < bufferlen; ++i)
-	assert(cbuffer1[i] == cbuffer2[i]);
+	assert(buffer1[i] == buffer2[i]);
 }
 
-void check_buffer(void *buffer, unsigned int bufferlen)
+void check_buffer(uint8_t *buffer, unsigned int bufferlen)
 {
-    uint8_t* cbuffer = (uint8_t*)buffer;
     for(unsigned int i = 0; i < bufferlen; ++i)
-	assert(cbuffer[i] == (uint8_t)i);
+	assert(buffer[i] == (uint8_t)i);
 }
 
 // *** Verify Rijndael Implementations
@@ -107,12 +103,12 @@ void verify_rijndael_ecb()
 
     // Custom Implementation
 
-    char buffer_custom[bufferlen];
+    uint8_t buffer_custom[bufferlen];
     fill_buffer(buffer_custom, bufferlen);
 
     {
 	RijndaelEncryptECB encctx;
-	encctx.set_key((uint8_t*)enckey, 32);
+	encctx.set_key(enckey, 32);
 	encctx.encrypt(buffer_custom, buffer_custom, bufferlen);
     }
 
@@ -120,13 +116,13 @@ void verify_rijndael_ecb()
     {
 	std::cout << "libgcrypt\n";
 
-	char buffer_gcrypt[bufferlen];
+	uint8_t buffer_gcrypt[bufferlen];
 	fill_buffer(buffer_gcrypt, bufferlen);
 
 	{
 	    gcry_cipher_hd_t encctx;
 	    gcry_cipher_open(&encctx, GCRY_CIPHER_RIJNDAEL256, GCRY_CIPHER_MODE_ECB, 0);
-	    gcry_cipher_setkey(encctx, (uint8_t*)enckey, 32);
+	    gcry_cipher_setkey(encctx, enckey, 32);
 	    gcry_cipher_encrypt(encctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	    gcry_cipher_close(encctx);
 	}
@@ -136,7 +132,7 @@ void verify_rijndael_ecb()
 	{
 	    gcry_cipher_hd_t decctx;
 	    gcry_cipher_open(&decctx, GCRY_CIPHER_RIJNDAEL256, GCRY_CIPHER_MODE_ECB, 0);
-	    gcry_cipher_setkey(decctx, (uint8_t*)enckey, 32);
+	    gcry_cipher_setkey(decctx, enckey, 32);
 	    gcry_cipher_decrypt(decctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	    gcry_cipher_close(decctx);
 	}
@@ -149,7 +145,7 @@ void verify_rijndael_ecb()
     {
 	std::cout << "libmcrypt\n";
 
-	char buffer_mcrypt[bufferlen];
+	uint8_t buffer_mcrypt[bufferlen];
 	fill_buffer(buffer_mcrypt, bufferlen);
 
 	{
@@ -176,7 +172,7 @@ void verify_rijndael_ecb()
     {
 	std::cout << "botan\n";
 
-	char buffer_botan[bufferlen];
+	uint8_t buffer_botan[bufferlen];
 	fill_buffer(buffer_botan, bufferlen);
 
 	{
@@ -205,23 +201,23 @@ void verify_rijndael_ecb()
     {
 	std::cout << "crypto++\n";
 
-	char buffer_cryptopp[bufferlen];
+	uint8_t buffer_cryptopp[bufferlen];
 	fill_buffer(buffer_cryptopp, bufferlen);
 
 	{
 	    CryptoPP::ECB_Mode<CryptoPP::Rijndael>::Encryption encctx;
-	    encctx.SetKey((uint8_t*)enckey, 32);
+	    encctx.SetKey(enckey, 32);
 
-	    encctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
+	    encctx.ProcessData(buffer_cryptopp, buffer_cryptopp, bufferlen);
 	}
 
 	compare_buffers(buffer_custom, buffer_cryptopp, bufferlen);
 
 	{
 	    CryptoPP::ECB_Mode<CryptoPP::Rijndael>::Decryption decctx;
-	    decctx.SetKey((uint8_t*)enckey, 32);
+	    decctx.SetKey(enckey, 32);
 
-	    decctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
+	    decctx.ProcessData(buffer_cryptopp, buffer_cryptopp, bufferlen);
 	}
 
 	check_buffer(buffer_cryptopp, bufferlen);
@@ -232,25 +228,25 @@ void verify_rijndael_ecb()
     {
 	std::cout << "openssl\n";
 
-	char buffer_openssl[bufferlen];
+	uint8_t buffer_openssl[bufferlen];
 	fill_buffer(buffer_openssl, bufferlen);
 
 	{
 	    AES_KEY aeskey;
-	    AES_set_encrypt_key((uint8_t*)enckey, 256, &aeskey);
+	    AES_set_encrypt_key(enckey, 256, &aeskey);
 
 	    for(unsigned int p = 0; p < bufferlen; p += AES_BLOCK_SIZE)
-		AES_encrypt((uint8_t*)buffer_openssl + p, (uint8_t*)buffer_openssl + p, &aeskey);
+		AES_encrypt(buffer_openssl + p, buffer_openssl + p, &aeskey);
 	}
 
 	compare_buffers(buffer_custom, buffer_openssl, bufferlen);
 
 	{
 	    AES_KEY aeskey;
-	    AES_set_decrypt_key((uint8_t*)enckey, 256, &aeskey);
+	    AES_set_decrypt_key(enckey, 256, &aeskey);
 
 	    for(unsigned int p = 0; p < bufferlen; p += AES_BLOCK_SIZE)
-		AES_decrypt((uint8_t*)buffer_openssl + p, (uint8_t*)buffer_openssl + p, &aeskey);
+		AES_decrypt(buffer_openssl + p, buffer_openssl + p, &aeskey);
 	}
 
 	check_buffer(buffer_openssl, bufferlen);
@@ -261,21 +257,21 @@ void verify_rijndael_ecb()
     {
 	std::cout << "nettle\n";
 
-	char buffer_nettle[bufferlen];
+	uint8_t buffer_nettle[bufferlen];
 	fill_buffer(buffer_nettle, bufferlen);
 
 	{
 	    aes_ctx encctx;
-	    aes_set_encrypt_key(&encctx, 32, (uint8_t*)enckey);
-	    aes_encrypt(&encctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
+	    aes_set_encrypt_key(&encctx, 32, enckey);
+	    aes_encrypt(&encctx, bufferlen, buffer_nettle, buffer_nettle);
 	}
 
 	compare_buffers(buffer_custom, buffer_nettle, bufferlen);
 
 	{
 	    aes_ctx decctx;
-	    aes_set_decrypt_key(&decctx, 32, (uint8_t*)enckey);
-	    aes_decrypt(&decctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
+	    aes_set_decrypt_key(&decctx, 32, enckey);
+	    aes_decrypt(&decctx, bufferlen, buffer_nettle, buffer_nettle);
 	}
 
 	check_buffer(buffer_nettle, bufferlen);
@@ -286,12 +282,12 @@ void verify_rijndael_ecb()
     {
 	std::cout << "beecrypt\n";
 
-	char buffer_beecrypt[bufferlen];
+	uint8_t buffer_beecrypt[bufferlen];
 	fill_buffer(buffer_beecrypt, bufferlen);
 
 	{
 	    aesParam encctx;
-	    aesSetup(&encctx, (uint8_t*)enckey, 256, ENCRYPT);
+	    aesSetup(&encctx, enckey, 256, ENCRYPT);
 
 	    for(unsigned int p = 0; p < bufferlen; p += 16)
 		aesEncrypt(&encctx, (uint32_t*)(buffer_beecrypt + p), (uint32_t*)(buffer_beecrypt + p));
@@ -301,7 +297,7 @@ void verify_rijndael_ecb()
 
 	{
 	    aesParam decctx;
-	    aesSetup(&decctx, (uint8_t*)enckey, 256, DECRYPT);
+	    aesSetup(&decctx, enckey, 256, DECRYPT);
 
 	    for(unsigned int p = 0; p < bufferlen; p += 16)
 		aesDecrypt(&decctx, (uint32_t*)(buffer_beecrypt + p), (uint32_t*)(buffer_beecrypt + p));
@@ -315,13 +311,13 @@ void verify_rijndael_ecb()
     {
 	std::cout << "tomcrypt\n";
 
-	char buffer_tomcrypt[bufferlen];
+	uint8_t buffer_tomcrypt[bufferlen];
 	fill_buffer(buffer_tomcrypt, bufferlen);
 
 	{
 	    symmetric_ECB encctx;
-	    ecb_start(find_cipher("rijndael"), (uint8_t*)enckey, 32, 0, &encctx);
-	    ecb_encrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &encctx);
+	    ecb_start(find_cipher("rijndael"), enckey, 32, 0, &encctx);
+	    ecb_encrypt(buffer_tomcrypt, buffer_tomcrypt, bufferlen, &encctx);
 	    ecb_done(&encctx);
 	}
 
@@ -329,8 +325,8 @@ void verify_rijndael_ecb()
 
 	{
 	    symmetric_ECB decctx;
-	    ecb_start(find_cipher("rijndael"), (uint8_t*)enckey, 32, 0, &decctx);
-	    ecb_decrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &decctx);
+	    ecb_start(find_cipher("rijndael"), enckey, 32, 0, &decctx);
+	    ecb_decrypt(buffer_tomcrypt, buffer_tomcrypt, bufferlen, &decctx);
 	    ecb_done(&decctx);
 	}
 
@@ -344,7 +340,7 @@ void verify_rijndael_ecb()
 	std::cout << "custom\n";
 
 	RijndaelDecryptECB decctx;
-	decctx.set_key((uint8_t*)enckey, 32);
+	decctx.set_key(enckey, 32);
 	decctx.decrypt(buffer_custom, buffer_custom, bufferlen);
     }
 
@@ -359,26 +355,26 @@ void verify_serpent_ecb()
 
     // gladman implementation
 
-    char buffer_gladman[bufferlen];
+    uint8_t buffer_gladman[bufferlen];
     fill_buffer(buffer_gladman, bufferlen);
 
     {
 	SerpentGladman::EncryptECB encctx;
 
-	encctx.set_key((uint8_t*)enckey, 256);
+	encctx.set_key(enckey, 256);
 	encctx.encrypt(buffer_gladman, buffer_gladman, bufferlen);
     }
 
     { // botan-extracted implementation
 	std::cout << "mybotan\n";
 
-	char buffer_mybotan[bufferlen];
+	uint8_t buffer_mybotan[bufferlen];
 	fill_buffer(buffer_mybotan, bufferlen);
 
 	{
 	    SerpentBotan::EncryptECB encctx;
 
-	    encctx.set_key((uint8_t*)enckey, 32);
+	    encctx.set_key(enckey, 32);
 	    encctx.encrypt(buffer_mybotan, buffer_mybotan, bufferlen);
 	}
 
@@ -387,7 +383,7 @@ void verify_serpent_ecb()
 	{
 	    SerpentBotan::DecryptECB decctx;
 
-	    decctx.set_key((uint8_t*)enckey, 32);
+	    decctx.set_key(enckey, 32);
 	    decctx.decrypt(buffer_mybotan, buffer_mybotan, bufferlen);
 	}
 
@@ -398,13 +394,13 @@ void verify_serpent_ecb()
     {
 	std::cout << "libgcrypt\n";
 	
-	char buffer_gcrypt[bufferlen];
+	uint8_t buffer_gcrypt[bufferlen];
 	fill_buffer(buffer_gcrypt, bufferlen);
 
 	{
 	    gcry_cipher_hd_t encctx;
 	    gcry_cipher_open(&encctx, GCRY_CIPHER_SERPENT256, GCRY_CIPHER_MODE_ECB, 0);
-	    gcry_cipher_setkey(encctx, (uint8_t*)enckey, 32);
+	    gcry_cipher_setkey(encctx, enckey, 32);
 	    gcry_cipher_encrypt(encctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	    gcry_cipher_close(encctx);
 	}
@@ -414,7 +410,7 @@ void verify_serpent_ecb()
 	{
 	    gcry_cipher_hd_t decctx;
 	    gcry_cipher_open(&decctx, GCRY_CIPHER_SERPENT256, GCRY_CIPHER_MODE_ECB, 0);
-	    gcry_cipher_setkey(decctx, (uint8_t*)enckey, 32);
+	    gcry_cipher_setkey(decctx, enckey, 32);
 	    gcry_cipher_decrypt(decctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	    gcry_cipher_close(decctx);
 	}
@@ -427,7 +423,7 @@ void verify_serpent_ecb()
     {
 	std::cout << "libmcrypt\n";
 
-	char buffer_mcrypt[bufferlen];
+	uint8_t buffer_mcrypt[bufferlen];
 	fill_buffer(buffer_mcrypt, bufferlen);
 
 	{
@@ -454,7 +450,7 @@ void verify_serpent_ecb()
     {
 	std::cout << "botan\n";
 
-	char buffer_botan[bufferlen];
+	uint8_t buffer_botan[bufferlen];
 	fill_buffer(buffer_botan, bufferlen);
 
 	{
@@ -488,7 +484,7 @@ void verify_serpent_ecb()
 
 	{
 	    CryptoPP::ECB_Mode<CryptoPP::Serpent>::Encryption encctx;
-	    encctx.SetKey((uint8_t*)enckey, 32);
+	    encctx.SetKey(enckey, 32);
 
 	    encctx.ProcessData(buffer_cryptopp, buffer_cryptopp, bufferlen);
 	}
@@ -497,7 +493,7 @@ void verify_serpent_ecb()
 
 	{
 	    CryptoPP::ECB_Mode<CryptoPP::Serpent>::Decryption decctx;
-	    decctx.SetKey((uint8_t*)enckey, 32);
+	    decctx.SetKey(enckey, 32);
 
 	    decctx.ProcessData(buffer_cryptopp, buffer_cryptopp, bufferlen);
 	}
@@ -515,7 +511,7 @@ void verify_serpent_ecb()
 
 	{
 	    serpent_ctx encctx;
-	    serpent_set_key(&encctx, 32, (uint8_t*)enckey);
+	    serpent_set_key(&encctx, 32, enckey);
 	    serpent_encrypt(&encctx, bufferlen, buffer_nettle, buffer_nettle);
 	}
 
@@ -524,7 +520,7 @@ void verify_serpent_ecb()
 
 	{
 	    serpent_ctx decctx;
-	    serpent_set_key(&decctx, 32, (uint8_t*)enckey);
+	    serpent_set_key(&decctx, 32, enckey);
 	    serpent_decrypt(&decctx, bufferlen, buffer_nettle, buffer_nettle);
 	}
 
@@ -539,7 +535,7 @@ void verify_serpent_ecb()
 
 	SerpentGladman::DecryptECB decctx;
 
-	decctx.set_key((uint8_t*)enckey, 256);
+	decctx.set_key(enckey, 256);
 	decctx.decrypt(buffer_gladman, buffer_gladman, bufferlen);
     }
 
@@ -555,13 +551,13 @@ void verify_twofish_ecb()
 #if HAVE_LIBGCRYPT
     // libgcrypt
 
-    char buffer_gcrypt[bufferlen];
+    uint8_t buffer_gcrypt[bufferlen];
     fill_buffer(buffer_gcrypt, bufferlen);
 
     {
 	gcry_cipher_hd_t encctx;
 	gcry_cipher_open(&encctx, GCRY_CIPHER_TWOFISH, GCRY_CIPHER_MODE_ECB, 0);
-	gcry_cipher_setkey(encctx, (uint8_t*)enckey, 32);
+	gcry_cipher_setkey(encctx, enckey, 32);
 	gcry_cipher_encrypt(encctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	gcry_cipher_close(encctx);
     }
@@ -570,7 +566,7 @@ void verify_twofish_ecb()
     {
 	std::cout << "libmcrypt\n";
 
-	char buffer_mcrypt[bufferlen];
+	uint8_t buffer_mcrypt[bufferlen];
 	fill_buffer(buffer_mcrypt, bufferlen);
 
 	{
@@ -597,7 +593,7 @@ void verify_twofish_ecb()
     {
 	std::cout << "botan\n";
 
-	char buffer_botan[bufferlen];
+	uint8_t buffer_botan[bufferlen];
 	fill_buffer(buffer_botan, bufferlen);
 
 	{
@@ -626,23 +622,23 @@ void verify_twofish_ecb()
     {
 	std::cout << "crypto++\n";
 
-	char buffer_cryptopp[bufferlen];
+	uint8_t buffer_cryptopp[bufferlen];
 	fill_buffer(buffer_cryptopp, bufferlen);
 
 	{
 	    CryptoPP::ECB_Mode<CryptoPP::Twofish>::Encryption encctx;
-	    encctx.SetKey((uint8_t*)enckey, 32);
+	    encctx.SetKey(enckey, 32);
 
-	    encctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
+	    encctx.ProcessData(buffer_cryptopp, buffer_cryptopp, bufferlen);
 	}
 
 	compare_buffers(buffer_gcrypt, buffer_cryptopp, bufferlen);
 
 	{
 	    CryptoPP::ECB_Mode<CryptoPP::Twofish>::Decryption decctx;
-	    decctx.SetKey((uint8_t*)enckey, 32);
+	    decctx.SetKey(enckey, 32);
 
-	    decctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
+	    decctx.ProcessData(buffer_cryptopp, buffer_cryptopp, bufferlen);
 	}
 
 	check_buffer(buffer_cryptopp, bufferlen);
@@ -653,13 +649,13 @@ void verify_twofish_ecb()
     {
 	std::cout << "tomcrypt\n";
 
-	char buffer_tomcrypt[bufferlen];
+	uint8_t buffer_tomcrypt[bufferlen];
 	fill_buffer(buffer_tomcrypt, bufferlen);
 
 	{
 	    symmetric_ECB encctx;
-	    ecb_start(find_cipher("twofish"), (uint8_t*)enckey, 32, 0, &encctx);
-	    ecb_encrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &encctx);
+	    ecb_start(find_cipher("twofish"), enckey, 32, 0, &encctx);
+	    ecb_encrypt(buffer_tomcrypt, buffer_tomcrypt, bufferlen, &encctx);
 	    ecb_done(&encctx);
 	}
 
@@ -667,8 +663,8 @@ void verify_twofish_ecb()
 
 	{
 	    symmetric_ECB decctx;
-	    ecb_start(find_cipher("twofish"), (uint8_t*)enckey, 32, 0, &decctx);
-	    ecb_decrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &decctx);
+	    ecb_start(find_cipher("twofish"), enckey, 32, 0, &decctx);
+	    ecb_decrypt(buffer_tomcrypt, buffer_tomcrypt, bufferlen, &decctx);
 	    ecb_done(&decctx);
 	}
 
@@ -681,7 +677,7 @@ void verify_twofish_ecb()
 
 	gcry_cipher_hd_t decctx;
 	gcry_cipher_open(&decctx, GCRY_CIPHER_TWOFISH, GCRY_CIPHER_MODE_ECB, 0);
-	gcry_cipher_setkey(decctx, (uint8_t*)enckey, 32);
+	gcry_cipher_setkey(decctx, enckey, 32);
 	gcry_cipher_decrypt(decctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	gcry_cipher_close(decctx);
     }
@@ -700,13 +696,13 @@ void verify_blowfish_ecb()
 #if HAVE_LIBGCRYPT
     // libgcrypt
 
-    char buffer_gcrypt[bufferlen];
+    uint8_t buffer_gcrypt[bufferlen];
     fill_buffer(buffer_gcrypt, bufferlen);
 
     {
 	gcry_cipher_hd_t encctx;
 	gcry_cipher_open(&encctx, GCRY_CIPHER_BLOWFISH, GCRY_CIPHER_MODE_ECB, 0);
-	gcry_cipher_setkey(encctx, (uint8_t*)enckey, 16);
+	gcry_cipher_setkey(encctx, enckey, 16);
 	gcry_cipher_encrypt(encctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	gcry_cipher_close(encctx);
     }
@@ -715,7 +711,7 @@ void verify_blowfish_ecb()
     {
 	std::cout << "libmcrypt\n";
 
-	char buffer_mcrypt[bufferlen];
+	uint8_t buffer_mcrypt[bufferlen];
 	fill_buffer(buffer_mcrypt, bufferlen);
 
 	{
@@ -742,7 +738,7 @@ void verify_blowfish_ecb()
     {
 	std::cout << "botan\n";
 
-	char buffer_botan[bufferlen];
+	uint8_t buffer_botan[bufferlen];
 	fill_buffer(buffer_botan, bufferlen);
 
 	{
@@ -771,23 +767,23 @@ void verify_blowfish_ecb()
     {
 	std::cout << "crypto++\n";
 
-	char buffer_cryptopp[bufferlen];
+	uint8_t buffer_cryptopp[bufferlen];
 	fill_buffer(buffer_cryptopp, bufferlen);
 
 	{
 	    CryptoPP::ECB_Mode<CryptoPP::Blowfish>::Encryption encctx;
-	    encctx.SetKey((uint8_t*)enckey, 16);
+	    encctx.SetKey(enckey, 16);
 
-	    encctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
+	    encctx.ProcessData(buffer_cryptopp, buffer_cryptopp, bufferlen);
 	}
 
 	compare_buffers(buffer_gcrypt, buffer_cryptopp, bufferlen);
 
 	{
 	    CryptoPP::ECB_Mode<CryptoPP::Blowfish>::Decryption decctx;
-	    decctx.SetKey((uint8_t*)enckey, 16);
+	    decctx.SetKey(enckey, 16);
 
-	    decctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
+	    decctx.ProcessData(buffer_cryptopp, buffer_cryptopp, bufferlen);
 	}
 
 	check_buffer(buffer_cryptopp, bufferlen);
@@ -798,25 +794,25 @@ void verify_blowfish_ecb()
     {
 	std::cout << "openssl\n";
 
-	char buffer_openssl[bufferlen];
+	uint8_t buffer_openssl[bufferlen];
 	fill_buffer(buffer_openssl, bufferlen);
 
 	{
 	    BF_KEY encctx;
-	    BF_set_key(&encctx, 16, (uint8_t*)enckey);
+	    BF_set_key(&encctx, 16, enckey);
 
 	    for(unsigned int p = 0; p < bufferlen; p += BF_BLOCK)
-		BF_ecb_encrypt((uint8_t*)(buffer_openssl + p), (uint8_t*)(buffer_openssl + p), &encctx, BF_ENCRYPT);
+		BF_ecb_encrypt(buffer_openssl + p, buffer_openssl + p, &encctx, BF_ENCRYPT);
 	}
 
 	compare_buffers(buffer_gcrypt, buffer_openssl, bufferlen);
 
 	{
 	    BF_KEY decctx;
-	    BF_set_key(&decctx, 16, (uint8_t*)enckey);
+	    BF_set_key(&decctx, 16, enckey);
 
 	    for(unsigned int p = 0; p < bufferlen; p += BF_BLOCK)
-		BF_ecb_encrypt((uint8_t*)(buffer_openssl + p), (uint8_t*)(buffer_openssl + p), &decctx, BF_DECRYPT);
+		BF_ecb_encrypt(buffer_openssl + p, buffer_openssl + p, &decctx, BF_DECRYPT);
 	}
 
 	check_buffer(buffer_openssl, bufferlen);
@@ -827,21 +823,21 @@ void verify_blowfish_ecb()
     {
 	std::cout << "nettle\n";
 
-	char buffer_nettle[bufferlen];
+	uint8_t buffer_nettle[bufferlen];
 	fill_buffer(buffer_nettle, bufferlen);
 
 	{
 	    blowfish_ctx encctx;
-	    blowfish_set_key(&encctx, 16, (uint8_t*)enckey);
-	    blowfish_encrypt(&encctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
+	    blowfish_set_key(&encctx, 16, enckey);
+	    blowfish_encrypt(&encctx, bufferlen, buffer_nettle, buffer_nettle);
 	}
 
 	compare_buffers(buffer_gcrypt, buffer_nettle, bufferlen);
 
 	{
 	    blowfish_ctx decctx;
-	    blowfish_set_key(&decctx, 16, (uint8_t*)enckey);
-	    blowfish_decrypt(&decctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
+	    blowfish_set_key(&decctx, 16, enckey);
+	    blowfish_decrypt(&decctx, bufferlen, buffer_nettle, buffer_nettle);
 	}
 
 	check_buffer(buffer_nettle, bufferlen);
@@ -852,15 +848,13 @@ void verify_blowfish_ecb()
     {
 	std::cout << "tomcrypt\n";
 
-	char buffer_tomcrypt[bufferlen];
+	uint8_t buffer_tomcrypt[bufferlen];
 	fill_buffer(buffer_tomcrypt, bufferlen);
 
 	{
 	    symmetric_ECB encctx;
-	    int i = find_cipher("blowfish");
-	    printf("%d \n", i);
-	    ecb_start(find_cipher("blowfish"), (uint8_t*)enckey, 16, 0, &encctx);
-	    ecb_encrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &encctx);
+	    ecb_start(find_cipher("blowfish"), enckey, 16, 0, &encctx);
+	    ecb_encrypt(buffer_tomcrypt, buffer_tomcrypt, bufferlen, &encctx);
 	    ecb_done(&encctx);
 	}
 
@@ -868,8 +862,8 @@ void verify_blowfish_ecb()
 
 	{
 	    symmetric_ECB decctx;
-	    ecb_start(find_cipher("blowfish"), (uint8_t*)enckey, 16, 0, &decctx);
-	    ecb_decrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &decctx);
+	    ecb_start(find_cipher("blowfish"), enckey, 16, 0, &decctx);
+	    ecb_decrypt(buffer_tomcrypt, buffer_tomcrypt, bufferlen, &decctx);
 	    ecb_done(&decctx);
 	}
 
@@ -882,7 +876,7 @@ void verify_blowfish_ecb()
 
 	gcry_cipher_hd_t decctx;
 	gcry_cipher_open(&decctx, GCRY_CIPHER_BLOWFISH, GCRY_CIPHER_MODE_ECB, 0);
-	gcry_cipher_setkey(decctx, (uint8_t*)enckey, 16);
+	gcry_cipher_setkey(decctx, enckey, 16);
 	gcry_cipher_decrypt(decctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	gcry_cipher_close(decctx);
     }
@@ -901,19 +895,19 @@ void verify_3des_ecb()
 #if HAVE_LIBNETTLE
     // Nettle requires some parity fix of the key
 
-    des_fix_parity(24, (uint8_t*)enckey, (uint8_t*)enckey);
+    des_fix_parity(24, enckey, enckey);
 #endif
 
 #if HAVE_LIBGCRYPT
     // libgcrypt
 
-    char buffer_gcrypt[bufferlen];
+    uint8_t buffer_gcrypt[bufferlen];
     fill_buffer(buffer_gcrypt, bufferlen);
 
     {
 	gcry_cipher_hd_t encctx;
 	gcry_cipher_open(&encctx, GCRY_CIPHER_3DES, GCRY_CIPHER_MODE_ECB, 0);
-	gcry_cipher_setkey(encctx, (uint8_t*)enckey, 24);
+	gcry_cipher_setkey(encctx, enckey, 24);
 	gcry_cipher_encrypt(encctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	gcry_cipher_close(encctx);
     }
@@ -922,7 +916,7 @@ void verify_3des_ecb()
     {
 	std::cout << "libmcrypt\n";
 
-	char buffer_mcrypt[bufferlen];
+	uint8_t buffer_mcrypt[bufferlen];
 	fill_buffer(buffer_mcrypt, bufferlen);
 
 	{
@@ -949,7 +943,7 @@ void verify_3des_ecb()
     {
 	std::cout << "botan\n";
 
-	char buffer_botan[bufferlen];
+	uint8_t buffer_botan[bufferlen];
 	fill_buffer(buffer_botan, bufferlen);
 
 	{
@@ -978,23 +972,23 @@ void verify_3des_ecb()
     {
 	std::cout << "crypto++\n";
 
-	char buffer_cryptopp[bufferlen];
+	uint8_t buffer_cryptopp[bufferlen];
 	fill_buffer(buffer_cryptopp, bufferlen);
 
 	{
 	    CryptoPP::ECB_Mode<CryptoPP::DES_EDE3>::Encryption encctx;
-	    encctx.SetKey((uint8_t*)enckey, 24);
+	    encctx.SetKey(enckey, 24);
 
-	    encctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
+	    encctx.ProcessData(buffer_cryptopp, buffer_cryptopp, bufferlen);
 	}
 
 	compare_buffers(buffer_gcrypt, buffer_cryptopp, bufferlen);
 
 	{
 	    CryptoPP::ECB_Mode<CryptoPP::DES_EDE3>::Decryption decctx;
-	    decctx.SetKey((uint8_t*)enckey, 24);
+	    decctx.SetKey(enckey, 24);
 
-	    decctx.ProcessData((uint8_t*)buffer_cryptopp, (uint8_t*)buffer_cryptopp, bufferlen);
+	    decctx.ProcessData(buffer_cryptopp, buffer_cryptopp, bufferlen);
 	}
 
 	check_buffer(buffer_cryptopp, bufferlen);
@@ -1005,7 +999,7 @@ void verify_3des_ecb()
     {
 	std::cout << "openssl\n";
 
-	char buffer_openssl[bufferlen];
+	uint8_t buffer_openssl[bufferlen];
 	fill_buffer(buffer_openssl, bufferlen);
 
 	{
@@ -1040,21 +1034,21 @@ void verify_3des_ecb()
     {
 	std::cout << "nettle\n";
 
-	char buffer_nettle[bufferlen];
+	uint8_t buffer_nettle[bufferlen];
 	fill_buffer(buffer_nettle, bufferlen);
 
 	{
 	    des3_ctx encctx;
-	    des3_set_key(&encctx, (uint8_t*)enckey);
-	    des3_encrypt(&encctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
+	    des3_set_key(&encctx, enckey);
+	    des3_encrypt(&encctx, bufferlen, buffer_nettle, buffer_nettle);
 	}
 
 	compare_buffers(buffer_gcrypt, buffer_nettle, bufferlen);
 
 	{
 	    des3_ctx decctx;
-	    des3_set_key(&decctx, (uint8_t*)enckey);
-	    des3_decrypt(&decctx, bufferlen, (uint8_t*)buffer_nettle, (uint8_t*)buffer_nettle);
+	    des3_set_key(&decctx, enckey);
+	    des3_decrypt(&decctx, bufferlen, buffer_nettle, buffer_nettle);
 	}
 
 	check_buffer(buffer_nettle, bufferlen);
@@ -1065,13 +1059,13 @@ void verify_3des_ecb()
     {
 	std::cout << "tomcrypt\n";
 
-	char buffer_tomcrypt[bufferlen];
+	uint8_t buffer_tomcrypt[bufferlen];
 	fill_buffer(buffer_tomcrypt, bufferlen);
 
 	{
 	    symmetric_ECB encctx;
-	    ecb_start(find_cipher("3des"), (uint8_t*)enckey, 24, 0, &encctx);
-	    ecb_encrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &encctx);
+	    ecb_start(find_cipher("3des"), enckey, 24, 0, &encctx);
+	    ecb_encrypt(buffer_tomcrypt, buffer_tomcrypt, bufferlen, &encctx);
 	    ecb_done(&encctx);
 	}
 
@@ -1079,8 +1073,8 @@ void verify_3des_ecb()
 
 	{
 	    symmetric_ECB decctx;
-	    ecb_start(find_cipher("3des"), (uint8_t*)enckey, 24, 0, &decctx);
-	    ecb_decrypt((uint8_t*)buffer_tomcrypt, (uint8_t*)buffer_tomcrypt, bufferlen, &decctx);
+	    ecb_start(find_cipher("3des"), enckey, 24, 0, &decctx);
+	    ecb_decrypt(buffer_tomcrypt, buffer_tomcrypt, bufferlen, &decctx);
 	    ecb_done(&decctx);
 	}
 
@@ -1093,7 +1087,7 @@ void verify_3des_ecb()
 
 	gcry_cipher_hd_t decctx;
 	gcry_cipher_open(&decctx, GCRY_CIPHER_3DES, GCRY_CIPHER_MODE_ECB, 0);
-	gcry_cipher_setkey(decctx, (uint8_t*)enckey, 24);
+	gcry_cipher_setkey(decctx, enckey, 24);
 	gcry_cipher_decrypt(decctx, buffer_gcrypt, bufferlen, buffer_gcrypt, bufferlen);
 	gcry_cipher_close(decctx);
     }
@@ -1118,6 +1112,7 @@ int main()
 #if HAVE_LIBTOMCRYPT
     register_cipher(&rijndael_desc);
     register_cipher(&twofish_desc);
+    register_cipher(&blowfish_desc);
     register_cipher(&des3_desc);
 #endif
 

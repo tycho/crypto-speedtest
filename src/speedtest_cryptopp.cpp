@@ -17,100 +17,100 @@
 void test_cryptopp_rijndael_ecb()
 {
     CryptoPP::ECB_Mode<CryptoPP::Rijndael>::Encryption encctx;
-    encctx.SetKey((byte*)enckey, 32);
-    encctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    encctx.SetKey(enckey, 32);
+    encctx.ProcessData(buffer, buffer, bufferlen);
 
     CryptoPP::ECB_Mode<CryptoPP::Rijndael>::Decryption decctx;
-    decctx.SetKey((byte*)enckey, 32);
-    decctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    decctx.SetKey(enckey, 32);
+    decctx.ProcessData(buffer, buffer, bufferlen);
 }
 
 void test_cryptopp_serpent_ecb()
 {
     CryptoPP::ECB_Mode<CryptoPP::Serpent>::Encryption encctx;
-    encctx.SetKey((byte*)enckey, 32);
-    encctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    encctx.SetKey(enckey, 32);
+    encctx.ProcessData(buffer, buffer, bufferlen);
 
     CryptoPP::ECB_Mode<CryptoPP::Serpent>::Decryption decctx;
-    decctx.SetKey((byte*)enckey, 32);
-    decctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    decctx.SetKey(enckey, 32);
+    decctx.ProcessData(buffer, buffer, bufferlen);
 }
 
 void test_cryptopp_twofish_ecb()
 {
     CryptoPP::ECB_Mode<CryptoPP::Twofish>::Encryption encctx;
-    encctx.SetKey((byte*)enckey, 32);
-    encctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    encctx.SetKey(enckey, 32);
+    encctx.ProcessData(buffer, buffer, bufferlen);
 
     CryptoPP::ECB_Mode<CryptoPP::Twofish>::Decryption decctx;
-    decctx.SetKey((byte*)enckey, 32);
-    decctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    decctx.SetKey(enckey, 32);
+    decctx.ProcessData(buffer, buffer, bufferlen);
 }
 
 void test_cryptopp_cast6_ecb()
 {
     CryptoPP::ECB_Mode<CryptoPP::CAST256>::Encryption encctx;
-    encctx.SetKey((byte*)enckey, 32);
-    encctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    encctx.SetKey(enckey, 32);
+    encctx.ProcessData(buffer, buffer, bufferlen);
 
     CryptoPP::ECB_Mode<CryptoPP::CAST256>::Decryption decctx;
-    decctx.SetKey((byte*)enckey, 32);
-    decctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    decctx.SetKey(enckey, 32);
+    decctx.ProcessData(buffer, buffer, bufferlen);
 }
 
 void test_cryptopp_gost_ecb()
 {
     CryptoPP::ECB_Mode<CryptoPP::GOST>::Encryption encctx;
-    encctx.SetKey((byte*)enckey, 32);
-    encctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    encctx.SetKey(enckey, 32);
+    encctx.ProcessData(buffer, buffer, bufferlen);
 
     CryptoPP::ECB_Mode<CryptoPP::GOST>::Decryption decctx;
-    decctx.SetKey((byte*)enckey, 32);
-    decctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    decctx.SetKey(enckey, 32);
+    decctx.ProcessData(buffer, buffer, bufferlen);
 }
 
 void test_cryptopp_xtea_ecb()
 {
     CryptoPP::ECB_Mode<CryptoPP::XTEA>::Encryption encctx;
-    encctx.SetKey((byte*)enckey, 16);
-    encctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    encctx.SetKey(enckey, 16);
+    encctx.ProcessData(buffer, buffer, bufferlen);
 
     CryptoPP::ECB_Mode<CryptoPP::XTEA>::Decryption decctx;
-    decctx.SetKey((byte*)enckey, 16);
-    decctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    decctx.SetKey(enckey, 16);
+    decctx.ProcessData(buffer, buffer, bufferlen);
 }
 
 void test_cryptopp_blowfish_ecb()
 {
     CryptoPP::ECB_Mode<CryptoPP::Blowfish>::Encryption encctx;
-    encctx.SetKey((byte*)enckey, 16);
-    encctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    encctx.SetKey(enckey, 16);
+    encctx.ProcessData(buffer, buffer, bufferlen);
 
     CryptoPP::ECB_Mode<CryptoPP::Blowfish>::Decryption decctx;
-    decctx.SetKey((byte*)enckey, 16);
-    decctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    decctx.SetKey(enckey, 16);
+    decctx.ProcessData(buffer, buffer, bufferlen);
 }
 
 void test_cryptopp_cast5_ecb()
 {
     CryptoPP::ECB_Mode<CryptoPP::CAST128>::Encryption encctx;
-    encctx.SetKey((byte*)enckey, 16);
-    encctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    encctx.SetKey(enckey, 16);
+    encctx.ProcessData(buffer, buffer, bufferlen);
 
     CryptoPP::ECB_Mode<CryptoPP::CAST128>::Decryption decctx;
-    decctx.SetKey((byte*)enckey, 16);
-    decctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    decctx.SetKey(enckey, 16);
+    decctx.ProcessData(buffer, buffer, bufferlen);
 }
 
 void test_cryptopp_3des_ecb()
 {
     CryptoPP::ECB_Mode<CryptoPP::DES_EDE3>::Encryption encctx;
-    encctx.SetKey((byte*)enckey, 24);
-    encctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    encctx.SetKey(enckey, 24);
+    encctx.ProcessData(buffer, buffer, bufferlen);
 
     CryptoPP::ECB_Mode<CryptoPP::DES_EDE3>::Decryption decctx;
-    decctx.SetKey((byte*)enckey, 24);
-    decctx.ProcessData((byte*)buffer, (byte*)buffer, bufferlen);
+    decctx.SetKey(enckey, 24);
+    decctx.ProcessData(buffer, buffer, bufferlen);
 }
 
 // *** main() ***
