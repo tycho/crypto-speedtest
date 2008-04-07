@@ -35,12 +35,12 @@ void test_tomcrypt_twofish_ecb()
 void test_tomcrypt_saferp_ecb()
 {
     symmetric_ECB encctx;
-    ecb_start(find_cipher("safer+"), enckey, 16, 0, &encctx);
+    ecb_start(find_cipher("safer+"), enckey, 32, 0, &encctx);
     ecb_encrypt(buffer, buffer, bufferlen, &encctx);
     ecb_done(&encctx);
 
     symmetric_ECB decctx;
-    ecb_start(find_cipher("safer+"), enckey, 16, 0, &decctx);
+    ecb_start(find_cipher("safer+"), enckey, 32, 0, &decctx);
     ecb_decrypt(buffer, buffer, bufferlen, &decctx);
     ecb_done(&decctx);
 }

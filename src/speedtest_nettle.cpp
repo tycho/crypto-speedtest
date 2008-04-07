@@ -49,22 +49,22 @@ void test_nettle_twofish_ecb()
 void test_nettle_cast5_ecb()
 {
     cast128_ctx encctx;
-    cast128_set_key(&encctx, 32, enckey);
+    cast128_set_key(&encctx, 16, enckey);
     cast128_encrypt(&encctx, bufferlen, buffer, buffer);
 
     cast128_ctx decctx;
-    cast128_set_key(&decctx, 32, enckey);
+    cast128_set_key(&decctx, 16, enckey);
     cast128_decrypt(&decctx, bufferlen, buffer, buffer);
 }
 
 void test_nettle_blowfish_ecb()
 {
     blowfish_ctx encctx;
-    blowfish_set_key(&encctx, 32, enckey);
+    blowfish_set_key(&encctx, 16, enckey);
     blowfish_encrypt(&encctx, bufferlen, buffer, buffer);
 
     blowfish_ctx decctx;
-    blowfish_set_key(&decctx, 32, enckey);
+    blowfish_set_key(&decctx, 16, enckey);
     blowfish_decrypt(&decctx, bufferlen, buffer, buffer);
 }
 

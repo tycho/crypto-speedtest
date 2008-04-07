@@ -25,13 +25,13 @@ void test_beecrypt_rijndael_ecb()
 void test_beecrypt_blowfish_ecb()
 {
     blowfishParam encctx;
-    blowfishSetup(&encctx, (byte*)enckey, 256, ENCRYPT);
+    blowfishSetup(&encctx, (byte*)enckey, 128, ENCRYPT);
 
     for(unsigned int p = 0; p < bufferlen; p += 8)
 	blowfishEncrypt(&encctx, (uint32_t*)(buffer + p), (uint32_t*)(buffer + p));
 
     blowfishParam decctx;
-    blowfishSetup(&decctx, (byte*)enckey, 256, DECRYPT);
+    blowfishSetup(&decctx, (byte*)enckey, 128, DECRYPT);
 
     for(unsigned int p = 0; p < bufferlen; p += 8)
 	blowfishDecrypt(&decctx, (uint32_t*)(buffer + p), (uint32_t*)(buffer + p));
