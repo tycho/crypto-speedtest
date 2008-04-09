@@ -242,7 +242,7 @@ set key below
 
 plot "tomcrypt-rijndael-ecb.txt" index 0 using 1:2:3 title "Rijndael" with errorlines pt 0, \
      "tomcrypt-twofish-ecb.txt" index 0 using 1:2:3 title "Twofish" with errorlines pt 0, \
-     "tomcrypt-saferp-ecb.txt" index 0 using 1:2:3 title "Safer+" with errorlines pt 0, \
+     "tomcrypt-saferplus-ecb.txt" index 0 using 1:2:3 title "Safer+" with errorlines pt 0, \
      "tomcrypt-noekeon-ecb.txt" index 0 using 1:2:3 title "Noekeon" with errorlines pt 0, \
      "tomcrypt-skipjack-ecb.txt" index 0 using 1:2:3 title "Skipjack" with errorlines pt 0, \
      "tomcrypt-anubis-ecb.txt" index 0 using 1:2:3 title "Anubis" with errorlines pt 0, \
@@ -262,7 +262,7 @@ set key below
 
 plot "tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Rijndael" with errorlines pt 0, \
      "tomcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Twofish" with errorlines pt 0, \
-     "tomcrypt-saferp-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Safer+" with errorlines pt 0, \
+     "tomcrypt-saferplus-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Safer+" with errorlines pt 0, \
      "tomcrypt-noekeon-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Noekeon" with errorlines pt 0, \
      "tomcrypt-skipjack-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Skipjack" with errorlines pt 0, \
      "tomcrypt-anubis-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Anubis" with errorlines pt 0, \
@@ -441,7 +441,7 @@ plot \
      "tomcrypt-khazad-ecb.txt" index 1 using 1:($2 / 1048576) title "Tomcrypt Khazad" with lines lt 6 lc 12, \
      "tomcrypt-noekeon-ecb.txt" index 1 using 1:($2 / 1048576) title "Tomcrypt Noekeon" with lines lt 6 lc 20, \
      "tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576) title "Tomcrypt Rijndael" with lines lt 6 lc 1, \
-     "tomcrypt-saferp-ecb.txt" index 1 using 1:($2 / 1048576) title "Tomcrypt Safer+" with lines lt 6 lc 10, \
+     "tomcrypt-saferplus-ecb.txt" index 1 using 1:($2 / 1048576) title "Tomcrypt Safer+" with lines lt 6 lc 10, \
      "tomcrypt-skipjack-ecb.txt" index 1 using 1:($2 / 1048576) title "Tomcrypt Skipjack" with lines lt 6 lc 14, \
      "tomcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576) title "Tomcrypt Twofish" with lines lt 6 lc 3, \
      "tomcrypt-xtea-ecb.txt" index 1 using 1:($2 / 1048576) title "Tomcrypt XTEA" with lines lt 6 lc 7

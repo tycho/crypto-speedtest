@@ -326,7 +326,7 @@ set key below
 
 plot "p4-3200-gentoo/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Gentoo Rijndael" with errorlines pt 0 lt 1 lc 1, \
      "p4-3200-gentoo/tomcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Gentoo Twofish" with errorlines pt 0 lt 1 lc 2, \
-     "p4-3200-gentoo/tomcrypt-saferp-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Gentoo Safer+" with errorlines pt 0 lt 1 lc 3, \
+     "p4-3200-gentoo/tomcrypt-saferplus-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Gentoo Safer+" with errorlines pt 0 lt 1 lc 3, \
      "p4-3200-gentoo/tomcrypt-noekeon-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Gentoo Noekeon" with errorlines pt 0 lt 1 lc 4, \
      "p4-3200-gentoo/tomcrypt-skipjack-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Gentoo Skipjack" with errorlines pt 0 lt 1 lc 5, \
      "p4-3200-gentoo/tomcrypt-anubis-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Gentoo Anubis" with errorlines pt 0 lt 1 lc 6, \
@@ -337,7 +337,7 @@ plot "p4-3200-gentoo/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):(
 \
      "p4-3200-debian-etch/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Debian-Etch Rijndael" with errorlines pt 0 lt 2 lc 1, \
      "p4-3200-debian-etch/tomcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Debian-Etch Twofish" with errorlines pt 0 lt 2 lc 2, \
-     "p4-3200-debian-etch/tomcrypt-saferp-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Debian-Etch Safer+" with errorlines pt 0 lt 2 lc 3, \
+     "p4-3200-debian-etch/tomcrypt-saferplus-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Debian-Etch Safer+" with errorlines pt 0 lt 2 lc 3, \
      "p4-3200-debian-etch/tomcrypt-noekeon-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Debian-Etch Noekeon" with errorlines pt 0 lt 2 lc 4, \
      "p4-3200-debian-etch/tomcrypt-skipjack-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Debian-Etch Skipjack" with errorlines pt 0 lt 2 lc 5, \
      "p4-3200-debian-etch/tomcrypt-anubis-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Debian-Etch Anubis" with errorlines pt 0 lt 2 lc 6, \
@@ -348,7 +348,7 @@ plot "p4-3200-gentoo/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):(
 \
      "p4-3200-debian-lenny/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Debian-Lenny Rijndael" with errorlines pt 0 lt 4 lc 1, \
      "p4-3200-debian-lenny/tomcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Debian-Lenny Twofish" with errorlines pt 0 lt 4 lc 2, \
-     "p4-3200-debian-lenny/tomcrypt-saferp-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Debian-Lenny Safer+" with errorlines pt 0 lt 4 lc 3, \
+     "p4-3200-debian-lenny/tomcrypt-saferplus-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Debian-Lenny Safer+" with errorlines pt 0 lt 4 lc 3, \
      "p4-3200-debian-lenny/tomcrypt-noekeon-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Debian-Lenny Noekeon" with errorlines pt 0 lt 4 lc 4, \
      "p4-3200-debian-lenny/tomcrypt-skipjack-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Debian-Lenny Skipjack" with errorlines pt 0 lt 4 lc 5, \
      "p4-3200-debian-lenny/tomcrypt-anubis-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Debian-Lenny Anubis" with errorlines pt 0 lt 4 lc 6, \
@@ -359,7 +359,7 @@ plot "p4-3200-gentoo/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):(
 \
      "p4-3200-ubuntu-gutsy/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Rijndael" with errorlines pt 0 lt 5 lc 1, \
      "p4-3200-ubuntu-gutsy/tomcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Twofish" with errorlines pt 0 lt 5 lc 2, \
-     "p4-3200-ubuntu-gutsy/tomcrypt-saferp-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Safer+" with errorlines pt 0 lt 5 lc 3, \
+     "p4-3200-ubuntu-gutsy/tomcrypt-saferplus-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Safer+" with errorlines pt 0 lt 5 lc 3, \
      "p4-3200-ubuntu-gutsy/tomcrypt-noekeon-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Noekeon" with errorlines pt 0 lt 5 lc 4, \
      "p4-3200-ubuntu-gutsy/tomcrypt-skipjack-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Skipjack" with errorlines pt 0 lt 5 lc 5, \
      "p4-3200-ubuntu-gutsy/tomcrypt-anubis-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Anubis" with errorlines pt 0 lt 5 lc 6, \
@@ -370,7 +370,7 @@ plot "p4-3200-gentoo/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):(
 \
      "p4-3200-fedora8/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 6 lc 1, \
      "p4-3200-fedora8/tomcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Twofish" with errorlines pt 0 lt 6 lc 2, \
-     "p4-3200-fedora8/tomcrypt-saferp-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Safer+" with errorlines pt 0 lt 6 lc 3, \
+     "p4-3200-fedora8/tomcrypt-saferplus-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Safer+" with errorlines pt 0 lt 6 lc 3, \
      "p4-3200-fedora8/tomcrypt-noekeon-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Noekeon" with errorlines pt 0 lt 6 lc 4, \
      "p4-3200-fedora8/tomcrypt-skipjack-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Skipjack" with errorlines pt 0 lt 6 lc 5, \
      "p4-3200-fedora8/tomcrypt-anubis-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Anubis" with errorlines pt 0 lt 6 lc 6, \
