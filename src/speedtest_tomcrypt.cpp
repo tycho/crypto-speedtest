@@ -32,7 +32,7 @@ void test_tomcrypt_twofish_ecb()
     ecb_done(&decctx);
 }
 
-void test_tomcrypt_saferp_ecb()
+void test_tomcrypt_saferplus_ecb()
 {
     symmetric_ECB encctx;
     ecb_start(find_cipher("safer+"), enckey, 32, 0, &encctx);
@@ -181,7 +181,7 @@ int main()
 
     run_test<test_tomcrypt_rijndael_ecb>("tomcrypt-rijndael-ecb.txt");
     run_test<test_tomcrypt_twofish_ecb>("tomcrypt-twofish-ecb.txt");
-    run_test<test_tomcrypt_saferp_ecb>("tomcrypt-saferp-ecb.txt");
+    run_test<test_tomcrypt_saferplus_ecb>("tomcrypt-saferplus-ecb.txt");
     run_test<test_tomcrypt_noekeon_ecb>("tomcrypt-noekeon-ecb.txt");
     run_test<test_tomcrypt_skipjack_ecb>("tomcrypt-skipjack-ecb.txt");
     run_test<test_tomcrypt_anubis_ecb>("tomcrypt-anubis-ecb.txt");
