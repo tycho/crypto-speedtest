@@ -4,7 +4,7 @@ pdfs: baseplots sidebysideplots
 
 baseplots:
 	PLOTNAME=p2-300-debian-etch ./speedtest.gnuplot
-	PLOTNAME=p3-1000-ubuntu-gutsy ./speedtest.gnuplot
+	PLOTNAME=p3-1000-debian-etch ./speedtest.gnuplot
 	PLOTNAME=cel-2660-debian-etch ./speedtest.gnuplot
 	PLOTNAME=p4-3200-debian-etch ./speedtest.gnuplot
 	PLOTNAME=p4-3200-debian-lenny ./speedtest.gnuplot
@@ -19,7 +19,7 @@ sidebysideplots:
 # Make other plots which will fill an A4 paper
 
 	PLOTNAME=p2-300-debian-etch FILENAME=p2-300-debian-etch-a4 PAPER=a4 ./speedtest.gnuplot
-	PLOTNAME=p3-1000-ubuntu-gutsy FILENAME=p3-1000-ubuntu-gutsy-a4 PAPER=a4 ./speedtest.gnuplot
+	PLOTNAME=p3-1000-debian-etch FILENAME=p3-1000-debian-etch-a4 PAPER=a4 ./speedtest.gnuplot
 	PLOTNAME=cel-2660-debian-etch FILENAME=cel-2660-debian-etch-a4 PAPER=a4 ./speedtest.gnuplot
 	PLOTNAME=p4-3200-debian-etch FILENAME=p4-3200-debian-etch-a4 PAPER=a4 ./speedtest.gnuplot
 	PLOTNAME=p4-3200-debian-lenny FILENAME=p4-3200-debian-lenny-a4 PAPER=a4 ./speedtest.gnuplot
@@ -29,7 +29,7 @@ sidebysideplots:
 
 # Extract pages in order from each pdf
 	pdftk \
-		A=p2-300-debian-etch-a4.pdf B=p3-1000-ubuntu-gutsy-a4.pdf \
+		A=p2-300-debian-etch-a4.pdf B=p3-1000-debian-etch-a4.pdf \
 		C=cel-2660-debian-etch-a4.pdf D=p4-3200-debian-etch-a4.pdf \
 		E=p4-3200-ubuntu-gutsy-a4.pdf F=p4-3200-debian-lenny-a4.pdf \
 		G=p4-3200-gentoo-a4.pdf H=p4-3200-fedora8-a4.pdf  \
@@ -40,7 +40,7 @@ sidebysideplots:
 
 # Extract pages in a different order from each pdf
 	pdftk \
-		A=p2-300-debian-etch-a4.pdf B=p3-1000-ubuntu-gutsy-a4.pdf \
+		A=p2-300-debian-etch-a4.pdf B=p3-1000-debian-etch-a4.pdf \
 		C=p4-3200-ubuntu-gutsy-a4.pdf D=p4-3200-debian-lenny-a4.pdf \
 		E=cel-2660-debian-etch-a4.pdf F=p4-3200-debian-etch-a4.pdf \
 		G=p4-3200-gentoo-a4.pdf H=p4-3200-fedora8-a4.pdf  \
@@ -49,7 +49,7 @@ sidebysideplots:
 	pdflatex -halt-on-error sidebyside-comparison-4x2.tex
 	rm sidebyside-comparison.pdf
 
-	rm p2-300-debian-etch-a4.pdf p3-1000-ubuntu-gutsy-a4.pdf cel-2660-debian-etch-a4.pdf
+	rm p2-300-debian-etch-a4.pdf p3-1000-debian-etch-a4.pdf cel-2660-debian-etch-a4.pdf
 	rm p4-3200-debian-etch-a4.pdf p4-3200-debian-lenny-a4.pdf p4-3200-gentoo-a4.pdf
 	rm p4-3200-ubuntu-gutsy-a4.pdf p4-3200-fedora8-a4.pdf
 
@@ -70,7 +70,7 @@ EXTRA_DIST = \
 	distrospeed.gnuplot \
 	*.pdf \
 	p2-300-debian-etch/*.txt \
-	p3-1000-ubuntu-gutsy/*.txt \
+	p3-1000-debian-etch/*.txt \
 	cel-2660-debian-etch/*.txt \
 	p4-3200-debian-etch/*.txt \
 	p4-3200-debian-lenny/*.txt \
