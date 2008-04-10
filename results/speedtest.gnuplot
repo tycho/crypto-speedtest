@@ -273,6 +273,30 @@ plot "tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) t
 
 ### Plot ###
 
+set title "Beecrypt Ciphers: Absolute Time by Data Length"
+set xlabel "Data Length in Bytes"
+set ylabel "Seconds"
+set logscale x
+set logscale y
+set key below
+
+plot "beecrypt-rijndael-ecb.txt" index 0 using 1:2:3 title "Rijndael" with errorlines pt 0, \
+     "beecrypt-blowfish-ecb.txt" index 0 using 1:2:3 title "Blowfish" with errorlines pt 0
+
+### Plot ###
+
+set title "Beecrypt Ciphers: Speed by Data Length"
+set xlabel "Data Length in Bytes"
+set ylabel "Megabyte / Second"
+set logscale x
+unset logscale y
+set key below
+
+plot "beecrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Rijndael" with errorlines pt 0, \
+     "beecrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Blowfish" with errorlines pt 0
+
+### Plot ###
+
 set title "Rijndael AES: Speed by Data Length"
 set xlabel "Data Length in Bytes"
 set ylabel "Megabyte / Second"

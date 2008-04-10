@@ -2,7 +2,7 @@ This directory contains speed test result data sets from four different
 computers and five different Linux distributions that are available to me. This
 file contains a description of the test environments. All tests were run with a
 minimal set of process (usually just init and a shell) running in
-background. Tests were performed around 2008-04-02 with up-to-date distribution
+background. Tests were performed around 2008-04-09 with up-to-date distribution
 packages.
 
 *** CPUs / Computers ***
@@ -36,7 +36,7 @@ cache. It also has only Debian etch installed.
 The speedtest was performed using the following ebuilt library versions. All
 where compiled using portage with:
 
-CFLAGS="-march=i686 -O2 -fomit-frame-pointer -pipe"
+CFLAGS="-march=i686 -O3 -fomit-frame-pointer -pipe"
 CXXFLAGS="${CFLAGS}"
 
 ebuild package versions used in speedtest:
@@ -131,9 +131,9 @@ libtomcrypt0-dev	1.17-1
 
 The speedtest source itself was compiled using:
 
-gcc-4.1			4:4.2.3-2
+gcc-4.2			4:4.2.3-3
 
-gcc (GCC) 4.2.3 (Debian 4.2.3-2)
+gcc (GCC) 4.2.3 (Debian 4.2.3-3)
 
 *** ubuntu-gutsy ***
 
