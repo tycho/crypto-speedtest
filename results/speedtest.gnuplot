@@ -14,7 +14,7 @@ if (@filebase eq '') filebase = "@name"
 paper = "'`echo $PAPER`'"
 if (@paper eq 'a4') height = "3.535"; else height = "3.5"
 
-set terminal pdf solid size 5.0, @height
+set terminal pdf solid linewidth 1.5 size 5.0, @height
 set output "../" . @filebase . ".pdf"
 
 set xrange [10:1600000]
@@ -245,6 +245,7 @@ plot "tomcrypt-rijndael-ecb.txt" index 0 using 1:2:3 title "Rijndael" with error
      "tomcrypt-saferplus-ecb.txt" index 0 using 1:2:3 title "Safer+" with errorlines pt 0, \
      "tomcrypt-noekeon-ecb.txt" index 0 using 1:2:3 title "Noekeon" with errorlines pt 0, \
      "tomcrypt-skipjack-ecb.txt" index 0 using 1:2:3 title "Skipjack" with errorlines pt 0, \
+     "tomcrypt-khazad-ecb.txt" index 0 using 1:2:3 title "Khazad" with errorlines pt 0, \
      "tomcrypt-anubis-ecb.txt" index 0 using 1:2:3 title "Anubis" with errorlines pt 0, \
      "tomcrypt-xtea-ecb.txt" index 0 using 1:2:3 title "xTEA" with errorlines pt 0, \
      "tomcrypt-blowfish-ecb.txt" index 0 using 1:2:3 title "Blowfish" with errorlines pt 0, \
@@ -265,6 +266,7 @@ plot "tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) t
      "tomcrypt-saferplus-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Safer+" with errorlines pt 0, \
      "tomcrypt-noekeon-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Noekeon" with errorlines pt 0, \
      "tomcrypt-skipjack-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Skipjack" with errorlines pt 0, \
+     "tomcrypt-khazad-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Khazad" with errorlines pt 0, \
      "tomcrypt-anubis-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Anubis" with errorlines pt 0, \
      "tomcrypt-xtea-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "xTEA" with errorlines pt 0, \
      "tomcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Blowfish" with errorlines pt 0, \
