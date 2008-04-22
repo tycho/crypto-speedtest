@@ -1,4 +1,4 @@
-This directory contains speed test result data sets from four different
+This directory contains speed test result data sets from five different
 computers and five different Linux distributions that are available to me. This
 file contains a description of the test environments. All tests were run with a
 minimal set of process (usually just init and a shell) running in
@@ -18,6 +18,11 @@ debian-etch, debian-lenny, ubuntu-gutsy and fedora 8.
 is an Intel Pentium 3 Mobile clocked at 1.0 GHz with 512 KB level 2 cache. The
 installed base distribution is (K)Ubuntu 7.10 Gutsy Gibbon (currently the
 stable).
+
+** ath-2000 **
+
+is an AMD Athlon XP 2000+ with 256 KB level 2 cache. It has Debian etch
+(currently the stable) installed in a chroot.
 
 ** cel-2660 **
 

@@ -11,10 +11,13 @@ cd @name
 filebase = "'`echo $FILENAME`'"
 if (@filebase eq '') filebase = "@name"
 
+# for the A4-plots: width / height = sqrt(2)
 paper = "'`echo $PAPER`'"
-if (@paper eq 'a4') height = "3.535"; else height = "3.5"
+if (@paper eq 'a4') \
+    set terminal pdf solid linewidth 1.5 size 4.0, 2.8328; \
+else \
+    set terminal pdf solid linewidth 1.5 size 5.0, 3.5;
 
-set terminal pdf solid linewidth 1.5 size 5.0, @height
 set output "../" . @filebase . ".pdf"
 
 set xrange [10:1600000]
