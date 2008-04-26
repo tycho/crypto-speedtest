@@ -6,6 +6,7 @@ set output "distrospeed.pdf"
 set xrange [10:1600000]
 set format x "%.0f"
 
+test
 ### Plot ###
 
 set title "libgcrypt Ciphers: Speed by Data Length"
@@ -43,12 +44,19 @@ plot "p4-3200-gentoo/gcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3
      "p4-3200-ubuntu-gutsy/gcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy CAST5" with errorlines pt 0 lt 5 lc 5, \
      "p4-3200-ubuntu-gutsy/gcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy 3DES" with errorlines pt 0 lt 5 lc 6, \
 \
-     "p4-3200-fedora8/gcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 6 lc 1, \
-     "p4-3200-fedora8/gcrypt-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Serpent" with errorlines pt 0 lt 6 lc 2, \
-     "p4-3200-fedora8/gcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Twofish" with errorlines pt 0 lt 6 lc 3, \
-     "p4-3200-fedora8/gcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Blowfish" with errorlines pt 0 lt 6 lc 4, \
-     "p4-3200-fedora8/gcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST5" with errorlines pt 0 lt 6 lc 5, \
-     "p4-3200-fedora8/gcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 3DES" with errorlines pt 0 lt 6 lc 6
+     "p4-3200-ubuntu-hardy/gcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Rijndael" with errorlines pt 0 lt 6 lc 1, \
+     "p4-3200-ubuntu-hardy/gcrypt-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Serpent" with errorlines pt 0 lt 6 lc 2, \
+     "p4-3200-ubuntu-hardy/gcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Twofish" with errorlines pt 0 lt 6 lc 3, \
+     "p4-3200-ubuntu-hardy/gcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Blowfish" with errorlines pt 0 lt 6 lc 4, \
+     "p4-3200-ubuntu-hardy/gcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy CAST5" with errorlines pt 0 lt 6 lc 5, \
+     "p4-3200-ubuntu-hardy/gcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy 3DES" with errorlines pt 0 lt 6 lc 6, \
+\
+     "p4-3200-fedora8/gcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 8 lc 1, \
+     "p4-3200-fedora8/gcrypt-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Serpent" with errorlines pt 0 lt 8 lc 2, \
+     "p4-3200-fedora8/gcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Twofish" with errorlines pt 0 lt 8 lc 3, \
+     "p4-3200-fedora8/gcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Blowfish" with errorlines pt 0 lt 8 lc 4, \
+     "p4-3200-fedora8/gcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST5" with errorlines pt 0 lt 8 lc 5, \
+     "p4-3200-fedora8/gcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 3DES" with errorlines pt 0 lt 8 lc 6
 
 ### Plot ###
 
@@ -95,14 +103,23 @@ plot "p4-3200-gentoo/mcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3
      "p4-3200-ubuntu-gutsy/mcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy CAST5" with errorlines pt 0 lt 5 lc 5, \
      "p4-3200-ubuntu-gutsy/mcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy 3DES" with errorlines pt 0 lt 5 lc 6, \
 \
-     "p4-3200-fedora8/mcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 6 lc 1, \
-     "p4-3200-fedora8/mcrypt-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Serpent" with errorlines pt 0 lt 6 lc 2, \
-     "p4-3200-fedora8/mcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Twofish" with errorlines pt 0 lt 6 lc 3, \
-     "p4-3200-fedora8/mcrypt-cast6-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST6" with errorlines pt 0 lt 6 lc 7, \
-     "p4-3200-fedora8/mcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Blowfish" with errorlines pt 0 lt 6 lc 4, \
-     "p4-3200-fedora8/mcrypt-gost-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 GOST" with errorlines pt 0 lt 6 lc 8, \
-     "p4-3200-fedora8/mcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST5" with errorlines pt 0 lt 6 lc 5, \
-     "p4-3200-fedora8/mcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 3DES" with errorlines pt 0 lt 6 lc 6
+     "p4-3200-ubuntu-hardy/mcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Rijndael" with errorlines pt 0 lt 6 lc 1, \
+     "p4-3200-ubuntu-hardy/mcrypt-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Serpent" with errorlines pt 0 lt 6 lc 2, \
+     "p4-3200-ubuntu-hardy/mcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Twofish" with errorlines pt 0 lt 6 lc 3, \
+     "p4-3200-ubuntu-hardy/mcrypt-cast6-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy CAST6" with errorlines pt 0 lt 6 lc 7, \
+     "p4-3200-ubuntu-hardy/mcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Blowfish" with errorlines pt 0 lt 6 lc 4, \
+     "p4-3200-ubuntu-hardy/mcrypt-gost-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy GOST" with errorlines pt 0 lt 6 lc 8, \
+     "p4-3200-ubuntu-hardy/mcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy CAST5" with errorlines pt 0 lt 6 lc 5, \
+     "p4-3200-ubuntu-hardy/mcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy 3DES" with errorlines pt 0 lt 6 lc 6, \
+\
+     "p4-3200-fedora8/mcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 8 lc 1, \
+     "p4-3200-fedora8/mcrypt-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Serpent" with errorlines pt 0 lt 8 lc 2, \
+     "p4-3200-fedora8/mcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Twofish" with errorlines pt 0 lt 8 lc 3, \
+     "p4-3200-fedora8/mcrypt-cast6-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST6" with errorlines pt 0 lt 8 lc 7, \
+     "p4-3200-fedora8/mcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Blowfish" with errorlines pt 0 lt 8 lc 4, \
+     "p4-3200-fedora8/mcrypt-gost-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 GOST" with errorlines pt 0 lt 8 lc 8, \
+     "p4-3200-fedora8/mcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST5" with errorlines pt 0 lt 8 lc 5, \
+     "p4-3200-fedora8/mcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 3DES" with errorlines pt 0 lt 8 lc 6
 
 ### Plot ###
 
@@ -153,15 +170,25 @@ plot "p4-3200-gentoo/botan-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 
      "p4-3200-ubuntu-gutsy/botan-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy CAST5" with errorlines pt 0 lt 5 lc 5, \
      "p4-3200-ubuntu-gutsy/botan-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy 3DES" with errorlines pt 0 lt 5 lc 6, \
 \
-     "p4-3200-fedora8/botan-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 6 lc 1, \
-     "p4-3200-fedora8/botan-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Serpent" with errorlines pt 0 lt 6 lc 2, \
-     "p4-3200-fedora8/botan-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Twofish" with errorlines pt 0 lt 6 lc 3, \
-     "p4-3200-fedora8/botan-cast6-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST6" with errorlines pt 0 lt 6 lc 7, \
-     "p4-3200-fedora8/botan-gost-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 GOST" with errorlines pt 0 lt 6 lc 8, \
-     "p4-3200-fedora8/botan-xtea-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 xTEA" with errorlines pt 0 lt 6 lc 9, \
-     "p4-3200-fedora8/botan-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Blowfish" with errorlines pt 0 lt 6 lc 4, \
-     "p4-3200-fedora8/botan-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST5" with errorlines pt 0 lt 6 lc 5, \
-     "p4-3200-fedora8/botan-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 3DES" with errorlines pt 0 lt 6 lc 6
+     "p4-3200-ubuntu-hardy/botan-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Rijndael" with errorlines pt 0 lt 6 lc 1, \
+     "p4-3200-ubuntu-hardy/botan-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Serpent" with errorlines pt 0 lt 6 lc 2, \
+     "p4-3200-ubuntu-hardy/botan-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Twofish" with errorlines pt 0 lt 6 lc 3, \
+     "p4-3200-ubuntu-hardy/botan-cast6-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy CAST6" with errorlines pt 0 lt 6 lc 7, \
+     "p4-3200-ubuntu-hardy/botan-gost-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy GOST" with errorlines pt 0 lt 6 lc 8, \
+     "p4-3200-ubuntu-hardy/botan-xtea-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy xTEA" with errorlines pt 0 lt 6 lc 9, \
+     "p4-3200-ubuntu-hardy/botan-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Blowfish" with errorlines pt 0 lt 6 lc 4, \
+     "p4-3200-ubuntu-hardy/botan-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy CAST5" with errorlines pt 0 lt 6 lc 5, \
+     "p4-3200-ubuntu-hardy/botan-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy 3DES" with errorlines pt 0 lt 6 lc 6, \
+\
+     "p4-3200-fedora8/botan-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 8 lc 1, \
+     "p4-3200-fedora8/botan-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Serpent" with errorlines pt 0 lt 8 lc 2, \
+     "p4-3200-fedora8/botan-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Twofish" with errorlines pt 0 lt 8 lc 3, \
+     "p4-3200-fedora8/botan-cast6-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST6" with errorlines pt 0 lt 8 lc 7, \
+     "p4-3200-fedora8/botan-gost-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 GOST" with errorlines pt 0 lt 8 lc 8, \
+     "p4-3200-fedora8/botan-xtea-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 xTEA" with errorlines pt 0 lt 8 lc 9, \
+     "p4-3200-fedora8/botan-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Blowfish" with errorlines pt 0 lt 8 lc 4, \
+     "p4-3200-fedora8/botan-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST5" with errorlines pt 0 lt 8 lc 5, \
+     "p4-3200-fedora8/botan-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 3DES" with errorlines pt 0 lt 8 lc 6
 
 ### Plot ###
 
@@ -212,15 +239,25 @@ plot "p4-3200-gentoo/cryptopp-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):(
      "p4-3200-ubuntu-gutsy/cryptopp-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy CAST5" with errorlines pt 0 lt 5 lc 5, \
      "p4-3200-ubuntu-gutsy/cryptopp-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy 3DES" with errorlines pt 0 lt 5 lc 6, \
 \
-     "p4-3200-fedora8/cryptopp-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 6 lc 1, \
-     "p4-3200-fedora8/cryptopp-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Serpent" with errorlines pt 0 lt 6 lc 2, \
-     "p4-3200-fedora8/cryptopp-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Twofish" with errorlines pt 0 lt 6 lc 3, \
-     "p4-3200-fedora8/cryptopp-cast6-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST6" with errorlines pt 0 lt 6 lc 7, \
-     "p4-3200-fedora8/cryptopp-gost-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 GOST" with errorlines pt 0 lt 6 lc 8, \
-     "p4-3200-fedora8/cryptopp-xtea-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 xTEA" with errorlines pt 0 lt 6 lc 9, \
-     "p4-3200-fedora8/cryptopp-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Blowfish" with errorlines pt 0 lt 6 lc 4, \
-     "p4-3200-fedora8/cryptopp-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST5" with errorlines pt 0 lt 6 lc 5, \
-     "p4-3200-fedora8/cryptopp-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 3DES" with errorlines pt 0 lt 6 lc 6
+     "p4-3200-ubuntu-hardy/cryptopp-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Rijndael" with errorlines pt 0 lt 6 lc 1, \
+     "p4-3200-ubuntu-hardy/cryptopp-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Serpent" with errorlines pt 0 lt 6 lc 2, \
+     "p4-3200-ubuntu-hardy/cryptopp-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Twofish" with errorlines pt 0 lt 6 lc 3, \
+     "p4-3200-ubuntu-hardy/cryptopp-cast6-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy CAST6" with errorlines pt 0 lt 6 lc 7, \
+     "p4-3200-ubuntu-hardy/cryptopp-gost-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy GOST" with errorlines pt 0 lt 6 lc 8, \
+     "p4-3200-ubuntu-hardy/cryptopp-xtea-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy xTEA" with errorlines pt 0 lt 6 lc 9, \
+     "p4-3200-ubuntu-hardy/cryptopp-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Blowfish" with errorlines pt 0 lt 6 lc 4, \
+     "p4-3200-ubuntu-hardy/cryptopp-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy CAST5" with errorlines pt 0 lt 6 lc 5, \
+     "p4-3200-ubuntu-hardy/cryptopp-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy 3DES" with errorlines pt 0 lt 6 lc 6, \
+\
+     "p4-3200-fedora8/cryptopp-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 8 lc 1, \
+     "p4-3200-fedora8/cryptopp-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Serpent" with errorlines pt 0 lt 8 lc 2, \
+     "p4-3200-fedora8/cryptopp-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Twofish" with errorlines pt 0 lt 8 lc 3, \
+     "p4-3200-fedora8/cryptopp-cast6-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST6" with errorlines pt 0 lt 8 lc 7, \
+     "p4-3200-fedora8/cryptopp-gost-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 GOST" with errorlines pt 0 lt 8 lc 8, \
+     "p4-3200-fedora8/cryptopp-xtea-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 xTEA" with errorlines pt 0 lt 8 lc 9, \
+     "p4-3200-fedora8/cryptopp-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Blowfish" with errorlines pt 0 lt 8 lc 4, \
+     "p4-3200-fedora8/cryptopp-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST5" with errorlines pt 0 lt 8 lc 5, \
+     "p4-3200-fedora8/cryptopp-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 3DES" with errorlines pt 0 lt 8 lc 6
 
 ### Plot ###
 
@@ -251,10 +288,15 @@ plot "p4-3200-gentoo/openssl-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($
      "p4-3200-ubuntu-gutsy/openssl-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy CAST5" with errorlines pt 0 lt 5 lc 5, \
      "p4-3200-ubuntu-gutsy/openssl-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy 3DES" with errorlines pt 0 lt 5 lc 6, \
 \
-     "p4-3200-fedora8/openssl-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 6 lc 1, \
-     "p4-3200-fedora8/openssl-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Blowfish" with errorlines pt 0 lt 6 lc 4, \
-     "p4-3200-fedora8/openssl-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST5" with errorlines pt 0 lt 6 lc 5, \
-     "p4-3200-fedora8/openssl-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 3DES" with errorlines pt 0 lt 6 lc 6
+     "p4-3200-ubuntu-hardy/openssl-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Rijndael" with errorlines pt 0 lt 6 lc 1, \
+     "p4-3200-ubuntu-hardy/openssl-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Blowfish" with errorlines pt 0 lt 6 lc 4, \
+     "p4-3200-ubuntu-hardy/openssl-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy CAST5" with errorlines pt 0 lt 6 lc 5, \
+     "p4-3200-ubuntu-hardy/openssl-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy 3DES" with errorlines pt 0 lt 6 lc 6, \
+\
+     "p4-3200-fedora8/openssl-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 8 lc 1, \
+     "p4-3200-fedora8/openssl-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Blowfish" with errorlines pt 0 lt 8 lc 4, \
+     "p4-3200-fedora8/openssl-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST5" with errorlines pt 0 lt 8 lc 5, \
+     "p4-3200-fedora8/openssl-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 3DES" with errorlines pt 0 lt 8 lc 6
 
 ### Plot ###
 
@@ -293,12 +335,19 @@ plot "p4-3200-gentoo/nettle-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3
      "p4-3200-ubuntu-gutsy/nettle-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy CAST5" with errorlines pt 0 lt 5 lc 5, \
      "p4-3200-ubuntu-gutsy/nettle-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy 3DES" with errorlines pt 0 lt 5 lc 6, \
 \
-     "p4-3200-fedora8/nettle-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 6 lc 1, \
-     "p4-3200-fedora8/nettle-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Serpent" with errorlines pt 0 lt 6 lc 2, \
-     "p4-3200-fedora8/nettle-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Twofish" with errorlines pt 0 lt 6 lc 3, \
-     "p4-3200-fedora8/nettle-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Blowfish" with errorlines pt 0 lt 6 lc 4, \
-     "p4-3200-fedora8/nettle-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST5" with errorlines pt 0 lt 6 lc 5, \
-     "p4-3200-fedora8/nettle-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 3DES" with errorlines pt 0 lt 6 lc 6
+     "p4-3200-ubuntu-hardy/nettle-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Rijndael" with errorlines pt 0 lt 6 lc 1, \
+     "p4-3200-ubuntu-hardy/nettle-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Serpent" with errorlines pt 0 lt 6 lc 2, \
+     "p4-3200-ubuntu-hardy/nettle-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Twofish" with errorlines pt 0 lt 6 lc 3, \
+     "p4-3200-ubuntu-hardy/nettle-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Blowfish" with errorlines pt 0 lt 6 lc 4, \
+     "p4-3200-ubuntu-hardy/nettle-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy CAST5" with errorlines pt 0 lt 6 lc 5, \
+     "p4-3200-ubuntu-hardy/nettle-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy 3DES" with errorlines pt 0 lt 6 lc 6, \
+\
+     "p4-3200-fedora8/nettle-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 8 lc 1, \
+     "p4-3200-fedora8/nettle-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Serpent" with errorlines pt 0 lt 8 lc 2, \
+     "p4-3200-fedora8/nettle-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Twofish" with errorlines pt 0 lt 8 lc 3, \
+     "p4-3200-fedora8/nettle-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Blowfish" with errorlines pt 0 lt 8 lc 4, \
+     "p4-3200-fedora8/nettle-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST5" with errorlines pt 0 lt 8 lc 5, \
+     "p4-3200-fedora8/nettle-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 3DES" with errorlines pt 0 lt 8 lc 6
 
 ### Plot ###
 
@@ -353,16 +402,27 @@ plot "p4-3200-gentoo/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):(
      "p4-3200-ubuntu-gutsy/tomcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy CAST5" with errorlines pt 0 lt 5 lc 5, \
      "p4-3200-ubuntu-gutsy/tomcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy 3DES" with errorlines pt 0 lt 5 lc 6, \
 \
-     "p4-3200-fedora8/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 6 lc 1, \
-     "p4-3200-fedora8/tomcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Twofish" with errorlines pt 0 lt 6 lc 3, \
-     "p4-3200-fedora8/tomcrypt-saferplus-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Safer+" with errorlines pt 0 lt 6 lc 2, \
-     "p4-3200-fedora8/tomcrypt-noekeon-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Noekeon" with errorlines pt 0 lt 6 lc 12, \
-     "p4-3200-fedora8/tomcrypt-skipjack-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Skipjack" with errorlines pt 0 lt 6 lc 11, \
-     "p4-3200-fedora8/tomcrypt-anubis-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Anubis" with errorlines pt 0 lt 6 lc 10, \
-     "p4-3200-fedora8/tomcrypt-xtea-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 xTEA" with errorlines pt 0 lt 6 lc 9, \
-     "p4-3200-fedora8/tomcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Blowfish" with errorlines pt 0 lt 6 lc 4, \
-     "p4-3200-fedora8/tomcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST5" with errorlines pt 0 lt 6 lc 5, \
-     "p4-3200-fedora8/tomcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 3DES" with errorlines pt 0 lt 6 lc 6
+     "p4-3200-ubuntu-hardy/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Rijndael" with errorlines pt 0 lt 6 lc 1, \
+     "p4-3200-ubuntu-hardy/tomcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Twofish" with errorlines pt 0 lt 6 lc 3, \
+     "p4-3200-ubuntu-hardy/tomcrypt-saferplus-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Safer+" with errorlines pt 0 lt 6 lc 2, \
+     "p4-3200-ubuntu-hardy/tomcrypt-noekeon-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Noekeon" with errorlines pt 0 lt 6 lc 12, \
+     "p4-3200-ubuntu-hardy/tomcrypt-skipjack-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Skipjack" with errorlines pt 0 lt 6 lc 11, \
+     "p4-3200-ubuntu-hardy/tomcrypt-anubis-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Anubis" with errorlines pt 0 lt 6 lc 10, \
+     "p4-3200-ubuntu-hardy/tomcrypt-xtea-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy xTEA" with errorlines pt 0 lt 6 lc 9, \
+     "p4-3200-ubuntu-hardy/tomcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Blowfish" with errorlines pt 0 lt 6 lc 4, \
+     "p4-3200-ubuntu-hardy/tomcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy CAST5" with errorlines pt 0 lt 6 lc 5, \
+     "p4-3200-ubuntu-hardy/tomcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy 3DES" with errorlines pt 0 lt 6 lc 6, \
+\
+     "p4-3200-fedora8/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 8 lc 1, \
+     "p4-3200-fedora8/tomcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Twofish" with errorlines pt 0 lt 8 lc 3, \
+     "p4-3200-fedora8/tomcrypt-saferplus-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Safer+" with errorlines pt 0 lt 8 lc 2, \
+     "p4-3200-fedora8/tomcrypt-noekeon-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Noekeon" with errorlines pt 0 lt 8 lc 12, \
+     "p4-3200-fedora8/tomcrypt-skipjack-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Skipjack" with errorlines pt 0 lt 8 lc 11, \
+     "p4-3200-fedora8/tomcrypt-anubis-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Anubis" with errorlines pt 0 lt 8 lc 10, \
+     "p4-3200-fedora8/tomcrypt-xtea-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 xTEA" with errorlines pt 0 lt 8 lc 9, \
+     "p4-3200-fedora8/tomcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Blowfish" with errorlines pt 0 lt 8 lc 4, \
+     "p4-3200-fedora8/tomcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 CAST5" with errorlines pt 0 lt 8 lc 5, \
+     "p4-3200-fedora8/tomcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 3DES" with errorlines pt 0 lt 8 lc 6
 
 ### Plot ###
 
@@ -385,8 +445,11 @@ plot "p4-3200-gentoo/beecrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):(
      "p4-3200-ubuntu-gutsy/beecrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Rijndael" with errorlines pt 0 lt 5 lc 1, \
      "p4-3200-ubuntu-gutsy/beecrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Blowfish" with errorlines pt 0 lt 5 lc 4, \
 \
-     "p4-3200-fedora8/beecrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 6 lc 1, \
-     "p4-3200-fedora8/beecrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Blowfish" with errorlines pt 0 lt 6 lc 4
+     "p4-3200-ubuntu-hardy/beecrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Rijndael" with errorlines pt 0 lt 6 lc 1, \
+     "p4-3200-ubuntu-hardy/beecrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Blowfish" with errorlines pt 0 lt 6 lc 4, \
+\
+     "p4-3200-fedora8/beecrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Rijndael" with errorlines pt 0 lt 8 lc 1, \
+     "p4-3200-fedora8/beecrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Blowfish" with errorlines pt 0 lt 8 lc 4
 
 ### Plot ###
 
@@ -437,15 +500,25 @@ plot "p4-3200-gentoo/gcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3
      "p4-3200-ubuntu-gutsy/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Tomcrypt" with errorlines pt 0 lt 5 lc 8, \
      "p4-3200-ubuntu-gutsy/my-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Custom" with errorlines pt 0 lt 5 lc 9, \
 \
-     "p4-3200-fedora8/gcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libgcrypt" with errorlines pt 0 lt 6 lc 1, \
-     "p4-3200-fedora8/mcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libmcrypt" with errorlines pt 0 lt 6 lc 2, \
-     "p4-3200-fedora8/botan-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Botan" with errorlines pt 0 lt 6 lc 3, \
-     "p4-3200-fedora8/cryptopp-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Crypto++" with errorlines pt 0 lt 6 lc 4, \
-     "p4-3200-fedora8/openssl-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 OpenSSL" with errorlines pt 0 lt 6 lc 5, \
-     "p4-3200-fedora8/nettle-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Nettle" with errorlines pt 0 lt 6 lc 6, \
-     "p4-3200-fedora8/beecrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Beecrypt" with errorlines pt 0 lt 6 lc 7, \
-     "p4-3200-fedora8/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Tomcrypt" with errorlines pt 0 lt 6 lc 8, \
-     "p4-3200-fedora8/my-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Custom" with errorlines pt 0 lt 6 lc 9
+     "p4-3200-ubuntu-hardy/gcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy libgcrypt" with errorlines pt 0 lt 6 lc 1, \
+     "p4-3200-ubuntu-hardy/mcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy libmcrypt" with errorlines pt 0 lt 6 lc 2, \
+     "p4-3200-ubuntu-hardy/botan-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Botan" with errorlines pt 0 lt 6 lc 3, \
+     "p4-3200-ubuntu-hardy/cryptopp-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Crypto++" with errorlines pt 0 lt 6 lc 4, \
+     "p4-3200-ubuntu-hardy/openssl-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy OpenSSL" with errorlines pt 0 lt 6 lc 5, \
+     "p4-3200-ubuntu-hardy/nettle-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Nettle" with errorlines pt 0 lt 6 lc 6, \
+     "p4-3200-ubuntu-hardy/beecrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Beecrypt" with errorlines pt 0 lt 6 lc 7, \
+     "p4-3200-ubuntu-hardy/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Tomcrypt" with errorlines pt 0 lt 6 lc 8, \
+     "p4-3200-ubuntu-hardy/my-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Custom" with errorlines pt 0 lt 6 lc 9, \
+\
+     "p4-3200-fedora8/gcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libgcrypt" with errorlines pt 0 lt 8 lc 1, \
+     "p4-3200-fedora8/mcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libmcrypt" with errorlines pt 0 lt 8 lc 2, \
+     "p4-3200-fedora8/botan-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Botan" with errorlines pt 0 lt 8 lc 3, \
+     "p4-3200-fedora8/cryptopp-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Crypto++" with errorlines pt 0 lt 8 lc 4, \
+     "p4-3200-fedora8/openssl-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 OpenSSL" with errorlines pt 0 lt 8 lc 5, \
+     "p4-3200-fedora8/nettle-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Nettle" with errorlines pt 0 lt 8 lc 6, \
+     "p4-3200-fedora8/beecrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Beecrypt" with errorlines pt 0 lt 8 lc 7, \
+     "p4-3200-fedora8/tomcrypt-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Tomcrypt" with errorlines pt 0 lt 8 lc 8, \
+     "p4-3200-fedora8/my-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Custom" with errorlines pt 0 lt 8 lc 9
 
 ### Plot ###
 
@@ -488,13 +561,21 @@ plot "p4-3200-gentoo/gcrypt-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 
      "p4-3200-ubuntu-gutsy/gladman-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Gladman" with errorlines pt 0 lt 5 lc 6, \
      "p4-3200-ubuntu-gutsy/mybotan-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy MyBotan" with errorlines pt 0 lt 5 lc 7, \
 \
-     "p4-3200-fedora8/gcrypt-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libgcrypt" with errorlines pt 0 lt 6 lc 1, \
-     "p4-3200-fedora8/mcrypt-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libmcrypt" with errorlines pt 0 lt 6 lc 2, \
-     "p4-3200-fedora8/botan-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Botan" with errorlines pt 0 lt 6 lc 3, \
-     "p4-3200-fedora8/cryptopp-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Crypto++" with errorlines pt 0 lt 6 lc 4, \
-     "p4-3200-fedora8/nettle-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Nettle" with errorlines pt 0 lt 6 lc 5, \
-     "p4-3200-fedora8/gladman-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Gladman" with errorlines pt 0 lt 6 lc 6, \
-     "p4-3200-fedora8/mybotan-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 MyBotan" with errorlines pt 0 lt 6 lc 7
+     "p4-3200-ubuntu-hardy/gcrypt-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy libgcrypt" with errorlines pt 0 lt 6 lc 1, \
+     "p4-3200-ubuntu-hardy/mcrypt-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy libmcrypt" with errorlines pt 0 lt 6 lc 2, \
+     "p4-3200-ubuntu-hardy/botan-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Botan" with errorlines pt 0 lt 6 lc 3, \
+     "p4-3200-ubuntu-hardy/cryptopp-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Crypto++" with errorlines pt 0 lt 6 lc 4, \
+     "p4-3200-ubuntu-hardy/nettle-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Nettle" with errorlines pt 0 lt 6 lc 5, \
+     "p4-3200-ubuntu-hardy/gladman-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Gladman" with errorlines pt 0 lt 6 lc 6, \
+     "p4-3200-ubuntu-hardy/mybotan-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy MyBotan" with errorlines pt 0 lt 6 lc 7, \
+\
+     "p4-3200-fedora8/gcrypt-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libgcrypt" with errorlines pt 0 lt 8 lc 1, \
+     "p4-3200-fedora8/mcrypt-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libmcrypt" with errorlines pt 0 lt 8 lc 2, \
+     "p4-3200-fedora8/botan-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Botan" with errorlines pt 0 lt 8 lc 3, \
+     "p4-3200-fedora8/cryptopp-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Crypto++" with errorlines pt 0 lt 8 lc 4, \
+     "p4-3200-fedora8/nettle-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Nettle" with errorlines pt 0 lt 8 lc 5, \
+     "p4-3200-fedora8/gladman-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Gladman" with errorlines pt 0 lt 8 lc 6, \
+     "p4-3200-fedora8/mybotan-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 MyBotan" with errorlines pt 0 lt 8 lc 7
 
 ### Plot ###
 
@@ -533,12 +614,19 @@ plot "p4-3200-gentoo/gcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 
      "p4-3200-ubuntu-gutsy/nettle-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Nettle" with errorlines pt 0 lt 5 lc 5, \
      "p4-3200-ubuntu-gutsy/tomcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Tomcrypt" with errorlines pt 0 lt 5 lc 6, \
 \
-     "p4-3200-fedora8/gcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libgcrypt" with errorlines pt 0 lt 6 lc 1, \
-     "p4-3200-fedora8/mcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libmcrypt" with errorlines pt 0 lt 6 lc 2, \
-     "p4-3200-fedora8/botan-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Botan" with errorlines pt 0 lt 6 lc 3, \
-     "p4-3200-fedora8/cryptopp-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Crypto++" with errorlines pt 0 lt 6 lc 4, \
-     "p4-3200-fedora8/nettle-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Nettle" with errorlines pt 0 lt 6 lc 5, \
-     "p4-3200-fedora8/tomcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Tomcrypt" with errorlines pt 0 lt 6 lc 6
+     "p4-3200-ubuntu-hardy/gcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy libgcrypt" with errorlines pt 0 lt 6 lc 1, \
+     "p4-3200-ubuntu-hardy/mcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy libmcrypt" with errorlines pt 0 lt 6 lc 2, \
+     "p4-3200-ubuntu-hardy/botan-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Botan" with errorlines pt 0 lt 6 lc 3, \
+     "p4-3200-ubuntu-hardy/cryptopp-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Crypto++" with errorlines pt 0 lt 6 lc 4, \
+     "p4-3200-ubuntu-hardy/nettle-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Nettle" with errorlines pt 0 lt 6 lc 5, \
+     "p4-3200-ubuntu-hardy/tomcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Tomcrypt" with errorlines pt 0 lt 6 lc 6, \
+\
+     "p4-3200-fedora8/gcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libgcrypt" with errorlines pt 0 lt 8 lc 1, \
+     "p4-3200-fedora8/mcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libmcrypt" with errorlines pt 0 lt 8 lc 2, \
+     "p4-3200-fedora8/botan-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Botan" with errorlines pt 0 lt 8 lc 3, \
+     "p4-3200-fedora8/cryptopp-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Crypto++" with errorlines pt 0 lt 8 lc 4, \
+     "p4-3200-fedora8/nettle-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Nettle" with errorlines pt 0 lt 8 lc 5, \
+     "p4-3200-fedora8/tomcrypt-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Tomcrypt" with errorlines pt 0 lt 8 lc 6
 
 ### Plot ###
 
@@ -585,14 +673,23 @@ plot "p4-3200-gentoo/gcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3
      "p4-3200-ubuntu-gutsy/beecrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Beecrypt" with errorlines pt 0 lt 5 lc 7, \
      "p4-3200-ubuntu-gutsy/tomcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Tomcrypt" with errorlines pt 0 lt 5 lc 8, \
 \
-     "p4-3200-fedora8/gcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libgcrypt" with errorlines pt 0 lt 6 lc 1, \
-     "p4-3200-fedora8/mcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libmcrypt" with errorlines pt 0 lt 6 lc 2, \
-     "p4-3200-fedora8/botan-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Botan" with errorlines pt 0 lt 6 lc 3, \
-     "p4-3200-fedora8/cryptopp-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Crypto++" with errorlines pt 0 lt 6 lc 4, \
-     "p4-3200-fedora8/openssl-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 OpenSSL" with errorlines pt 0 lt 6 lc 5, \
-     "p4-3200-fedora8/nettle-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Nettle" with errorlines pt 0 lt 6 lc 6, \
-     "p4-3200-fedora8/beecrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Beecrypt" with errorlines pt 0 lt 6 lc 7, \
-     "p4-3200-fedora8/tomcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Tomcrypt" with errorlines pt 0 lt 6 lc 8
+     "p4-3200-ubuntu-hardy/gcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy libgcrypt" with errorlines pt 0 lt 6 lc 1, \
+     "p4-3200-ubuntu-hardy/mcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy libmcrypt" with errorlines pt 0 lt 6 lc 2, \
+     "p4-3200-ubuntu-hardy/botan-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Botan" with errorlines pt 0 lt 6 lc 3, \
+     "p4-3200-ubuntu-hardy/cryptopp-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Crypto++" with errorlines pt 0 lt 6 lc 4, \
+     "p4-3200-ubuntu-hardy/openssl-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy OpenSSL" with errorlines pt 0 lt 6 lc 5, \
+     "p4-3200-ubuntu-hardy/nettle-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Nettle" with errorlines pt 0 lt 6 lc 6, \
+     "p4-3200-ubuntu-hardy/beecrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Beecrypt" with errorlines pt 0 lt 6 lc 7, \
+     "p4-3200-ubuntu-hardy/tomcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Tomcrypt" with errorlines pt 0 lt 6 lc 8, \
+\
+     "p4-3200-fedora8/gcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libgcrypt" with errorlines pt 0 lt 8 lc 1, \
+     "p4-3200-fedora8/mcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libmcrypt" with errorlines pt 0 lt 8 lc 2, \
+     "p4-3200-fedora8/botan-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Botan" with errorlines pt 0 lt 8 lc 3, \
+     "p4-3200-fedora8/cryptopp-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Crypto++" with errorlines pt 0 lt 8 lc 4, \
+     "p4-3200-fedora8/openssl-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 OpenSSL" with errorlines pt 0 lt 8 lc 5, \
+     "p4-3200-fedora8/nettle-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Nettle" with errorlines pt 0 lt 8 lc 6, \
+     "p4-3200-fedora8/beecrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Beecrypt" with errorlines pt 0 lt 8 lc 7, \
+     "p4-3200-fedora8/tomcrypt-blowfish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Tomcrypt" with errorlines pt 0 lt 8 lc 8
 
 ### Plot ###
 
@@ -635,13 +732,21 @@ plot "p4-3200-gentoo/gcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 
      "p4-3200-ubuntu-gutsy/nettle-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Nettle" with errorlines pt 0 lt 5 lc 6, \
      "p4-3200-ubuntu-gutsy/tomcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Tomcrypt" with errorlines pt 0 lt 5 lc 7, \
 \
-     "p4-3200-fedora8/gcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libgcrypt" with errorlines pt 0 lt 6 lc 1, \
-     "p4-3200-fedora8/mcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libmcrypt" with errorlines pt 0 lt 6 lc 2, \
-     "p4-3200-fedora8/botan-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Botan" with errorlines pt 0 lt 6 lc 3, \
-     "p4-3200-fedora8/cryptopp-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Crypto++" with errorlines pt 0 lt 6 lc 4, \
-     "p4-3200-fedora8/openssl-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 OpenSSL" with errorlines pt 0 lt 6 lc 5, \
-     "p4-3200-fedora8/nettle-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Nettle" with errorlines pt 0 lt 6 lc 6, \
-     "p4-3200-fedora8/tomcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Tomcrypt" with errorlines pt 0 lt 6 lc 7
+     "p4-3200-ubuntu-hardy/gcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy libgcrypt" with errorlines pt 0 lt 6 lc 1, \
+     "p4-3200-ubuntu-hardy/mcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy libmcrypt" with errorlines pt 0 lt 6 lc 2, \
+     "p4-3200-ubuntu-hardy/botan-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Botan" with errorlines pt 0 lt 6 lc 3, \
+     "p4-3200-ubuntu-hardy/cryptopp-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Crypto++" with errorlines pt 0 lt 6 lc 4, \
+     "p4-3200-ubuntu-hardy/openssl-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy OpenSSL" with errorlines pt 0 lt 6 lc 5, \
+     "p4-3200-ubuntu-hardy/nettle-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Nettle" with errorlines pt 0 lt 6 lc 6, \
+     "p4-3200-ubuntu-hardy/tomcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Tomcrypt" with errorlines pt 0 lt 6 lc 7, \
+\
+     "p4-3200-fedora8/gcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libgcrypt" with errorlines pt 0 lt 8 lc 1, \
+     "p4-3200-fedora8/mcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libmcrypt" with errorlines pt 0 lt 8 lc 2, \
+     "p4-3200-fedora8/botan-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Botan" with errorlines pt 0 lt 8 lc 3, \
+     "p4-3200-fedora8/cryptopp-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Crypto++" with errorlines pt 0 lt 8 lc 4, \
+     "p4-3200-fedora8/openssl-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 OpenSSL" with errorlines pt 0 lt 8 lc 5, \
+     "p4-3200-fedora8/nettle-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Nettle" with errorlines pt 0 lt 8 lc 6, \
+     "p4-3200-fedora8/tomcrypt-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Tomcrypt" with errorlines pt 0 lt 8 lc 7
 
 ### Plot ###
 
@@ -684,10 +789,18 @@ plot "p4-3200-gentoo/gcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1
      "p4-3200-ubuntu-gutsy/nettle-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Nettle" with errorlines pt 0 lt 5 lc 6, \
      "p4-3200-ubuntu-gutsy/tomcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Gutsy Tomcrypt" with errorlines pt 0 lt 5 lc 7, \
 \
-     "p4-3200-fedora8/gcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libgcrypt" with errorlines pt 0 lt 6 lc 1, \
-     "p4-3200-fedora8/mcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libmcrypt" with errorlines pt 0 lt 6 lc 2, \
-     "p4-3200-fedora8/botan-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Botan" with errorlines pt 0 lt 6 lc 3, \
-     "p4-3200-fedora8/cryptopp-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Crypto++" with errorlines pt 0 lt 6 lc 4, \
-     "p4-3200-fedora8/openssl-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 OpenSSL" with errorlines pt 0 lt 6 lc 5, \
-     "p4-3200-fedora8/nettle-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Nettle" with errorlines pt 0 lt 6 lc 6, \
-     "p4-3200-fedora8/tomcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Tomcrypt" with errorlines pt 0 lt 6 lc 7
+     "p4-3200-ubuntu-hardy/gcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy libgcrypt" with errorlines pt 0 lt 6 lc 1, \
+     "p4-3200-ubuntu-hardy/mcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy libmcrypt" with errorlines pt 0 lt 6 lc 2, \
+     "p4-3200-ubuntu-hardy/botan-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Botan" with errorlines pt 0 lt 6 lc 3, \
+     "p4-3200-ubuntu-hardy/cryptopp-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Crypto++" with errorlines pt 0 lt 6 lc 4, \
+     "p4-3200-ubuntu-hardy/openssl-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy OpenSSL" with errorlines pt 0 lt 6 lc 5, \
+     "p4-3200-ubuntu-hardy/nettle-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Nettle" with errorlines pt 0 lt 6 lc 6, \
+     "p4-3200-ubuntu-hardy/tomcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Ubuntu-Hardy Tomcrypt" with errorlines pt 0 lt 6 lc 7, \
+\
+     "p4-3200-fedora8/gcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libgcrypt" with errorlines pt 0 lt 8 lc 1, \
+     "p4-3200-fedora8/mcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 libmcrypt" with errorlines pt 0 lt 8 lc 2, \
+     "p4-3200-fedora8/botan-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Botan" with errorlines pt 0 lt 8 lc 3, \
+     "p4-3200-fedora8/cryptopp-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Crypto++" with errorlines pt 0 lt 8 lc 4, \
+     "p4-3200-fedora8/openssl-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 OpenSSL" with errorlines pt 0 lt 8 lc 5, \
+     "p4-3200-fedora8/nettle-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Nettle" with errorlines pt 0 lt 8 lc 6, \
+     "p4-3200-fedora8/tomcrypt-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Fedora 8 Tomcrypt" with errorlines pt 0 lt 8 lc 7
