@@ -6,7 +6,6 @@ set output "distrospeed.pdf"
 set xrange [10:1600000]
 set format x "%.0f"
 
-test
 ### Plot ###
 
 set title "libgcrypt Ciphers: Speed by Data Length"
