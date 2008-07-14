@@ -1,3 +1,3 @@
 # $Id$
 
-SUBDIRS = src results
+SUBDIRS = src results results-flags
