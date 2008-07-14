@@ -162,8 +162,8 @@ sysconfdir = @sysconfdir@
 target_alias = @target_alias@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-PAGELIST6 = `for p in \`seq 1 22\`; do echo A$$p B$$p C$$p D$$p E$$p F$$p; done`
-PAGELIST9 = `for p in \`seq 1 22\`; do echo A$$p B$$p C$$p D$$p E$$p F$$p G$$p H$$p I$$p; done`
+PAGELIST6 = `for p in \`seq 1 23\`; do echo A$$p B$$p C$$p D$$p E$$p F$$p; done`
+PAGELIST9 = `for p in \`seq 1 23\`; do echo A$$p B$$p C$$p D$$p E$$p F$$p G$$p H$$p I$$p; done`
 EXTRA_DIST = \
 	README \
 	speedtest.gnuplot \

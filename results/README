@@ -259,11 +259,14 @@ All available CPU / Distribution combinations were tested and the result text
 files are included in this package. The results are fed into the gnuplot script
 "speedtest.gnuplot" which produces two PDFs per result directory.
 
-Each <cpu>-<distro>.pdf contains 26 pages comparing ciphers and cryptography
+Each <cpu>-<distro>.pdf contains 23 pages comparing ciphers and cryptography
 libraries. The second <cpu>-<distro>-all.pdf is a A4-sized plot containing
 _all_ ciphers in _all_ libraries making the graph very full.
 
 Furthermore this directory contains a sidebyside-comparison.pdf, which collect
-each of the 26 different plots from the 8 different CPU / Distro combinations
-and displays all 8 plots on a A4-sized page. This enables quick comparison of
+each of the 23 different plots from the 9 different CPU / distro combinations
+and displays all 9 plots on a A4-sized page. This enables quick comparison of
 the different architectures.
+
+The file cpu-sidebyside-comparison-3x2.pdf contains only 6 six of the different
+CPU / distro combinations excluding distros on p4-3200 to increase legibility.

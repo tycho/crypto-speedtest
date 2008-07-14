@@ -15,9 +15,9 @@ baseplots:
 	PLOTNAME=p4-3200-fedora8 ./speedtest.gnuplot
 	./distrospeed.gnuplot
 
-PAGELIST6=`for p in \`seq 1 22\`; do echo A$$p B$$p C$$p D$$p E$$p F$$p; done`
+PAGELIST6=`for p in \`seq 1 23\`; do echo A$$p B$$p C$$p D$$p E$$p F$$p; done`
 
-PAGELIST9=`for p in \`seq 1 22\`; do echo A$$p B$$p C$$p D$$p E$$p F$$p G$$p H$$p I$$p; done`
+PAGELIST9=`for p in \`seq 1 23\`; do echo A$$p B$$p C$$p D$$p E$$p F$$p G$$p H$$p I$$p; done`
 
 sidebysideplots:
 # Make other plots which will fill an A4 paper
