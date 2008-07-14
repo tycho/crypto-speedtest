@@ -176,6 +176,24 @@ plot "cryptopp-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) t
 
 ### Plot ###
 
+set title "Crypto++ Ciphers: Speed by Data Length (2)"
+set xlabel "Data Length in Bytes"
+set ylabel "Megabyte / Second"
+set logscale x
+unset logscale y
+set key below
+
+plot "cryptopp-rijndael-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Rijndael" with errorlines pt 0 lc 1, \
+     "cryptopp-serpent-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Serpent" with errorlines pt 0 lc 2, \
+     "cryptopp-twofish-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "Twofish" with errorlines pt 0 lc 3, \
+     "cryptopp-cast6-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "CAST6" with errorlines pt 0 lc 4, \
+     "cryptopp-gost-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "GOST" with errorlines pt 0 lc 5, \
+     "cryptopp-xtea-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "xTEA" with errorlines pt 0 lc 6, \
+     "cryptopp-cast5-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "CAST5" with errorlines pt 0 lc 8, \
+     "cryptopp-3des-ecb.txt" index 1 using 1:($2 / 1048576):($3 / 1048576) title "3DES" with errorlines pt 0 lc 9
+
+### Plot ###
+
 set title "OpenSSL Ciphers: Absolute Time by Data Length"
 set xlabel "Data Length in Bytes"
 set ylabel "Seconds"
