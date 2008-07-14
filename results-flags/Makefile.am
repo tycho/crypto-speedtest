@@ -26,4 +26,5 @@ EXTRA_DIST = \
 	gcc41-*/*.txt \
 	icc-*/*.txt \
 	mingw-*/*.txt \
-	msvc8-*/*.txt
+	msvc8-*/*.txt \
+	maxtable.pl maxtable.csv

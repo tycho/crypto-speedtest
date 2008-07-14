@@ -316,7 +316,7 @@ verify_SOURCES = verify.cpp \
 	serpent.h serpent.cpp
 
 AM_CXXFLAGS = -W -Wall -Wno-unused -O3 -fomit-frame-pointer
-EXTRA_DIST = speedtest.gnuplot
+EXTRA_DIST = speedtest.gnuplot win32-msvc/stdint.h win32-msvc/inttypes.h
 verify_CXXFLAGS = $(am__append_1) $(am__append_3) $(am__append_5) \
 	$(am__append_7) $(am__append_9)
 verify_LDADD = $(am__append_2) $(am__append_4) $(am__append_6) \

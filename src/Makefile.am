@@ -17,7 +17,7 @@ verify_SOURCES = verify.cpp \
 
 AM_CXXFLAGS = -W -Wall -Wno-unused -O3 -fomit-frame-pointer
 
-EXTRA_DIST = speedtest.gnuplot
+EXTRA_DIST = speedtest.gnuplot win32-msvc/stdint.h win32-msvc/inttypes.h
 
 verify_CXXFLAGS =
 verify_LDADD =

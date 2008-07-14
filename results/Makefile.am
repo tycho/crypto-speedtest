@@ -81,4 +81,7 @@ EXTRA_DIST = \
 	p4-3200-gentoo/*.txt \
 	p4-3200-ubuntu-gutsy/*.txt \
 	p4-3200-ubuntu-hardy/*.txt \
-	p4-3200-fedora8/*.txt
+	p4-3200-fedora8/*.txt \
+	cpu-sidebyside-comparison-3x2.tex \
+	maxtable.pl \
+	*.csv
