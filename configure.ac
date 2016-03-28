@@ -6,7 +6,7 @@ AC_CONFIG_SRCDIR(src/speedtest_custom.cpp)
 AC_CONFIG_AUX_DIR(acscripts)
 AC_CANONICAL_HOST
 
-AM_INIT_AUTOMAKE(foreign)
+AM_INIT_AUTOMAKE([foreign])
 AM_MAINTAINER_MODE
 
 # set debug info flag if no optimization flags are set.
