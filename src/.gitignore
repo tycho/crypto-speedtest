@@ -1,0 +1,12 @@
+/*.txt
+/.deps
+/speedtest_beecrypt
+/speedtest_botan
+/speedtest_cryptopp
+/speedtest_custom
+/speedtest_gcrypt
+/speedtest_mcrypt
+/speedtest_nettle
+/speedtest_openssl
+/speedtest_tomcrypt
+/verify

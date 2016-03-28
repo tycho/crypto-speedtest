@@ -1,0 +1,14 @@
+*.[oa]
+/AUTHORS
+/COPYING
+/ChangeLog
+/INSTALL
+/NEWS
+/README
+/aclocal.m4
+/autom4te.cache
+/config.log
+/config.status
+/configure
+Makefile
+Makefile.in
