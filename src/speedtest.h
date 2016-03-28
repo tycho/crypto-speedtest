@@ -48,8 +48,8 @@ inline double timestamp()
 unsigned char	enckey[32];	/// 256 bit encryption key
 unsigned char	enciv[16];	/// 16 byte initialization vector if needed.
 
-unsigned char	buffer[buffermax];	/// encryption buffer
-unsigned int	bufferlen;		/// currently tested buffer length
+unsigned char	*buffer;	/// encryption buffer
+unsigned int	bufferlen;	/// currently tested buffer length
 
 // *** run_test() ***
 
@@ -64,6 +64,9 @@ template <void (*testfunc)()>
 void run_test(const char* logfile)
 {
     std::cout << "Speed testing for " << logfile << "\n";
+
+    buffer = new unsigned char[buffermax];
+    assert(buffer != NULL);
 
     // Save the time required for each run.
     std::map<unsigned int, std::vector<double> > timelog;
@@ -188,4 +191,6 @@ REDO:
 	of << ti->first << " " << average << " " << stddev << " " << vmin << " " << vmax << "\n";
     }
     of.close();
+
+    delete [] buffer;
 }
