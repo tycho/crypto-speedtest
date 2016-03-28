@@ -5,7 +5,6 @@
 #include <botan/serpent.h>
 #include <botan/twofish.h>
 #include <botan/cast256.h>
-#include <botan/gost.h>
 #include <botan/xtea.h>
 #include <botan/blowfish.h>
 #include <botan/cast128.h>
@@ -69,21 +68,6 @@ void test_botan_cast6_ecb()
 	encctx.encrypt(buffer + p);
 
     Botan::CAST_256 decctx;
-    decctx.set_key(enckey, 32);
-
-    for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
-	decctx.decrypt(buffer + p);
-}
-
-void test_botan_gost_ecb()
-{
-    Botan::GOST encctx;
-    encctx.set_key(enckey, 32);
-
-    for(unsigned int p = 0; p < bufferlen; p += encctx.BLOCK_SIZE)
-	encctx.encrypt(buffer + p);
-
-    Botan::GOST decctx;
     decctx.set_key(enckey, 32);
 
     for(unsigned int p = 0; p < bufferlen; p += decctx.BLOCK_SIZE)
@@ -174,7 +158,6 @@ int main()
     run_test<test_botan_serpent_ecb>("botan-serpent-ecb.txt");
     run_test<test_botan_twofish_ecb>("botan-twofish-ecb.txt");
     run_test<test_botan_cast6_ecb>("botan-cast6-ecb.txt");
-    run_test<test_botan_gost_ecb>("botan-gost-ecb.txt");
     run_test<test_botan_xtea_ecb>("botan-xtea-ecb.txt");
     run_test<test_botan_blowfish_ecb>("botan-blowfish-ecb.txt");
     run_test<test_botan_cast5_ecb>("botan-cast5-ecb.txt");
