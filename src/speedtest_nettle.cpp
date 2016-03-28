@@ -49,11 +49,11 @@ void test_nettle_twofish_ecb()
 void test_nettle_cast5_ecb()
 {
     cast128_ctx encctx;
-    cast128_set_key(&encctx, 16, enckey);
+    cast128_set_key(&encctx, enckey);
     cast128_encrypt(&encctx, bufferlen, buffer, buffer);
 
     cast128_ctx decctx;
-    cast128_set_key(&decctx, 16, enckey);
+    cast128_set_key(&decctx, enckey);
     cast128_decrypt(&decctx, bufferlen, buffer, buffer);
 }
 
